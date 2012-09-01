@@ -1,0 +1,11 @@
+C:\Documents and Settings\binn\Local Settings\Application Data\Temporary Projects\FullAutomationSupportSystem\bin\Debug\FullAutomationSupportSystem.exe
+C:\Documents and Settings\binn\Local Settings\Application Data\Temporary Projects\FullAutomationSupportSystem\bin\Debug\FullAutomationSupportSystem.pdb
+C:\Documents and Settings\binn\Local Settings\Application Data\Temporary Projects\FullAutomationSupportSystem\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\binn\Local Settings\Application Data\Temporary Projects\FullAutomationSupportSystem\obj\x86\Debug\FullAutomationSupportSystem.Form1.resources
+C:\Documents and Settings\binn\Local Settings\Application Data\Temporary Projects\FullAutomationSupportSystem\obj\x86\Debug\FullAutomationSupportSystem.Properties.Resources.resources
+C:\Documents and Settings\binn\Local Settings\Application Data\Temporary Projects\FullAutomationSupportSystem\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\binn\Local Settings\Application Data\Temporary Projects\FullAutomationSupportSystem\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\binn\Local Settings\Application Data\Temporary Projects\FullAutomationSupportSystem\obj\x86\Debug\FullAutomationSupportSystem.exe
+C:\Documents and Settings\binn\Local Settings\Application Data\Temporary Projects\FullAutomationSupportSystem\obj\x86\Debug\FullAutomationSupportSystem.pdb
+C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\obj\x86\Debug\FullAutomationSupportSystem.exe
+C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\obj\x86\Debug\FullAutomationSupportSystem.pdb
