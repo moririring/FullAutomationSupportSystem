@@ -1,9 +1,0 @@
-C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\bin\Debug\FullAutomationSupportSystem.exe
-C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\bin\Debug\FullAutomationSupportSystem.pdb
-C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\obj\x86\Debug\FullAutomationSupportSystem.MainForm.resources
-C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\obj\x86\Debug\FullAutomationSupportSystem.Properties.Resources.resources
-C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\obj\x86\Debug\GenerateResource.read.1.tlog
-C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\obj\x86\Debug\FullAutomationSupportSystem.exe
-C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystem\obj\x86\Debug\FullAutomationSupportSystem.pdb
