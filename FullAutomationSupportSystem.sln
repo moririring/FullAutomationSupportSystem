@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullAutomationSupportSystem", "FullAutomationSupportSystem\FullAutomationSupportSystem.csproj", "{96DFA27C-1F37-4269-9911-182C7C67CFED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullAutomationSupportSystemTest", "FullAutomationSupportSystemTest\FullAutomationSupportSystemTest.csproj", "{2FBEA6CF-2E2C-4FBF-833A-15517BD1F456}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{96DFA27C-1F37-4269-9911-182C7C67CFED}.Debug|x86.Build.0 = Debug|x86
 		{96DFA27C-1F37-4269-9911-182C7C67CFED}.Release|x86.ActiveCfg = Release|x86
 		{96DFA27C-1F37-4269-9911-182C7C67CFED}.Release|x86.Build.0 = Release|x86
+		{2FBEA6CF-2E2C-4FBF-833A-15517BD1F456}.Debug|x86.ActiveCfg = Debug|x86
+		{2FBEA6CF-2E2C-4FBF-833A-15517BD1F456}.Debug|x86.Build.0 = Debug|x86
+		{2FBEA6CF-2E2C-4FBF-833A-15517BD1F456}.Release|x86.ActiveCfg = Release|x86
+		{2FBEA6CF-2E2C-4FBF-833A-15517BD1F456}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
