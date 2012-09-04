@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this.TaskListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TaskContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.フォルダ追加ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,7 +42,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.CommandListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel6 = new System.Windows.Forms.Panel();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -48,56 +52,77 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.WorkFolderTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.NameTextBox = new System.Windows.Forms.TextBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel4 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.FolderAddToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.TimerTextBox = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.TaskContextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
-            // listView1
+            // TaskListView
             // 
-            this.listView1.CheckBoxes = true;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.TaskListView.CheckBoxes = true;
+            this.TaskListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(0, 25);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(293, 219);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.TaskListView.ContextMenuStrip = this.TaskContextMenuStrip;
+            this.TaskListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TaskListView.FullRowSelect = true;
+            this.TaskListView.GridLines = true;
+            this.TaskListView.HideSelection = false;
+            this.TaskListView.Location = new System.Drawing.Point(0, 25);
+            this.TaskListView.MultiSelect = false;
+            this.TaskListView.Name = "TaskListView";
+            this.TaskListView.Size = new System.Drawing.Size(293, 359);
+            this.TaskListView.TabIndex = 0;
+            this.TaskListView.UseCompatibleStateImageBehavior = false;
+            this.TaskListView.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "名前";
+            // 
+            // TaskContextMenuStrip
+            // 
+            this.TaskContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.フォルダ追加ToolStripMenuItem});
+            this.TaskContextMenuStrip.Name = "TaskContextMenuStrip";
+            this.TaskContextMenuStrip.Size = new System.Drawing.Size(130, 26);
+            // 
+            // フォルダ追加ToolStripMenuItem
+            // 
+            this.フォルダ追加ToolStripMenuItem.Name = "フォルダ追加ToolStripMenuItem";
+            this.フォルダ追加ToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.フォルダ追加ToolStripMenuItem.Text = "フォルダ追加";
             // 
             // panel1
             // 
@@ -110,12 +135,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(861, 252);
+            this.panel1.Size = new System.Drawing.Size(861, 392);
             this.panel1.TabIndex = 1;
             // 
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel5.Controls.Add(this.textBox9);
+            this.panel5.Controls.Add(this.textBox3);
             this.panel5.Controls.Add(this.label2);
             this.panel5.Controls.Add(this.label1);
             this.panel5.Controls.Add(this.textBox2);
@@ -123,13 +150,13 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(645, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(212, 248);
+            this.panel5.Size = new System.Drawing.Size(212, 388);
             this.panel5.TabIndex = 6;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 224);
+            this.label2.Location = new System.Drawing.Point(5, 208);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 12);
             this.label2.TabIndex = 3;
@@ -138,7 +165,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 57);
+            this.label1.Location = new System.Drawing.Point(6, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 12);
             this.label1.TabIndex = 2;
@@ -148,7 +175,7 @@
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(4, 239);
+            this.textBox2.Location = new System.Drawing.Point(4, 223);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(196, 121);
@@ -158,7 +185,7 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(3, 75);
+            this.textBox1.Location = new System.Drawing.Point(4, 23);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(196, 121);
@@ -168,38 +195,38 @@
             // 
             this.splitter2.Location = new System.Drawing.Point(642, 0);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 248);
+            this.splitter2.Size = new System.Drawing.Size(3, 388);
             this.splitter2.TabIndex = 3;
             this.splitter2.TabStop = false;
             // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.listView2);
+            this.panel3.Controls.Add(this.CommandListView);
             this.panel3.Controls.Add(this.panel6);
             this.panel3.Controls.Add(this.toolStrip2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel3.Location = new System.Drawing.Point(300, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(342, 248);
+            this.panel3.Size = new System.Drawing.Size(342, 388);
             this.panel3.TabIndex = 4;
             // 
-            // listView2
+            // CommandListView
             // 
-            this.listView2.CheckBoxes = true;
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.CommandListView.CheckBoxes = true;
+            this.CommandListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2});
-            this.listView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView2.FullRowSelect = true;
-            this.listView2.GridLines = true;
-            this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(0, 186);
-            this.listView2.MultiSelect = false;
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(338, 58);
-            this.listView2.TabIndex = 1;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
+            this.CommandListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CommandListView.FullRowSelect = true;
+            this.CommandListView.GridLines = true;
+            this.CommandListView.HideSelection = false;
+            this.CommandListView.Location = new System.Drawing.Point(0, 186);
+            this.CommandListView.MultiSelect = false;
+            this.CommandListView.Name = "CommandListView";
+            this.CommandListView.Size = new System.Drawing.Size(338, 198);
+            this.CommandListView.TabIndex = 1;
+            this.CommandListView.UseCompatibleStateImageBehavior = false;
+            this.CommandListView.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader2
             // 
@@ -214,11 +241,11 @@
             this.panel6.Controls.Add(this.label8);
             this.panel6.Controls.Add(this.textBox7);
             this.panel6.Controls.Add(this.label7);
-            this.panel6.Controls.Add(this.textBox6);
+            this.panel6.Controls.Add(this.WorkFolderTextBox);
             this.panel6.Controls.Add(this.label6);
             this.panel6.Controls.Add(this.textBox5);
             this.panel6.Controls.Add(this.label5);
-            this.panel6.Controls.Add(this.textBox4);
+            this.panel6.Controls.Add(this.NameTextBox);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 25);
             this.panel6.Name = "panel6";
@@ -290,14 +317,14 @@
             this.label7.TabIndex = 5;
             this.label7.Text = "作業フォルダ";
             // 
-            // textBox6
+            // WorkFolderTextBox
             // 
-            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.WorkFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox6.Location = new System.Drawing.Point(82, 54);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(253, 19);
-            this.textBox6.TabIndex = 4;
+            this.WorkFolderTextBox.Location = new System.Drawing.Point(82, 54);
+            this.WorkFolderTextBox.Name = "WorkFolderTextBox";
+            this.WorkFolderTextBox.Size = new System.Drawing.Size(253, 19);
+            this.WorkFolderTextBox.TabIndex = 4;
             // 
             // label6
             // 
@@ -326,14 +353,14 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "名前";
             // 
-            // textBox4
+            // NameTextBox
             // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(82, 4);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(252, 19);
-            this.textBox4.TabIndex = 0;
+            this.NameTextBox.Location = new System.Drawing.Point(82, 4);
+            this.NameTextBox.Name = "NameTextBox";
+            this.NameTextBox.Size = new System.Drawing.Size(252, 19);
+            this.NameTextBox.TabIndex = 0;
             // 
             // toolStrip2
             // 
@@ -347,28 +374,39 @@
             // 
             this.splitter1.Location = new System.Drawing.Point(297, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 248);
+            this.splitter1.Size = new System.Drawing.Size(3, 388);
             this.splitter1.TabIndex = 2;
             this.splitter1.TabStop = false;
             // 
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel4.Controls.Add(this.listView1);
+            this.panel4.Controls.Add(this.TaskListView);
             this.panel4.Controls.Add(this.toolStrip1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(297, 248);
+            this.panel4.Size = new System.Drawing.Size(297, 388);
             this.panel4.TabIndex = 5;
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FolderAddToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(293, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // FolderAddToolStripButton
+            // 
+            this.FolderAddToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("FolderAddToolStripButton.Image")));
+            this.FolderAddToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.FolderAddToolStripButton.Name = "FolderAddToolStripButton";
+            this.FolderAddToolStripButton.Size = new System.Drawing.Size(79, 22);
+            this.FolderAddToolStripButton.Text = "ﾌｫﾙﾀﾞ追加";
+            this.FolderAddToolStripButton.Click += new System.EventHandler(this.FolderAddToolStripButton_Click);
             // 
             // panel2
             // 
@@ -377,13 +415,13 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.numericUpDown1);
             this.panel2.Controls.Add(this.checkBox2);
-            this.panel2.Controls.Add(this.textBox3);
+            this.panel2.Controls.Add(this.TimerTextBox);
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.comboBox1);
             this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 276);
+            this.panel2.Location = new System.Drawing.Point(0, 416);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(861, 104);
             this.panel2.TabIndex = 2;
@@ -423,14 +461,14 @@
             this.checkBox2.Text = "インターバル実行";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // textBox3
+            // TimerTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(430, 4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(61, 19);
-            this.textBox3.TabIndex = 4;
-            this.textBox3.Text = "00:00:00";
+            this.TimerTextBox.Location = new System.Drawing.Point(430, 4);
+            this.TimerTextBox.Name = "TimerTextBox";
+            this.TimerTextBox.ReadOnly = true;
+            this.TimerTextBox.Size = new System.Drawing.Size(61, 19);
+            this.TimerTextBox.TabIndex = 4;
+            this.TimerTextBox.Text = "00:00:00";
             // 
             // button2
             // 
@@ -473,7 +511,7 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 380);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 520);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(861, 22);
             this.statusStrip1.TabIndex = 0;
@@ -487,11 +525,39 @@
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox3.Location = new System.Drawing.Point(4, 150);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(196, 55);
+            this.textBox3.TabIndex = 4;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox9.Location = new System.Drawing.Point(4, 350);
+            this.textBox9.Multiline = true;
+            this.textBox9.Name = "textBox9";
+            this.textBox9.ReadOnly = true;
+            this.textBox9.Size = new System.Drawing.Size(196, 55);
+            this.textBox9.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(861, 402);
+            this.ClientSize = new System.Drawing.Size(861, 542);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.statusStrip1);
@@ -499,6 +565,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "FASS";
+            this.TaskContextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
@@ -508,6 +575,8 @@
             this.panel6.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
@@ -518,13 +587,13 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView TaskListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Splitter splitter2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView CommandListView;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Splitter splitter1;
@@ -534,7 +603,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox TimerTextBox;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.CheckBox checkBox1;
@@ -545,12 +614,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox NameTextBox;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox WorkFolderTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.CheckBox checkBox4;
@@ -559,6 +628,13 @@
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.ToolStripButton FolderAddToolStripButton;
+        private System.Windows.Forms.ContextMenuStrip TaskContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem フォルダ追加ToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
 
