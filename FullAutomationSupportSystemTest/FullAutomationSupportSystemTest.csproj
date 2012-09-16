@@ -8,7 +8,7 @@
     <ProjectGuid>{2FBEA6CF-2E2C-4FBF-833A-15517BD1F456}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FullAutomationSupportSystemTest</RootNamespace>
+    <RootNamespace>FullAutomationSupportSystem</RootNamespace>
     <AssemblyName>FullAutomationSupportSystemTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -67,6 +67,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

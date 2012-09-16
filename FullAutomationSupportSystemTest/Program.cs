@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using NUnit.Framework;
 
-namespace FullAutomationSupportSystemTest
+namespace FullAutomationSupportSystem
 {
     static class Program
     {
