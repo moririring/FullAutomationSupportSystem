@@ -1,4 +1,4 @@
-﻿namespace FullAutomationSupportSystemTest
+﻿namespace FullAutomationSupportSystem
 {
     partial class Form1
     {
