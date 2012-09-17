@@ -8,10 +8,15 @@ namespace FullAutomationSupportSystem
 {
     class CommandListManagerTest
     {
-        CommandListManager commandList = new CommandListManager();
         [Test]
-        public void コマンドリストを追加()
+        public void コマンドリストの最初の名前を取得()
         {
+            Assert.True(CommandListManager.GetInstance()[0].Name == "バッチ実行");
+        }
+        [Test]
+        public void コマンドリスト数を取得()
+        {
+            Assert.True(CommandListManager.GetInstance().Count() == 2);
         }
     }
 }

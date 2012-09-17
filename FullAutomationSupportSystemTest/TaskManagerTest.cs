@@ -19,39 +19,30 @@ namespace FullAutomationSupportSystem
         {
             var data = new TaskData();
             data.ProjectFolder = @"C:\Program Files";
-            Assert.True(task.AddTask(data) == true);
+            task.Add(data);
+            Assert.True(task.Count == 1);
         }
         [Test]
         public void タスクに存在しないパスで追加()
         {
             var data = new TaskData();
             data.ProjectFolder = @"C:\Program Files2";
-            Assert.False(task.AddTask(data) == true);
+            task.Add(data);
+            Assert.False(task.Count == 0);
         }
         [Test]
         public void タスクをクリア()
         {
-            task.ClearTask();
-            Assert.True(task.CountTask() == 0);
+            task.Clear();
+            Assert.True(task.Count == 0);
         }
         [Test]
         public void タスクの取得()
         {
             var data = new TaskData();
             data.ProjectFolder = @"C:\Program Files";
-            task.AddTask(data);
+            task.Add(data);
             Assert.True(task[0].ProjectFolder == data.ProjectFolder);
-        }
-        [Test]
-        public void タスクの編集()
-        {
-            var data = new TaskData();
-            data.ProjectFolder = @"C:\Program Files";
-            task.AddTask(data);
-
-            TaskData edit = task[0];
-            edit.ProjectFolder = @"C:\WINDOWS";
-            Assert.True(task.EditTask(0, edit) == true);
         }
         [Test]
         public void コマンドの追加()
@@ -59,9 +50,9 @@ namespace FullAutomationSupportSystem
             var data = new TaskData();
             var command = new CommandData();
             data.ProjectFolder = @"C:\Program Files";
-            task.AddTask(data);
-
-            Assert.True(data.AddCommand(command) == true);
+            task.Add(data);
+            data.Add(command);
+            Assert.True(data.Count == 1);
         }
     }
 }
