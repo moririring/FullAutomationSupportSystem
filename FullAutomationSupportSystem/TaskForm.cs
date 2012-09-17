@@ -12,6 +12,7 @@ namespace FullAutomationSupportSystem
 {
     public partial class TaskForm : Form
     {
+        private CommandListManager gCommandListManager = new CommandListManager();
         private TaskData gTaskData = null;
         public TaskForm(TaskData data)
         {
@@ -21,6 +22,12 @@ namespace FullAutomationSupportSystem
             ProjectFolderTextBox.Text = gTaskData.ProjectFolder;
             LogFolderComboBox.Text = gTaskData.ProjectFolder;
             NameTextBox.Focus();
+
+            foreach (CommandListData commandList in gCommandListManager)
+            {
+                CommandComboBox.Items.Add(commandList.Name);
+            }
+            
         }
 
         private void OKButton_Click(object sender, EventArgs e)

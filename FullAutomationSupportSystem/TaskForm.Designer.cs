@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskForm));
             this.panel3 = new System.Windows.Forms.Panel();
             this.CommandListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel6 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.LogFolderComboBox = new System.Windows.Forms.ComboBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.IntervalCheckBox = new System.Windows.Forms.CheckBox();
             this.TimerCheckBox = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -42,21 +46,20 @@
             this.ProjectFolderTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.NameTextBox = new System.Windows.Forms.TextBox();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.panel1 = new System.Windows.Forms.Panel();
             this.OKButton = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.LogFolderComboBox = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.CommandComboBox = new System.Windows.Forms.ComboBox();
+            this.CommandTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
@@ -64,9 +67,9 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.CommandListView);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 154);
+            this.panel3.Location = new System.Drawing.Point(0, 182);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(485, 202);
+            this.panel3.Size = new System.Drawing.Size(557, 212);
             this.panel3.TabIndex = 5;
             // 
             // CommandListView
@@ -81,7 +84,7 @@
             this.CommandListView.Location = new System.Drawing.Point(0, 0);
             this.CommandListView.MultiSelect = false;
             this.CommandListView.Name = "CommandListView";
-            this.CommandListView.Size = new System.Drawing.Size(481, 198);
+            this.CommandListView.Size = new System.Drawing.Size(553, 208);
             this.CommandListView.TabIndex = 1;
             this.CommandListView.UseCompatibleStateImageBehavior = false;
             this.CommandListView.View = System.Windows.Forms.View.Details;
@@ -92,6 +95,7 @@
             // 
             // panel6
             // 
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel6.Controls.Add(this.button2);
             this.panel6.Controls.Add(this.button1);
             this.panel6.Controls.Add(this.label1);
@@ -109,8 +113,70 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(485, 129);
+            this.panel6.Size = new System.Drawing.Size(557, 129);
             this.panel6.TabIndex = 0;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.AutoSize = true;
+            this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button2.Location = new System.Drawing.Point(414, 51);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(21, 22);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "...";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.AutoSize = true;
+            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button1.Location = new System.Drawing.Point(522, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(21, 22);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "...";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(441, 57);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 12);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "ログ番号";
+            // 
+            // LogFolderComboBox
+            // 
+            this.LogFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogFolderComboBox.FormattingEnabled = true;
+            this.LogFolderComboBox.Location = new System.Drawing.Point(81, 53);
+            this.LogFolderComboBox.Name = "LogFolderComboBox";
+            this.LogFolderComboBox.Size = new System.Drawing.Size(327, 20);
+            this.LogFolderComboBox.TabIndex = 13;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown1.Location = new System.Drawing.Point(494, 54);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(49, 19);
+            this.numericUpDown1.TabIndex = 12;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // IntervalCheckBox
             // 
@@ -135,7 +201,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(4, 82);
+            this.label9.Location = new System.Drawing.Point(10, 82);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(47, 12);
             this.label9.TabIndex = 9;
@@ -143,18 +209,18 @@
             // 
             // RepositoryTextBox
             // 
-            this.RepositoryTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.RepositoryTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RepositoryTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.RepositoryTextBox.Location = new System.Drawing.Point(81, 79);
             this.RepositoryTextBox.Name = "RepositoryTextBox";
-            this.RepositoryTextBox.Size = new System.Drawing.Size(400, 19);
+            this.RepositoryTextBox.Size = new System.Drawing.Size(462, 19);
             this.RepositoryTextBox.TabIndex = 8;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(5, 57);
+            this.label8.Location = new System.Drawing.Point(11, 57);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(58, 12);
             this.label8.TabIndex = 7;
@@ -163,7 +229,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(5, 32);
+            this.label7.Location = new System.Drawing.Point(11, 32);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(64, 12);
             this.label7.TabIndex = 5;
@@ -171,18 +237,18 @@
             // 
             // ProjectFolderTextBox
             // 
-            this.ProjectFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProjectFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ProjectFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.ProjectFolderTextBox.Location = new System.Drawing.Point(82, 29);
             this.ProjectFolderTextBox.Name = "ProjectFolderTextBox";
-            this.ProjectFolderTextBox.Size = new System.Drawing.Size(372, 19);
+            this.ProjectFolderTextBox.Size = new System.Drawing.Size(461, 19);
             this.ProjectFolderTextBox.TabIndex = 4;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 7);
+            this.label5.Location = new System.Drawing.Point(10, 7);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 12);
             this.label5.TabIndex = 1;
@@ -190,38 +256,28 @@
             // 
             // NameTextBox
             // 
-            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NameTextBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
             this.NameTextBox.Location = new System.Drawing.Point(82, 4);
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(399, 19);
+            this.NameTextBox.Size = new System.Drawing.Size(431, 19);
             this.NameTextBox.TabIndex = 0;
-            // 
-            // toolStrip2
-            // 
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 129);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(485, 25);
-            this.toolStrip2.TabIndex = 2;
-            this.toolStrip2.Text = "toolStrip2";
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.OKButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 326);
+            this.panel1.Location = new System.Drawing.Point(0, 364);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(485, 30);
+            this.panel1.Size = new System.Drawing.Size(557, 30);
             this.panel1.TabIndex = 12;
             // 
             // OKButton
             // 
             this.OKButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OKButton.Location = new System.Drawing.Point(204, 3);
+            this.OKButton.Location = new System.Drawing.Point(240, 3);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 0;
@@ -231,90 +287,80 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 356);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 394);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(485, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(557, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // numericUpDown1
+            // button3
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(432, 54);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(49, 19);
-            this.numericUpDown1.TabIndex = 12;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.button3.Location = new System.Drawing.Point(12, 6);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(124, 41);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "新しいコマンド...";
+            this.button3.UseVisualStyleBackColor = true;
             // 
-            // LogFolderComboBox
+            // panel2
             // 
-            this.LogFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogFolderComboBox.FormattingEnabled = true;
-            this.LogFolderComboBox.Location = new System.Drawing.Point(81, 53);
-            this.LogFolderComboBox.Name = "LogFolderComboBox";
-            this.LogFolderComboBox.Size = new System.Drawing.Size(265, 20);
-            this.LogFolderComboBox.TabIndex = 13;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.CommandTextBox);
+            this.panel2.Controls.Add(this.CommandComboBox);
+            this.panel2.Controls.Add(this.button3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 129);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(557, 53);
+            this.panel2.TabIndex = 18;
             // 
-            // label1
+            // CommandComboBox
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(379, 57);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 12);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "ログ番号";
+            this.CommandComboBox.FormattingEnabled = true;
+            this.CommandComboBox.Location = new System.Drawing.Point(142, 25);
+            this.CommandComboBox.Name = "CommandComboBox";
+            this.CommandComboBox.Size = new System.Drawing.Size(173, 20);
+            this.CommandComboBox.TabIndex = 19;
             // 
-            // toolStripButton1
+            // CommandTextBox
             // 
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(96, 22);
-            this.toolStripButton1.Text = "↓コマンド追加";
+            this.CommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommandTextBox.Location = new System.Drawing.Point(322, 5);
+            this.CommandTextBox.Multiline = true;
+            this.CommandTextBox.Name = "CommandTextBox";
+            this.CommandTextBox.ReadOnly = true;
+            this.CommandTextBox.Size = new System.Drawing.Size(221, 40);
+            this.CommandTextBox.TabIndex = 21;
             // 
-            // button1
+            // label2
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.AutoSize = true;
-            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.Location = new System.Drawing.Point(460, 27);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(21, 22);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(142, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 12);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "コマンド名";
             // 
-            // button2
+            // label3
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.AutoSize = true;
-            this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button2.Location = new System.Drawing.Point(352, 51);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(21, 22);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "...";
-            this.button2.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(287, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "説明";
             // 
             // TaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 378);
+            this.ClientSize = new System.Drawing.Size(557, 416);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.toolStrip2);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.statusStrip1);
             this.Name = "TaskForm";
@@ -322,10 +368,10 @@
             this.panel3.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -346,15 +392,19 @@
         private System.Windows.Forms.TextBox ProjectFolderTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox NameTextBox;
-        private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox LogFolderComboBox;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ComboBox CommandComboBox;
+        private System.Windows.Forms.TextBox CommandTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
