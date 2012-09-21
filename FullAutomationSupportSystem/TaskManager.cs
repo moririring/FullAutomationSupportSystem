@@ -8,25 +8,39 @@ using System.Runtime.Serialization;
 
 namespace FullAutomationSupportSystem
 {
+    [DataContract(Name = "コマンドデータ")]
     public class CommandData
     {
+        [DataMember(Name = "チェック")]
         public bool Checked { get; set; }
+        [DataMember(Name = "タイプ")]
         public CommandListType Type { get; set; }
+        [DataMember(Name = "名前")]
         public string Name { get; set; }
+        [DataMember(Name = "パラメータ1")]
         public string Param1 { get; set; }
+        [DataMember(Name = "パラメータ2")]
         public string Param2 { get; set; }
     }
 
+    [DataContract(Name = "タスクデータ")]
     public class TaskData : IEnumerable<CommandData>, IList<CommandData>
     {
+        [DataMember(Name = "チェック")]
         public bool Checked { get; set; }
+        [DataMember(Name = "名前")]
         public string Name { get; set; }
+        [DataMember(Name = "プロジェクトフォルダ")]
         public string ProjectFolder { get; set; }
+        [DataMember(Name = "ログフォルダ")]
         public string LogFolder { get; set; }
+        [DataMember(Name = "リポジトリ")]
         public string Repository { get; set; }
+        [DataMember(Name = "タイマー")]
         public bool Timer { get; set; }
-        public bool Interval { get; set; }
-
+        [DataMember(Name = "スパン")]
+        public bool Span { get; set; }
+        [DataMember(Name = "コマンドデータリスト")]
         private List<CommandData> CommandDataList = new List<CommandData>();
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -119,10 +133,10 @@ namespace FullAutomationSupportSystem
 #endif
     }
 
-    [DataContract]
-    public class TaskManager : IEnumerable<TaskData>, IList<TaskData>
+    [DataContract(Name = "タスクマネージャ")]
+    public class TaskManager : IEnumerable<TaskData>, IList<TaskData>, IExtensibleDataObject
     {
-        [DataMember]
+        [DataMember(Name = "タスクデータリスト")]
         private List<TaskData> TaskDataList = new List<TaskData>();
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -192,7 +206,22 @@ namespace FullAutomationSupportSystem
         {
             throw new NotImplementedException();
         }
-  
+
+        public ExtensionDataObject ExtensionData { get; set; }
+/*
+        private ExtensionDataObject _extensionData;
+        public ExtensionDataObject ExtensionData
+        {
+            get
+            {
+                return _extensionData;
+            }
+            set
+            {
+                _extensionData = value;
+            }
+        }  
+ */ 
     }
 
 }

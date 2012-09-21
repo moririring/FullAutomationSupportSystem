@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-
+using System.Runtime.Serialization;
 namespace FullAutomationSupportSystem
 {
     public class TaskManagerTest

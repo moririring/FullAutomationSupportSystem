@@ -17,11 +17,14 @@ namespace FullAutomationSupportSystem
         {
             InitializeComponent();
             gTaskData = data;
+        }
+
+        private void TaskForm_Load(object sender, EventArgs e)
+        {
             foreach (var command in gTaskData)
             {
-                commandDataBindingSource.Add(command);
+                AddDataGridView(command);
             }
-
             NameTextBox.Text = "名前を入力してください";
             ProjectFolderTextBox.Text = gTaskData.ProjectFolder;
             LogFolderComboBox.Text = gTaskData.ProjectFolder;
@@ -32,6 +35,13 @@ namespace FullAutomationSupportSystem
                 CommandComboBox.Items.Add(commandList.Name);
             }
             CommandComboBox.Text = CommandComboBox.Items[0].ToString();
+
+        }
+
+        private void AddDataGridView(CommandData command)
+        {
+            int count = commandDataBindingSource.Add(command);
+            dataGridView1[dataGridView1.Columns["run"].Index, count].Value = "実行";
         }
 
         private void OKButton_Click(object sender, EventArgs e)
@@ -41,7 +51,7 @@ namespace FullAutomationSupportSystem
             gTaskData.LogFolder = LogFolderComboBox.Text;
             gTaskData.Repository = RepositoryTextBox.Text;
             gTaskData.Timer = TimerCheckBox.Checked;
-            gTaskData.Interval = IntervalCheckBox.Checked;
+            gTaskData.Span = IntervalCheckBox.Checked;
         }
 
         private void CommandComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -60,8 +70,7 @@ namespace FullAutomationSupportSystem
             var form = new CommandForm(gTaskData[gTaskData.Count - 1]);
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                int count = commandDataBindingSource.Add(data);
-                dataGridView1[dataGridView1.Columns["run"].Index, count].Value = "実行";
+                AddDataGridView(data);
             }
         }
 
@@ -74,5 +83,6 @@ namespace FullAutomationSupportSystem
                 CommandListManager.GetInstance().Run(task.Type, task.Param1, task.Param2);
             }
         }
+
     }
 }

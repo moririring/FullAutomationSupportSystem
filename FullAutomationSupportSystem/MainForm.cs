@@ -21,6 +21,11 @@ namespace FullAutomationSupportSystem
             InitializeComponent();
             TimerTextBox.Text = DateTime.Now.ToLongTimeString();
         }
+        private void AddDataGridView(TaskData task)
+        {
+            int count = taskDataBindingSource.Add(task);
+            dataGridView1[dataGridView1.Columns["run"].Index, count].Value = "実行";
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             TimerTextBox.Text = DateTime.Now.ToLongTimeString();
@@ -45,14 +50,12 @@ namespace FullAutomationSupportSystem
                 var editTask = new TaskData();
                 editTask.ProjectFolder = folderBrowserDialog1.SelectedPath;
                 editTask.LogFolder = folderBrowserDialog1.SelectedPath;
-
                 var form = new TaskForm(editTask);
                 if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     editTask.Checked = true;
                     gTaskList.Add(editTask);
-                    int count = taskDataBindingSource.Add(editTask);
-                    dataGridView1[dataGridView1.Columns["run"].Index, count].Value = "実行";
+                    AddDataGridView(editTask);
                 }
             }
 
@@ -70,40 +73,35 @@ namespace FullAutomationSupportSystem
 
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            using (var fs = new XmlTextWriter(saveFileDialog1.FileName, Encoding.UTF8))
+            using (var ms = new FileStream(saveFileDialog1.FileName, FileMode.Create))
             {
-                var serializer = new DataContractSerializer(typeof(TaskManager));
-
-                using (var ms = new MemoryStream())
                 using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
                 {
+                    //xw.Flush();
+                    var serializer = new DataContractSerializer(typeof(TaskManager));
                     serializer.WriteObject(xw, gTaskList);
-                    xw.Flush();
-                    var xml = Encoding.UTF8.GetString(ms.ToArray(), 0, (int)ms.Length);
-                    serializer.WriteObject(fs, xml);
                 }
-                fs.Close();
             }
-
-
-
-/*
-            using (var fs = new XmlTextWriter(saveFileDialog1.FileName, Encoding.UTF8))
-            {
-                var serializer = new DataContractSerializer(typeof(TaskManager));
-                //serializer.WriteObject(fs, gTaskList);
-
-                using (var ms = new MemoryStream())
-                using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
-                {
-                    serializer.WriteObject(xw, gTaskList);
-                    xw.Flush();
-                    var xml = Encoding.UTF8.GetString(ms.ToArray(), 0, (int)ms.Length);
-                    serializer.W.WriteObject(fs, xml);
-                }
-                fs.Close();
-            }
- */ 
         }
+
+        private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+        }
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+            var serializer = new DataContractSerializer(typeof(TaskManager));
+            //読み込むファイルを開く
+            using (var fs = new FileStream(openFileDialog1.FileName, FileMode.Open))
+            {
+                gTaskList = (TaskManager)serializer.ReadObject(fs);
+                foreach (var task in gTaskList)
+                {
+                    AddDataGridView(task);
+                }
+                fs.Close();
+            }
+        }
+
     }
 }
