@@ -97,6 +97,7 @@
       <DependentUpon>TaskForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\CommandData.datasource" />
+    <None Include="Properties\DataSources\CommandListData.datasource" />
     <None Include="Properties\DataSources\TaskData.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

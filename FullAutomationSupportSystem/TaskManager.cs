@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 
 namespace FullAutomationSupportSystem
 {
-    [DataContract(Name = "コマンドデータ")]
+    [DataContract(Name = "コマンドデータクラス")]
     public class CommandData
     {
         [DataMember(Name = "チェック")]
@@ -22,26 +22,11 @@ namespace FullAutomationSupportSystem
         [DataMember(Name = "パラメータ2")]
         public string Param2 { get; set; }
     }
-
-    [DataContract(Name = "タスクデータ")]
-    public class TaskData : IEnumerable<CommandData>, IList<CommandData>
+    [DataContract(Name = "コマンドリストクラス")]
+    public class CommandList : IEnumerable<CommandData>, IList<CommandData>
     {
-        [DataMember(Name = "チェック")]
-        public bool Checked { get; set; }
-        [DataMember(Name = "名前")]
-        public string Name { get; set; }
-        [DataMember(Name = "プロジェクトフォルダ")]
-        public string ProjectFolder { get; set; }
-        [DataMember(Name = "ログフォルダ")]
-        public string LogFolder { get; set; }
-        [DataMember(Name = "リポジトリ")]
-        public string Repository { get; set; }
-        [DataMember(Name = "タイマー")]
-        public bool Timer { get; set; }
-        [DataMember(Name = "スパン")]
-        public bool Span { get; set; }
         [DataMember(Name = "コマンドデータリスト")]
-        private List<CommandData> CommandDataList = new List<CommandData>();
+        private List<CommandData> commandDataList = new List<CommandData>();
 
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -49,7 +34,7 @@ namespace FullAutomationSupportSystem
         }
         public IEnumerator<CommandData> GetEnumerator()
         {
-            foreach (var data in CommandDataList)
+            foreach (var data in commandDataList)
             {
                 yield return data;
             }
@@ -71,18 +56,18 @@ namespace FullAutomationSupportSystem
 
         public CommandData this[int index]
         {
-            get { return CommandDataList[index]; }
-            set { CommandDataList[index] = value; }
+            get { return commandDataList[index]; }
+            set { commandDataList[index] = value; }
         }
 
         public void Add(CommandData item)
         {
-            CommandDataList.Add(item);
+            commandDataList.Add(item);
         }
 
         public void Clear()
         {
-            CommandDataList.Clear();
+            commandDataList.Clear();
         }
 
         public bool Contains(CommandData item)
@@ -97,7 +82,7 @@ namespace FullAutomationSupportSystem
 
         public int Count
         {
-            get { return CommandDataList.Count(); }
+            get { return commandDataList.Count(); }
         }
 
         public bool IsReadOnly
@@ -109,43 +94,40 @@ namespace FullAutomationSupportSystem
         {
             throw new NotImplementedException();
         }
-#if zero
-        //objと自分自身が等価のときはtrueを返す
-        public override bool Equals(System.Object obj)
-        {
-            if ((object)obj == null || this.GetType() != obj.GetType())
-            {
-                return false;
-            }
-            TaskData c = (TaskData)obj;
-            return base.Equals(obj);
-        }
-
-        public bool Equals(TaskData p)
-        {
-            foreach (var data in p)
-            {
-                //this.Add(data);
-            }
-
-            return base.Equals((TaskData)p);
-        }
-#endif
+    }
+    [DataContract(Name = "タスクデータクラス")]
+    public class TaskData
+    {
+        [DataMember(Name = "チェック")]
+        public bool Checked { get; set; }
+        [DataMember(Name = "名前")]
+        public string Name { get; set; }
+        [DataMember(Name = "プロジェクトフォルダ")]
+        public string ProjectFolder { get; set; }
+        [DataMember(Name = "ログフォルダ")]
+        public string LogFolder { get; set; }
+        [DataMember(Name = "リポジトリ")]
+        public string Repository { get; set; }
+        [DataMember(Name = "タイマー")]
+        public bool Timer { get; set; }
+        [DataMember(Name = "スパン")]
+        public bool Span { get; set; }
+        [DataMember(Name = "コマンドデータリスト")]
+        public CommandList CommandDataList = new CommandList();
     }
 
-    [DataContract(Name = "タスクマネージャ")]
-    public class TaskManager : IEnumerable<TaskData>, IList<TaskData>, IExtensibleDataObject
+    [DataContract(Name = "タスクリストクラス")]
+    public class TaskList : IEnumerable<TaskData>, IList<TaskData>
     {
         [DataMember(Name = "タスクデータリスト")]
-        private List<TaskData> TaskDataList = new List<TaskData>();
-
+        private List<TaskData> taskDataList = new List<TaskData>();
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
         public IEnumerator<TaskData> GetEnumerator()
         {
-            foreach (TaskData data in TaskDataList)
+            foreach (TaskData data in taskDataList)
             {
                 yield return data;
             }
@@ -168,18 +150,18 @@ namespace FullAutomationSupportSystem
 
         public TaskData this[int index]
         {
-            get { return TaskDataList[index]; }
-            set { TaskDataList[index] = value; } 
+            get { return taskDataList[index]; }
+            set { taskDataList[index] = value; }
         }
 
         public void Add(TaskData item)
         {
-            TaskDataList.Add(item);
+            taskDataList.Add(item);
         }
 
         public void Clear()
         {
-            TaskDataList.Clear();
+            taskDataList.Clear();
         }
 
         public bool Contains(TaskData item)
@@ -194,7 +176,7 @@ namespace FullAutomationSupportSystem
 
         public int Count
         {
-            get { return TaskDataList.Count(); }
+            get { return taskDataList.Count(); }
         }
 
         public bool IsReadOnly
@@ -208,20 +190,13 @@ namespace FullAutomationSupportSystem
         }
 
         public ExtensionDataObject ExtensionData { get; set; }
-/*
-        private ExtensionDataObject _extensionData;
-        public ExtensionDataObject ExtensionData
-        {
-            get
-            {
-                return _extensionData;
-            }
-            set
-            {
-                _extensionData = value;
-            }
-        }  
- */ 
+    }
+
+    [DataContract(Name = "FASSマネージャクラス")]
+    public class FASS
+    {
+        [DataMember(Name = "タスクリスト")]
+        public TaskList taskDataList = new TaskList();
     }
 
 }

@@ -21,7 +21,7 @@ namespace FullAutomationSupportSystem
 
         private void TaskForm_Load(object sender, EventArgs e)
         {
-            foreach (var command in gTaskData)
+            foreach (var command in gTaskData.CommandDataList)
             {
                 AddDataGridView(command);
             }
@@ -66,8 +66,8 @@ namespace FullAutomationSupportSystem
             data.Name = CommandListManager.GetInstance()[CommandComboBox.SelectedIndex].Name;
             data.Type = CommandListManager.GetInstance()[CommandComboBox.SelectedIndex].Type;
             data.Checked = true;
-            gTaskData.Add(data);
-            var form = new CommandForm(gTaskData[gTaskData.Count - 1]);
+            gTaskData.CommandDataList.Add(data);
+            var form = new CommandForm(gTaskData.CommandDataList[gTaskData.CommandDataList.Count - 1]);
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 AddDataGridView(data);
@@ -79,8 +79,8 @@ namespace FullAutomationSupportSystem
             //実行を押された
             if(e.ColumnIndex == dataGridView1.Columns["run"].Index)
             {
-                var task = gTaskData[e.RowIndex];
-                CommandListManager.GetInstance().Run(task.Type, task.Param1, task.Param2);
+                var command = gTaskData.CommandDataList[e.RowIndex];
+                CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
             }
         }
 

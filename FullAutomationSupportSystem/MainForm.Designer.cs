@@ -42,6 +42,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ファイルFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddTaskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.保存SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NameSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,24 +51,26 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.OpenFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectFolderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.logFolderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.repositoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timerDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.checkedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.spanDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -90,7 +93,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(391, 27);
+            this.numericUpDown1.Location = new System.Drawing.Point(372, 27);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(52, 19);
             this.numericUpDown1.TabIndex = 6;
@@ -100,9 +103,9 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Location = new System.Drawing.Point(282, 28);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(104, 16);
+            this.checkBox2.Size = new System.Drawing.Size(76, 16);
             this.checkBox2.TabIndex = 5;
-            this.checkBox2.Text = "インターバル実行";
+            this.checkBox2.Text = "スパン実行";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // TimerTextBox
@@ -192,6 +195,14 @@
             this.AddTaskToolStripMenuItem.Text = "新しいタスク(&T)...";
             this.AddTaskToolStripMenuItem.Click += new System.EventHandler(this.AddTaskToolStripMenuItem_Click);
             // 
+            // OpenFileToolStripMenuItem
+            // 
+            this.OpenFileToolStripMenuItem.Name = "OpenFileToolStripMenuItem";
+            this.OpenFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.OpenFileToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.OpenFileToolStripMenuItem.Text = "ファイルを開く(&O)...";
+            this.OpenFileToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -233,16 +244,16 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Check,
-            this.nameDataGridViewTextBoxColumn,
-            this.projectFolderDataGridViewTextBoxColumn,
-            this.logFolderDataGridViewTextBoxColumn,
-            this.repositoryDataGridViewTextBoxColumn,
-            this.timerDataGridViewCheckBoxColumn,
+            this.checkedDataGridViewCheckBoxColumn,
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewCheckBoxColumn1,
+            this.spanDataGridViewCheckBoxColumn,
             this.Run});
             this.dataGridView1.DataSource = this.taskDataBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -253,20 +264,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(737, 297);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
-            // 
-            // Check
-            // 
-            this.Check.DataPropertyName = "Checked";
-            this.Check.HeaderText = "ﾁｪｯｸ";
-            this.Check.Name = "Check";
-            this.Check.Width = 36;
-            // 
-            // Run
-            // 
-            this.Run.HeaderText = "実行";
-            this.Run.Name = "Run";
-            this.Run.ReadOnly = true;
-            this.Run.Width = 35;
+            this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
             // 
             // panel1
             // 
@@ -301,62 +299,76 @@
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
-            // OpenFileToolStripMenuItem
-            // 
-            this.OpenFileToolStripMenuItem.Name = "OpenFileToolStripMenuItem";
-            this.OpenFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.OpenFileToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.OpenFileToolStripMenuItem.Text = "ファイルを開く(&O)...";
-            this.OpenFileToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // nameDataGridViewTextBoxColumn
+            // Run
             // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "名前";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.Width = 54;
+            this.Run.HeaderText = "実行";
+            this.Run.Name = "Run";
+            this.Run.ReadOnly = true;
+            this.Run.Width = 35;
             // 
-            // projectFolderDataGridViewTextBoxColumn
+            // checkedDataGridViewCheckBoxColumn
             // 
-            this.projectFolderDataGridViewTextBoxColumn.DataPropertyName = "ProjectFolder";
-            this.projectFolderDataGridViewTextBoxColumn.HeaderText = "パス";
-            this.projectFolderDataGridViewTextBoxColumn.Name = "projectFolderDataGridViewTextBoxColumn";
-            this.projectFolderDataGridViewTextBoxColumn.ReadOnly = true;
-            this.projectFolderDataGridViewTextBoxColumn.Width = 49;
+            this.checkedDataGridViewCheckBoxColumn.DataPropertyName = "Checked";
+            this.checkedDataGridViewCheckBoxColumn.HeaderText = "チェック";
+            this.checkedDataGridViewCheckBoxColumn.Name = "checkedDataGridViewCheckBoxColumn";
+            this.checkedDataGridViewCheckBoxColumn.Width = 42;
             // 
-            // logFolderDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn1
             // 
-            this.logFolderDataGridViewTextBoxColumn.DataPropertyName = "LogFolder";
-            this.logFolderDataGridViewTextBoxColumn.HeaderText = "LogFolder";
-            this.logFolderDataGridViewTextBoxColumn.Name = "logFolderDataGridViewTextBoxColumn";
-            this.logFolderDataGridViewTextBoxColumn.ReadOnly = true;
-            this.logFolderDataGridViewTextBoxColumn.Visible = false;
-            this.logFolderDataGridViewTextBoxColumn.Width = 80;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn1.HeaderText = "名前";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 54;
             // 
-            // repositoryDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn2
             // 
-            this.repositoryDataGridViewTextBoxColumn.DataPropertyName = "Repository";
-            this.repositoryDataGridViewTextBoxColumn.HeaderText = "Repository";
-            this.repositoryDataGridViewTextBoxColumn.Name = "repositoryDataGridViewTextBoxColumn";
-            this.repositoryDataGridViewTextBoxColumn.ReadOnly = true;
-            this.repositoryDataGridViewTextBoxColumn.Visible = false;
-            this.repositoryDataGridViewTextBoxColumn.Width = 85;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "ProjectFolder";
+            this.dataGridViewTextBoxColumn2.HeaderText = "フォルダ";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 65;
             // 
-            // timerDataGridViewCheckBoxColumn
+            // dataGridViewTextBoxColumn3
             // 
-            this.timerDataGridViewCheckBoxColumn.DataPropertyName = "Timer";
-            this.timerDataGridViewCheckBoxColumn.HeaderText = "ﾀｲﾏｰ";
-            this.timerDataGridViewCheckBoxColumn.Name = "timerDataGridViewCheckBoxColumn";
-            this.timerDataGridViewCheckBoxColumn.Width = 39;
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "LogFolder";
+            this.dataGridViewTextBoxColumn3.HeaderText = "ログ";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Visible = false;
+            this.dataGridViewTextBoxColumn3.Width = 48;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Repository";
+            this.dataGridViewTextBoxColumn4.HeaderText = "リポジトリ";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            this.dataGridViewTextBoxColumn4.Width = 72;
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.DataPropertyName = "Timer";
+            this.dataGridViewCheckBoxColumn1.HeaderText = "タイマー";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.Width = 47;
+            // 
+            // spanDataGridViewCheckBoxColumn
+            // 
+            this.spanDataGridViewCheckBoxColumn.DataPropertyName = "Span";
+            this.spanDataGridViewCheckBoxColumn.HeaderText = "スパン";
+            this.spanDataGridViewCheckBoxColumn.Name = "spanDataGridViewCheckBoxColumn";
+            this.spanDataGridViewCheckBoxColumn.Width = 39;
             // 
             // taskDataBindingSource
             // 
             this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
+            // 
+            // commandListDataBindingSource
+            // 
+            this.commandListDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandListData);
             // 
             // MainForm
             // 
@@ -377,6 +389,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -397,17 +410,14 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.BindingSource taskDataBindingSource;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn outputFolderDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Check;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn projectFolderDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn logFolderDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn repositoryDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn timerDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn intervalDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.DataGridViewButtonColumn Run;
         private System.Windows.Forms.ToolStripMenuItem ファイルFToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AddTaskToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
@@ -420,5 +430,15 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem OpenFileToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.BindingSource commandListDataBindingSource;
+        private System.Windows.Forms.BindingSource taskDataBindingSource;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn checkedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn spanDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn Run;
     }
 }

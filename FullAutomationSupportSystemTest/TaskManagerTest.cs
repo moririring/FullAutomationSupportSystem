@@ -8,51 +8,51 @@ namespace FullAutomationSupportSystem
 {
     public class TaskManagerTest
     {
-        private TaskManager task = null;
+        private FASS gFass = null;
         [SetUp]
         public void SetUp()
         {
-            task = new TaskManager();
+            gFass = new FASS();
         }
         [Test]
         public void タスクに存在するパスで追加()
         {
             var data = new TaskData();
             data.ProjectFolder = @"C:\Program Files";
-            task.Add(data);
-            Assert.True(task.Count == 1);
+            gFass.taskDataList.Add(data);
+            Assert.True(gFass.taskDataList.Count == 1);
         }
         [Test]
         public void タスクに存在しないパスで追加()
         {
             var data = new TaskData();
             data.ProjectFolder = @"C:\Program Files2";
-            task.Add(data);
-            Assert.False(task.Count == 0);
+            gFass.taskDataList.Add(data);
+            Assert.False(gFass.taskDataList.Count == 0);
         }
         [Test]
         public void タスクをクリア()
         {
-            task.Clear();
-            Assert.True(task.Count == 0);
+            gFass.taskDataList.Clear();
+            Assert.True(gFass.taskDataList.Count == 0);
         }
         [Test]
         public void タスクの取得()
         {
             var data = new TaskData();
             data.ProjectFolder = @"C:\Program Files";
-            task.Add(data);
-            Assert.True(task[0].ProjectFolder == data.ProjectFolder);
+            gFass.taskDataList.Add(data);
+            Assert.True(gFass.taskDataList[0].ProjectFolder == data.ProjectFolder);
         }
         [Test]
         public void コマンドの追加()
         {
-            var data = new TaskData();
+            var task = new TaskData();
             var command = new CommandData();
-            data.ProjectFolder = @"C:\Program Files";
-            task.Add(data);
-            data.Add(command);
-            Assert.True(data.Count == 1);
+            task.ProjectFolder = @"C:\Program Files";
+            gFass.taskDataList.Add(task);
+            task.CommandDataList.Add(command);
+            Assert.True(task.CommandDataList.Count == 1);
         }
     }
 }

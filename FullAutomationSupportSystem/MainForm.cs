@@ -14,7 +14,7 @@ namespace FullAutomationSupportSystem
 {
     public partial class MainForm : Form
     {
-        TaskManager gTaskList = new TaskManager(); 
+        FASS gFass = new FASS(); 
 
         public MainForm()
         {
@@ -40,8 +40,12 @@ namespace FullAutomationSupportSystem
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 taskDataBindingSource[e.RowIndex] = editTask;
-                gTaskList[e.RowIndex] = editTask;
+                gFass.taskDataList[e.RowIndex] = editTask;
             }
+        }
+        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            //セルかどうかは位置で見るしかない？
         }
         private void AddTaskToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -54,7 +58,7 @@ namespace FullAutomationSupportSystem
                 if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     editTask.Checked = true;
-                    gTaskList.Add(editTask);
+                    gFass.taskDataList.Add(editTask);
                     AddDataGridView(editTask);
                 }
             }
@@ -78,8 +82,8 @@ namespace FullAutomationSupportSystem
                 using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
                 {
                     //xw.Flush();
-                    var serializer = new DataContractSerializer(typeof(TaskManager));
-                    serializer.WriteObject(xw, gTaskList);
+                    var serializer = new DataContractSerializer(typeof(FASS));
+                    serializer.WriteObject(xw, gFass);
                 }
             }
         }
@@ -90,18 +94,19 @@ namespace FullAutomationSupportSystem
         }
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            var serializer = new DataContractSerializer(typeof(TaskManager));
+            var serializer = new DataContractSerializer(typeof(FASS));
             //読み込むファイルを開く
             using (var fs = new FileStream(openFileDialog1.FileName, FileMode.Open))
             {
-                gTaskList = (TaskManager)serializer.ReadObject(fs);
-                foreach (var task in gTaskList)
+                gFass = (FASS)serializer.ReadObject(fs);
+                foreach (var task in gFass.taskDataList)
                 {
                     AddDataGridView(task);
                 }
                 fs.Close();
             }
         }
+
 
     }
 }
