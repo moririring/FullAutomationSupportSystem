@@ -44,9 +44,7 @@ namespace FullAutomationSupportSystem
 
                 Param2ComboBox.Items.Add("true");
                 Param2ComboBox.Items.Add("false");
-                Param2ComboBox.Text = "true";
-                //
-                Param2ComboBox.Text = gCommandData.Param2;
+                Param2ComboBox.Text = (gCommandData.Param2 != "") ? gCommandData.Param2 : "true";
             }
         }
 

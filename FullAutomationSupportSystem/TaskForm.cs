@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FullAutomationSupportSystem;
+using System.IO;
 
 namespace FullAutomationSupportSystem
 {
     public partial class TaskForm : Form
     {
+        static readonly public string gNamePlease = "新しいタスク";
         private TaskData gTaskData = null;
         public TaskForm(TaskData data)
         {
@@ -25,7 +27,7 @@ namespace FullAutomationSupportSystem
             {
                 AddDataGridView(command);
             }
-            NameTextBox.Text = "名前を入力してください";
+            NameTextBox.Text = gNamePlease;
             ProjectFolderTextBox.Text = gTaskData.ProjectFolder;
             LogFolderComboBox.Text = gTaskData.ProjectFolder;
             NameTextBox.Focus();
@@ -37,6 +39,9 @@ namespace FullAutomationSupportSystem
             CommandComboBox.Text = CommandComboBox.Items[0].ToString();
 
         }
+        private void TaskForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+        }
 
         private void AddDataGridView(CommandData command)
         {
@@ -46,6 +51,19 @@ namespace FullAutomationSupportSystem
 
         private void OKButton_Click(object sender, EventArgs e)
         {
+            if (Directory.Exists(ProjectFolderTextBox.Text) == false)
+            {
+                MessageBox.Show("作業フォルダが存在しません");
+                return;
+            }
+            if (Directory.Exists(LogFolderComboBox.Text) == false)
+            {
+                MessageBox.Show("ログフォルダが存在しません");
+                return;
+            }
+
+            this.DialogResult = DialogResult.OK; 
+
             gTaskData.Name = NameTextBox.Text;
             gTaskData.ProjectFolder = ProjectFolderTextBox.Text;
             gTaskData.LogFolder = LogFolderComboBox.Text;
@@ -94,6 +112,7 @@ namespace FullAutomationSupportSystem
                 gTaskData.CommandDataList[e.RowIndex] = editCommand;
             }
         }
+
 
     }
 }

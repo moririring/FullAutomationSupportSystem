@@ -31,7 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.checkedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.param1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.param2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.commandDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.CommandListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel6 = new System.Windows.Forms.Panel();
@@ -58,19 +64,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.CommandTextBox = new System.Windows.Forms.TextBox();
             this.CommandComboBox = new System.Windows.Forms.ComboBox();
-            this.checkedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.param1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.param2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commandDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
@@ -108,11 +108,51 @@
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
+            // checkedDataGridViewCheckBoxColumn
+            // 
+            this.checkedDataGridViewCheckBoxColumn.DataPropertyName = "Checked";
+            this.checkedDataGridViewCheckBoxColumn.HeaderText = "ﾁｪｯｸ";
+            this.checkedDataGridViewCheckBoxColumn.Name = "checkedDataGridViewCheckBoxColumn";
+            this.checkedDataGridViewCheckBoxColumn.Width = 36;
+            // 
+            // typeDataGridViewTextBoxColumn
+            // 
+            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
+            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
+            this.typeDataGridViewTextBoxColumn.Visible = false;
+            this.typeDataGridViewTextBoxColumn.Width = 55;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "名前";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.Width = 54;
+            // 
+            // param1DataGridViewTextBoxColumn
+            // 
+            this.param1DataGridViewTextBoxColumn.DataPropertyName = "Param1";
+            this.param1DataGridViewTextBoxColumn.HeaderText = "ﾊﾟﾗﾒｰﾀ1";
+            this.param1DataGridViewTextBoxColumn.Name = "param1DataGridViewTextBoxColumn";
+            this.param1DataGridViewTextBoxColumn.Width = 74;
+            // 
+            // param2DataGridViewTextBoxColumn
+            // 
+            this.param2DataGridViewTextBoxColumn.DataPropertyName = "Param2";
+            this.param2DataGridViewTextBoxColumn.HeaderText = "ﾊﾟﾗﾒｰﾀ2";
+            this.param2DataGridViewTextBoxColumn.Name = "param2DataGridViewTextBoxColumn";
+            this.param2DataGridViewTextBoxColumn.Width = 74;
+            // 
             // Run
             // 
             this.Run.HeaderText = "実行";
             this.Run.Name = "Run";
             this.Run.Width = 35;
+            // 
+            // commandDataBindingSource
+            // 
+            this.commandDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandData);
             // 
             // CommandListView
             // 
@@ -194,8 +234,8 @@
             // 
             // LogFolderComboBox
             // 
-            this.LogFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.LogFolderComboBox.FormattingEnabled = true;
             this.LogFolderComboBox.Location = new System.Drawing.Point(81, 53);
             this.LogFolderComboBox.Name = "LogFolderComboBox";
@@ -251,8 +291,8 @@
             // 
             // RepositoryTextBox
             // 
-            this.RepositoryTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RepositoryTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.RepositoryTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.RepositoryTextBox.Location = new System.Drawing.Point(81, 79);
             this.RepositoryTextBox.Name = "RepositoryTextBox";
@@ -279,8 +319,8 @@
             // 
             // ProjectFolderTextBox
             // 
-            this.ProjectFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProjectFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.ProjectFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.ProjectFolderTextBox.Location = new System.Drawing.Point(82, 29);
             this.ProjectFolderTextBox.Name = "ProjectFolderTextBox";
@@ -298,8 +338,8 @@
             // 
             // NameTextBox
             // 
-            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.NameTextBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
             this.NameTextBox.Location = new System.Drawing.Point(82, 4);
             this.NameTextBox.Name = "NameTextBox";
@@ -318,7 +358,6 @@
             // OKButton
             // 
             this.OKButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKButton.Location = new System.Drawing.Point(342, 3);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
@@ -379,8 +418,8 @@
             // 
             // CommandTextBox
             // 
-            this.CommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.CommandTextBox.Location = new System.Drawing.Point(322, 5);
             this.CommandTextBox.Multiline = true;
             this.CommandTextBox.Name = "CommandTextBox";
@@ -397,46 +436,6 @@
             this.CommandComboBox.TabIndex = 19;
             this.CommandComboBox.SelectedIndexChanged += new System.EventHandler(this.CommandComboBox_SelectedIndexChanged);
             // 
-            // checkedDataGridViewCheckBoxColumn
-            // 
-            this.checkedDataGridViewCheckBoxColumn.DataPropertyName = "Checked";
-            this.checkedDataGridViewCheckBoxColumn.HeaderText = "ﾁｪｯｸ";
-            this.checkedDataGridViewCheckBoxColumn.Name = "checkedDataGridViewCheckBoxColumn";
-            this.checkedDataGridViewCheckBoxColumn.Width = 36;
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            this.typeDataGridViewTextBoxColumn.Visible = false;
-            this.typeDataGridViewTextBoxColumn.Width = 55;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "名前";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.Width = 54;
-            // 
-            // param1DataGridViewTextBoxColumn
-            // 
-            this.param1DataGridViewTextBoxColumn.DataPropertyName = "Param1";
-            this.param1DataGridViewTextBoxColumn.HeaderText = "ﾊﾟﾗﾒｰﾀ1";
-            this.param1DataGridViewTextBoxColumn.Name = "param1DataGridViewTextBoxColumn";
-            this.param1DataGridViewTextBoxColumn.Width = 74;
-            // 
-            // param2DataGridViewTextBoxColumn
-            // 
-            this.param2DataGridViewTextBoxColumn.DataPropertyName = "Param2";
-            this.param2DataGridViewTextBoxColumn.HeaderText = "ﾊﾟﾗﾒｰﾀ2";
-            this.param2DataGridViewTextBoxColumn.Name = "param2DataGridViewTextBoxColumn";
-            this.param2DataGridViewTextBoxColumn.Width = 74;
-            // 
-            // commandDataBindingSource
-            // 
-            this.commandDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandData);
-            // 
             // TaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -449,16 +448,17 @@
             this.Controls.Add(this.statusStrip1);
             this.Name = "TaskForm";
             this.Text = "TaskForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TaskForm_FormClosing);
             this.Load += new System.EventHandler(this.TaskForm_Load);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

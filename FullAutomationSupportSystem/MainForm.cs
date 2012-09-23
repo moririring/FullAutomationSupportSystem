@@ -48,19 +48,48 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //一時ファイルをセーブして、比較する出力場所はTEMP
-            //(gTaskList.Save(saveFileDialog1.FileName))
-
-            if (MessageBox.Show("終了してもいいですか？", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-
-
             var iniFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), gApplicationIniFileName);
-            if(Directory.Exists(Path.GetDirectoryName(iniFileName)) ==false)
+            if (Directory.Exists(Path.GetDirectoryName(iniFileName)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(iniFileName));
+            }
+            //タスクがなければセーブチェックなし
+            bool bSave = (gTaskList.Count == 0) ? false : true;
+            //既存セーブファイルがあれば
+            if (bSave == true && gFileName != "")
+            {
+                var saveTempFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Fass\SaveTemp.txt");
+                gTaskList.Save(saveTempFileName);
+                var sr1 = new StreamReader(saveTempFileName, Encoding.UTF8);
+                var sr2 = new StreamReader(gFileName, Encoding.UTF8);
+                //変更がなければセーブチェックなし
+                if (sr1.ReadToEnd() == sr2.ReadToEnd())
+                {
+                    bSave = false;
+                }
+                sr1.Close();
+                sr2.Close();
+            }
+            //セーブチェック
+            if (bSave)
+            {
+                DialogResult result = MessageBox.Show("セーブしますか？", "確認", MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                if (result == DialogResult.Yes)
+                {
+                    if (gFileName == "")
+                    {
+                        saveFileDialog1.ShowDialog();
+                    }
+                    else
+                    {
+                        gTaskList.Save(gFileName);
+                    }
+                }
             }
             using (var ms = new FileStream(iniFileName, FileMode.Create))
             {
@@ -78,18 +107,12 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void FileLoad(string fileName)
         {
-            if (File.Exists(fileName) == false) return;
-            //読み込むファイルを開く
-            using (var fs = new FileStream(fileName, FileMode.Open))
+            if (gTaskList.Load(fileName))
             {
-                var serializer = new DataContractSerializer(typeof(TaskList));
-                gTaskList = (TaskList)serializer.ReadObject(fs);
-                //Load処理
                 foreach (var task in gTaskList)
                 {
                     AddDataGridView(task);
                 }
-                fs.Close();
                 gFileName = fileName;
             }
         }
@@ -144,12 +167,30 @@ namespace FullAutomationSupportSystem
         {
             Application.Exit();
         }
-
+        //--------------------------------------------------------------------------
+        //名前を付けて保存
+        //--------------------------------------------------------------------------
         private void NameSaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.ShowDialog();
         }
-
+        //--------------------------------------------------------------------------
+        //保存
+        //--------------------------------------------------------------------------
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (gFileName == "")
+            {
+                saveFileDialog1.ShowDialog();
+            }
+            else
+            {
+                gTaskList.Save(gFileName);
+            }
+        }
+        //--------------------------------------------------------------------------
+        //保存する
+        //--------------------------------------------------------------------------
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
             if (gTaskList.Save(saveFileDialog1.FileName))
@@ -157,14 +198,30 @@ namespace FullAutomationSupportSystem
                 gFileName = saveFileDialog1.FileName;
             }
         }
+        //--------------------------------------------------------------------------
+        //開く
+        //--------------------------------------------------------------------------
         private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
         }
+        //--------------------------------------------------------------------------
+        //ロード
+        //--------------------------------------------------------------------------
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
             FileLoad(openFileDialog1.FileName);
         }
+        //--------------------------------------------------------------------------
+        //閉じる
+        //--------------------------------------------------------------------------
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gTaskList.Clear();
+            taskDataBindingSource.Clear();
+            gFileName = "";
+        }
+
 
     }
 }

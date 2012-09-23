@@ -192,37 +192,35 @@ namespace FullAutomationSupportSystem
         public ExtensionDataObject ExtensionData { get; set; }
         public bool Save(string fileName)
         {
-            if (File.Exists(fileName) == false) return false;
+            if (Directory.Exists(Path.GetDirectoryName(fileName)) == false)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            }
             bool bSuccess = false;
             using (var ms = new FileStream(fileName, FileMode.Create))
             {
                 using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
                 {
-                    var serializer = new DataContractSerializer(typeof(TaskList));
-                    serializer.WriteObject(xw, this);
+                    var serializer = new DataContractSerializer(typeof(List<TaskData>));
+                    serializer.WriteObject(xw, taskDataList);
                     bSuccess = true;
                 }
             }
             return bSuccess;
         }
-        //未実装！！
         public bool Load(string fileName)
         {
-/*
             if (File.Exists(fileName) == false) return false;
             bool bSuccess = false;
-
+            //読み込むファイルを開く
             using (var fs = new FileStream(fileName, FileMode.Open))
             {
-                var serializer = new DataContractSerializer(typeof(TaskList));
-                TaskList taskList = (TaskList)serializer.ReadObject(fs);
-
-                TaskList
+                var serializer = new DataContractSerializer(typeof(List<TaskData>));
+                taskDataList = (List<TaskData>)serializer.ReadObject(fs);
                 fs.Close();
+                bSuccess = true;
             }
             return bSuccess;
- */
-            return true;
         }
     }
 }
