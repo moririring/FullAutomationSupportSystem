@@ -191,12 +191,4 @@ namespace FullAutomationSupportSystem
 
         public ExtensionDataObject ExtensionData { get; set; }
     }
-
-    [DataContract(Name = "FASSマネージャクラス")]
-    public class FASS
-    {
-        [DataMember(Name = "タスクリスト")]
-        public TaskList taskDataList = new TaskList();
-    }
-
 }

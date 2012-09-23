@@ -14,13 +14,40 @@ namespace FullAutomationSupportSystem
 {
     public partial class MainForm : Form
     {
-        FASS gFass = new FASS(); 
+        TaskList gTaskList = new TaskList();
+        static public readonly string gApplicationIniFileName = @"Fass\Fass.ini";
+        static public string gFileName ="";
+        //
 
+        //コンストラクタ
         public MainForm()
         {
             InitializeComponent();
             TimerTextBox.Text = DateTime.Now.ToLongTimeString();
         }
+        //開始
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            var iniFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), gApplicationIniFileName);
+
+        }
+        //終了
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var iniFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), gApplicationIniFileName);
+            using (var ms = new FileStream(iniFileName, FileMode.Create))
+            {
+                using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
+                {
+                    var serializer = new DataContractSerializer(typeof(IniData));
+                    var iniData = new IniData();
+                    iniData.FileName = gFileName;
+                    serializer.WriteObject(xw, iniData);
+                }
+            }
+        }
+
+        //dataGridView追加
         private void AddDataGridView(TaskData task)
         {
             int count = taskDataBindingSource.Add(task);
@@ -40,7 +67,7 @@ namespace FullAutomationSupportSystem
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 taskDataBindingSource[e.RowIndex] = editTask;
-                gFass.taskDataList[e.RowIndex] = editTask;
+                gTaskList[e.RowIndex] = editTask;
             }
         }
         private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -58,7 +85,7 @@ namespace FullAutomationSupportSystem
                 if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     editTask.Checked = true;
-                    gFass.taskDataList.Add(editTask);
+                    gTaskList.Add(editTask);
                     AddDataGridView(editTask);
                 }
             }
@@ -81,9 +108,9 @@ namespace FullAutomationSupportSystem
             {
                 using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
                 {
-                    //xw.Flush();
-                    var serializer = new DataContractSerializer(typeof(FASS));
-                    serializer.WriteObject(xw, gFass);
+                    var serializer = new DataContractSerializer(typeof(TaskList));
+                    serializer.WriteObject(xw, gTaskList);
+                    gFileName = saveFileDialog1.FileName;
                 }
             }
         }
@@ -94,16 +121,18 @@ namespace FullAutomationSupportSystem
         }
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            var serializer = new DataContractSerializer(typeof(FASS));
             //読み込むファイルを開く
             using (var fs = new FileStream(openFileDialog1.FileName, FileMode.Open))
             {
-                gFass = (FASS)serializer.ReadObject(fs);
-                foreach (var task in gFass.taskDataList)
+                var serializer = new DataContractSerializer(typeof(TaskList));
+                gTaskList = (TaskList)serializer.ReadObject(fs);
+                //Load処理
+                foreach (var task in gTaskList)
                 {
                     AddDataGridView(task);
                 }
                 fs.Close();
+                gFileName = openFileDialog1.FileName;
             }
         }
 

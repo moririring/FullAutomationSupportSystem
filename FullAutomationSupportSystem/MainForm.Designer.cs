@@ -51,11 +51,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.checkedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,13 +58,18 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.spanDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -266,51 +266,6 @@
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
             // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.checkBox1);
-            this.panel1.Controls.Add(this.numericUpDown1);
-            this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.checkBox2);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.TimerTextBox);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 24);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(737, 53);
-            this.panel1.TabIndex = 10;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(3, 6);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(124, 41);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "新しいタスク...";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.AddTaskToolStripMenuItem_Click);
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
-            // 
-            // Run
-            // 
-            this.Run.HeaderText = "実行";
-            this.Run.Name = "Run";
-            this.Run.ReadOnly = true;
-            this.Run.Width = 35;
-            // 
             // checkedDataGridViewCheckBoxColumn
             // 
             this.checkedDataGridViewCheckBoxColumn.DataPropertyName = "Checked";
@@ -362,9 +317,54 @@
             this.spanDataGridViewCheckBoxColumn.Name = "spanDataGridViewCheckBoxColumn";
             this.spanDataGridViewCheckBoxColumn.Width = 39;
             // 
+            // Run
+            // 
+            this.Run.HeaderText = "実行";
+            this.Run.Name = "Run";
+            this.Run.ReadOnly = true;
+            this.Run.Width = 35;
+            // 
             // taskDataBindingSource
             // 
             this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.numericUpDown1);
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.checkBox2);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.TimerTextBox);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(737, 53);
+            this.panel1.TabIndex = 10;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(3, 6);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(124, 41);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "新しいタスク...";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.AddTaskToolStripMenuItem_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // commandListDataBindingSource
             // 
@@ -382,13 +382,15 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "TaskForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

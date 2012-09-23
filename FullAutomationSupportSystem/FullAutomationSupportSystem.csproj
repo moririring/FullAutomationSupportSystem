@@ -54,6 +54,7 @@
       <DependentUpon>CommandForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CommandListManager.cs" />
+    <Compile Include="IniData.cs" />
     <Compile Include="Main2Form.cs">
       <SubType>Form</SubType>
     </Compile>
