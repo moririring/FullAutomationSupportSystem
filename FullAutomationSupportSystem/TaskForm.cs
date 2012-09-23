@@ -84,5 +84,16 @@ namespace FullAutomationSupportSystem
             }
         }
 
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var editCommand = (CommandData)commandDataBindingSource[e.RowIndex];
+            var form = new CommandForm(editCommand);
+            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                commandDataBindingSource[e.RowIndex] = editCommand;
+                gTaskData.CommandDataList[e.RowIndex] = editCommand;
+            }
+        }
+
     }
 }

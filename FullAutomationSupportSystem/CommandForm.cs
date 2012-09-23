@@ -17,19 +17,26 @@ namespace FullAutomationSupportSystem
         public CommandForm(CommandData data)
         {
             InitializeComponent();
+
             gCommandData = data;
             gCommandListData = CommandListManager.GetInstance()[(int)data.Type];
             Param1ReadTextBox.Text = gCommandListData.Param1Txt;
             Param2ReadTextBox.Text = gCommandListData.Param2Txt;
-
-            if(gCommandListData.Param1Type == CommandListParamType.File)
+            SetParam1CommandListData();
+            SetParam2CommandListData();
+        }
+        private void SetParam1CommandListData()
+        {
+            if (gCommandListData.Param1Type == CommandListParamType.File)
             {
                 Param1TextBox.Multiline = false;
                 Param1Button.Click += new EventHandler(Param1Button_Click_FileOpen);
+                //
+                Param1TextBox.Text = gCommandData.Param1;
             }
-
-
-
+        }
+        private void SetParam2CommandListData()
+        {
             if (gCommandListData.Param2Type == CommandListParamType.TrueFalse)
             {
                 Param2Button.Visible = false;
@@ -38,10 +45,11 @@ namespace FullAutomationSupportSystem
                 Param2ComboBox.Items.Add("true");
                 Param2ComboBox.Items.Add("false");
                 Param2ComboBox.Text = "true";
+                //
+                Param2ComboBox.Text = gCommandData.Param2;
             }
-
-
         }
+
         private void Param1Button_Click_FileOpen(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();

@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Collections;
 using System.Runtime.Serialization;
+using System.Xml;
 
 namespace FullAutomationSupportSystem
 {
@@ -188,7 +189,40 @@ namespace FullAutomationSupportSystem
         {
             throw new NotImplementedException();
         }
-
         public ExtensionDataObject ExtensionData { get; set; }
+        public bool Save(string fileName)
+        {
+            if (File.Exists(fileName) == false) return false;
+            bool bSuccess = false;
+            using (var ms = new FileStream(fileName, FileMode.Create))
+            {
+                using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
+                {
+                    var serializer = new DataContractSerializer(typeof(TaskList));
+                    serializer.WriteObject(xw, this);
+                    bSuccess = true;
+                }
+            }
+            return bSuccess;
+        }
+        //未実装！！
+        public bool Load(string fileName)
+        {
+/*
+            if (File.Exists(fileName) == false) return false;
+            bool bSuccess = false;
+
+            using (var fs = new FileStream(fileName, FileMode.Open))
+            {
+                var serializer = new DataContractSerializer(typeof(TaskList));
+                TaskList taskList = (TaskList)serializer.ReadObject(fs);
+
+                TaskList
+                fs.Close();
+            }
+            return bSuccess;
+ */
+            return true;
+        }
     }
 }

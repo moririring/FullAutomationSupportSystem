@@ -17,24 +17,42 @@ namespace FullAutomationSupportSystem
         TaskList gTaskList = new TaskList();
         static public readonly string gApplicationIniFileName = @"Fass\Fass.ini";
         static public string gFileName ="";
-        //
-
+        //--------------------------------------------------------------------------
         //コンストラクタ
+        //--------------------------------------------------------------------------
         public MainForm()
         {
             InitializeComponent();
             TimerTextBox.Text = DateTime.Now.ToLongTimeString();
         }
+        //--------------------------------------------------------------------------
         //開始
+        //--------------------------------------------------------------------------
         private void MainForm_Load(object sender, EventArgs e)
         {
             var iniFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), gApplicationIniFileName);
-
+            if (File.Exists(iniFileName))
+            {
+                //読み込むファイルを開く
+                using (var fs = new FileStream(iniFileName, FileMode.Open))
+                {
+                    var serializer = new DataContractSerializer(typeof(IniData));
+                    var iniData = (IniData)serializer.ReadObject(fs);
+                    FileLoad(iniData.FileName);
+                    fs.Close();
+                }
+            }
         }
+        //--------------------------------------------------------------------------
         //終了
+        //--------------------------------------------------------------------------
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var iniFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), gApplicationIniFileName);
+            if(Directory.Exists(Path.GetDirectoryName(iniFileName)) ==false)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(iniFileName));
+            }
             using (var ms = new FileStream(iniFileName, FileMode.Create))
             {
                 using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
@@ -46,8 +64,29 @@ namespace FullAutomationSupportSystem
                 }
             }
         }
-
+        //--------------------------------------------------------------------------
+        //ファイルロード
+        //--------------------------------------------------------------------------
+        private void FileLoad(string fileName)
+        {
+            if (File.Exists(fileName) == false) return;
+            //読み込むファイルを開く
+            using (var fs = new FileStream(fileName, FileMode.Open))
+            {
+                var serializer = new DataContractSerializer(typeof(TaskList));
+                gTaskList = (TaskList)serializer.ReadObject(fs);
+                //Load処理
+                foreach (var task in gTaskList)
+                {
+                    AddDataGridView(task);
+                }
+                fs.Close();
+                gFileName = fileName;
+            }
+        }
+        //--------------------------------------------------------------------------
         //dataGridView追加
+        //--------------------------------------------------------------------------
         private void AddDataGridView(TaskData task)
         {
             int count = taskDataBindingSource.Add(task);
@@ -104,38 +143,19 @@ namespace FullAutomationSupportSystem
 
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            using (var ms = new FileStream(saveFileDialog1.FileName, FileMode.Create))
+            if (gTaskList.Save(saveFileDialog1.FileName))
             {
-                using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
-                {
-                    var serializer = new DataContractSerializer(typeof(TaskList));
-                    serializer.WriteObject(xw, gTaskList);
-                    gFileName = saveFileDialog1.FileName;
-                }
+                gFileName = saveFileDialog1.FileName;
             }
         }
-
         private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
         }
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            //読み込むファイルを開く
-            using (var fs = new FileStream(openFileDialog1.FileName, FileMode.Open))
-            {
-                var serializer = new DataContractSerializer(typeof(TaskList));
-                gTaskList = (TaskList)serializer.ReadObject(fs);
-                //Load処理
-                foreach (var task in gTaskList)
-                {
-                    AddDataGridView(task);
-                }
-                fs.Close();
-                gFileName = openFileDialog1.FileName;
-            }
+            FileLoad(openFileDialog1.FileName);
         }
-
 
     }
 }

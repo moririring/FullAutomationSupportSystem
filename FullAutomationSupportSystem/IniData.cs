@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FullAutomationSupportSystem
 {
-    class IniData
+    public class IniData
     {
         public string FileName { set; get; }
     }
