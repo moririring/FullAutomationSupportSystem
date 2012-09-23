@@ -48,6 +48,15 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //一時ファイルをセーブして、比較する出力場所はTEMP
+            //(gTaskList.Save(saveFileDialog1.FileName))
+
+            if (MessageBox.Show("終了してもいいですか？", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+
+
             var iniFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), gApplicationIniFileName);
             if(Directory.Exists(Path.GetDirectoryName(iniFileName)) ==false)
             {

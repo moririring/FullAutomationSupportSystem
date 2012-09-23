@@ -170,7 +170,7 @@
             this.ファイルFToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(761, 26);
+            this.menuStrip1.Size = new System.Drawing.Size(761, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -185,13 +185,13 @@
             this.toolStripSeparator2,
             this.ExitToolStripMenuItem});
             this.ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
-            this.ファイルFToolStripMenuItem.Size = new System.Drawing.Size(85, 22);
+            this.ファイルFToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.ファイルFToolStripMenuItem.Text = "ファイル(&F)";
             // 
             // AddTaskToolStripMenuItem
             // 
             this.AddTaskToolStripMenuItem.Name = "AddTaskToolStripMenuItem";
-            this.AddTaskToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.AddTaskToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.AddTaskToolStripMenuItem.Text = "新しいタスク(&T)...";
             this.AddTaskToolStripMenuItem.Click += new System.EventHandler(this.AddTaskToolStripMenuItem_Click);
             // 
@@ -199,39 +199,39 @@
             // 
             this.OpenFileToolStripMenuItem.Name = "OpenFileToolStripMenuItem";
             this.OpenFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.OpenFileToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.OpenFileToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.OpenFileToolStripMenuItem.Text = "ファイルを開く(&O)...";
             this.OpenFileToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(236, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
             // 
             // 保存SToolStripMenuItem
             // 
             this.保存SToolStripMenuItem.Name = "保存SToolStripMenuItem";
             this.保存SToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.保存SToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.保存SToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.保存SToolStripMenuItem.Text = "保存(&S)";
             // 
             // NameSaveToolStripMenuItem
             // 
             this.NameSaveToolStripMenuItem.Name = "NameSaveToolStripMenuItem";
-            this.NameSaveToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.NameSaveToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.NameSaveToolStripMenuItem.Text = "名前を付けて保存(&A)...";
             this.NameSaveToolStripMenuItem.Click += new System.EventHandler(this.NameSaveToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(236, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(188, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
             this.ExitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.ExitToolStripMenuItem.Text = "終了(&X)";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -257,11 +257,11 @@
             this.Run});
             this.dataGridView1.DataSource = this.taskDataBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 79);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 77);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 21;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(761, 295);
+            this.dataGridView1.Size = new System.Drawing.Size(761, 297);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
@@ -287,7 +287,7 @@
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.TimerTextBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 26);
+            this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(761, 53);
             this.panel1.TabIndex = 10;
