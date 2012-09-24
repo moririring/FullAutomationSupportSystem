@@ -11,9 +11,15 @@ namespace FullAutomationSupportSystem
 {
     public partial class RunForm : Form
     {
-        public RunForm()
+        private TaskList gTaskList = null;
+        public RunForm(TaskList list)
         {
             InitializeComponent();
+            gTaskList = list;
+        }
+        public void SetIndex(int index)
+        {
+            //gTaskList[index / gTaskList.C
         }
     }
 }

@@ -6,6 +6,7 @@ using System.IO;
 using System.Collections;
 using System.Runtime.Serialization;
 using System.Xml;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace FullAutomationSupportSystem
 {
@@ -118,7 +119,7 @@ namespace FullAutomationSupportSystem
     }
 
     [DataContract(Name = "タスクリストクラス")]
-    public class TaskList : IEnumerable<TaskData>, IList<TaskData>
+    public class TaskList : IEnumerable<TaskData>, IList<TaskData>, ICloneable
     {
         [DataMember(Name = "タスクデータリスト")]
         private List<TaskData> taskDataList = new List<TaskData>();
@@ -221,6 +222,19 @@ namespace FullAutomationSupportSystem
                 bSuccess = true;
             }
             return bSuccess;
+        }
+
+        public object Clone()
+        {
+            object clone = null;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(stream, this);
+                stream.Position = 0;
+                clone = formatter.Deserialize(stream);
+            }
+            return clone;
         }
     }
 }

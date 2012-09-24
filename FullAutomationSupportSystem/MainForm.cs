@@ -221,6 +221,41 @@ namespace FullAutomationSupportSystem
             taskDataBindingSource.Clear();
             gFileName = "";
         }
+        //--------------------------------------------------------------------------
+        //実行
+        //--------------------------------------------------------------------------
+        private RunForm gRunForm = null;
+        private void RunButton_Click(object sender, EventArgs e)
+        {
+            RunButton.Enabled = false;
+            backgroundWorker1.RunWorkerAsync();
+            gRunForm = new RunForm((TaskList)gTaskList.Clone());
+            gRunForm.Show();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            int counter = 0;
+            foreach (var task in gTaskList)
+            {
+                foreach(var command in task.CommandDataList)
+                {
+                    CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
+                    backgroundWorker1.ReportProgress(counter++);
+                }
+            }
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //!Nice Index 
+            gRunForm.SetIndex(e.ProgressPercentage);
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
 
 
     }
