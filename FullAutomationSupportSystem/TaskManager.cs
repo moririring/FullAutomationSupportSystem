@@ -13,6 +13,11 @@ namespace FullAutomationSupportSystem
     [DataContract(Name = "コマンドデータクラス")]
     public class CommandData
     {
+        public CommandData()
+        {
+            Param1 = "";
+            Param2 = "";
+        }
         [DataMember(Name = "チェック")]
         public bool Checked { get; set; }
         [DataMember(Name = "タイプ")]
@@ -117,7 +122,6 @@ namespace FullAutomationSupportSystem
         [DataMember(Name = "コマンドデータリスト")]
         public CommandList CommandDataList = new CommandList();
     }
-
     [DataContract(Name = "タスクリストクラス")]
     public class TaskList : IEnumerable<TaskData>, IList<TaskData>, ICloneable
     {
@@ -226,13 +230,13 @@ namespace FullAutomationSupportSystem
 
         public object Clone()
         {
-            object clone = null;
+            var clone = new TaskList();
             using (MemoryStream stream = new MemoryStream())
             {
-                BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(stream, this);
+                var serializer = new DataContractSerializer(typeof(TaskList));
+                serializer.WriteObject(stream, this);
                 stream.Position = 0;
-                clone = formatter.Deserialize(stream);
+                clone = (TaskList)serializer.ReadObject(stream);
             }
             return clone;
         }

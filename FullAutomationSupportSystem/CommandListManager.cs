@@ -100,7 +100,8 @@ namespace FullAutomationSupportSystem
             if (param2 == "true")
             {
             }
-            Process.Start(param1);
+            var process = Process.Start(param1);
+            process.WaitForExit();
         }
     }
 }

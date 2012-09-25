@@ -28,26 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.NowTaskTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.NowCommandTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.NextCommandTextBox = new System.Windows.Forms.TextBox();
+            this.CancelButton = new System.Windows.Forms.Button();
+            this.RunListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // textBox1
+            // NowTaskTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(128, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(100, 19);
-            this.textBox1.TabIndex = 0;
+            this.NowTaskTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.NowTaskTextBox.Location = new System.Drawing.Point(128, 12);
+            this.NowTaskTextBox.Name = "NowTaskTextBox";
+            this.NowTaskTextBox.ReadOnly = true;
+            this.NowTaskTextBox.Size = new System.Drawing.Size(209, 19);
+            this.NowTaskTextBox.TabIndex = 0;
             // 
             // label1
             // 
@@ -67,13 +70,15 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "現在実行中のコマンド";
             // 
-            // textBox3
+            // NowCommandTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(128, 37);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(100, 19);
-            this.textBox3.TabIndex = 3;
+            this.NowCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.NowCommandTextBox.Location = new System.Drawing.Point(128, 37);
+            this.NowCommandTextBox.Name = "NowCommandTextBox";
+            this.NowCommandTextBox.ReadOnly = true;
+            this.NowCommandTextBox.Size = new System.Drawing.Size(209, 19);
+            this.NowCommandTextBox.TabIndex = 3;
             // 
             // label3
             // 
@@ -84,61 +89,80 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "次回実行のコマンド";
             // 
-            // textBox4
+            // NextCommandTextBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(128, 62);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(100, 19);
-            this.textBox4.TabIndex = 5;
+            this.NextCommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.NextCommandTextBox.Location = new System.Drawing.Point(128, 62);
+            this.NextCommandTextBox.Name = "NextCommandTextBox";
+            this.NextCommandTextBox.ReadOnly = true;
+            this.NextCommandTextBox.Size = new System.Drawing.Size(209, 19);
+            this.NextCommandTextBox.TabIndex = 5;
             // 
-            // button1
+            // CancelButton
             // 
-            this.button1.Location = new System.Drawing.Point(234, 60);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "キャンセル";
-            this.button1.UseVisualStyleBackColor = true;
+            this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CancelButton.Location = new System.Drawing.Point(343, 60);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(75, 23);
+            this.CancelButton.TabIndex = 7;
+            this.CancelButton.Text = "キャンセル";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // listView1
+            // RunListView
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
+            this.RunListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.RunListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2,
-            this.columnHeader3});
-            this.listView1.Location = new System.Drawing.Point(14, 98);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(307, 152);
-            this.listView1.TabIndex = 8;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "タスク";
+            this.columnHeader3,
+            this.columnHeader4});
+            this.RunListView.FullRowSelect = true;
+            this.RunListView.GridLines = true;
+            this.RunListView.HideSelection = false;
+            this.RunListView.Location = new System.Drawing.Point(14, 98);
+            this.RunListView.Name = "RunListView";
+            this.RunListView.Size = new System.Drawing.Size(404, 170);
+            this.RunListView.TabIndex = 8;
+            this.RunListView.UseCompatibleStateImageBehavior = false;
+            this.RunListView.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "コマンド";
+            this.columnHeader2.Text = "名前";
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "成功";
+            this.columnHeader3.Text = "中身";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 282);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(430, 22);
+            this.statusStrip1.TabIndex = 9;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "成功";
             // 
             // RunForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 262);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(430, 304);
+            this.Controls.Add(this.RunListView);
+            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.NextCommandTextBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.NowCommandTextBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.NowTaskTextBox);
+            this.Controls.Add(this.statusStrip1);
             this.Name = "RunForm";
             this.Text = "RunForm";
             this.ResumeLayout(false);
@@ -148,17 +172,18 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox NowTaskTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox NowCommandTextBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.TextBox NextCommandTextBox;
+        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.ListView RunListView;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
 
     }
 }

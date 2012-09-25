@@ -231,6 +231,7 @@ namespace FullAutomationSupportSystem
             backgroundWorker1.RunWorkerAsync();
             gRunForm = new RunForm((TaskList)gTaskList.Clone());
             gRunForm.Show();
+            //gRunForm.Disposed += EventHandler<closeEvent>;
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -240,21 +241,32 @@ namespace FullAutomationSupportSystem
             {
                 foreach(var command in task.CommandDataList)
                 {
-                    CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
                     backgroundWorker1.ReportProgress(counter++);
+                    CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
                 }
             }
         }
-
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //!Nice Index 
             gRunForm.SetIndex(e.ProgressPercentage);
         }
-
+        public void Cancel()
+        {
+            backgroundWorker1.CancelAsync();
+        }
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            if (e.Error != null)
+            {
+            }
+            else if (e.Cancelled)
+            {
+            }
+            else
+            {
+                //gRunForm.Close();
+                RunButton.Enabled = true;
+            }
         }
 
 
