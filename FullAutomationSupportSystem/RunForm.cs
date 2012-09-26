@@ -16,6 +16,7 @@ namespace FullAutomationSupportSystem
         {
             InitializeComponent();
             gTaskList = list;
+            backgroundWorker1.RunWorkerAsync();
         }
         public void SetIndex(int index)
         {
@@ -59,7 +60,40 @@ namespace FullAutomationSupportSystem
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
+            CancelButton.Enabled = false;
+            backgroundWorker1.CancelAsync();
+        }
 
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            int counter = 0;
+            foreach (var task in gTaskList)
+            {
+                foreach (var command in task.CommandDataList)
+                {
+                    backgroundWorker1.ReportProgress(counter++);
+                    CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
+                }
+            }
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+           SetIndex(e.ProgressPercentage);
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+            }
+            else if (e.Cancelled)
+            {
+            }
+            else
+            {
+                this.Close();
+            }
         }
     }
 }

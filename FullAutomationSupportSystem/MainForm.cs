@@ -228,45 +228,18 @@ namespace FullAutomationSupportSystem
         private void RunButton_Click(object sender, EventArgs e)
         {
             RunButton.Enabled = false;
-            backgroundWorker1.RunWorkerAsync();
             gRunForm = new RunForm((TaskList)gTaskList.Clone());
             gRunForm.Show();
-            //gRunForm.Disposed += EventHandler<closeEvent>;
+            gRunForm.Disposed += new EventHandler(gRunForm_Disposed);
+        }
+        void gRunForm_Disposed(object sender, EventArgs e)
+        {
+            RunButton.Enabled = true;
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void panel2_Paint(object sender, PaintEventArgs e)
         {
-            int counter = 0;
-            foreach (var task in gTaskList)
-            {
-                foreach(var command in task.CommandDataList)
-                {
-                    backgroundWorker1.ReportProgress(counter++);
-                    CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
-                }
-            }
-        }
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            gRunForm.SetIndex(e.ProgressPercentage);
-        }
-        public void Cancel()
-        {
-            backgroundWorker1.CancelAsync();
-        }
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-            }
-            else if (e.Cancelled)
-            {
-            }
-            else
-            {
-                //gRunForm.Close();
-                RunButton.Enabled = true;
-            }
+
         }
 
 

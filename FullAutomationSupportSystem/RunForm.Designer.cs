@@ -38,8 +38,9 @@
             this.RunListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // NowTaskTextBox
@@ -137,6 +138,10 @@
             // 
             this.columnHeader3.Text = "中身";
             // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "成功";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 282);
@@ -145,9 +150,13 @@
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // columnHeader4
+            // backgroundWorker1
             // 
-            this.columnHeader4.Text = "成功";
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // RunForm
             // 
@@ -164,7 +173,7 @@
             this.Controls.Add(this.NowTaskTextBox);
             this.Controls.Add(this.statusStrip1);
             this.Name = "RunForm";
-            this.Text = "RunForm";
+            this.Text = "実行中";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,6 +193,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
 
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Diagnostics;
+using System.IO;
 
 namespace FullAutomationSupportSystem
 {
@@ -51,7 +52,7 @@ namespace FullAutomationSupportSystem
                  Type = CommandListType.Bat,
                  Name = "バッチ実行",
                  CommandListTxt = "バッチを実行します", 
-                 Param1Txt = "バッチファイルのフルパスを入力してください",
+                 Param1Txt = "バッチファイルのフルパスを入力してください。\r\n空白を入れればパラメータも入力出来ます。",
                  Param1Type = CommandListParamType.File,
                  Param2Txt = "true : pauseを無視する\r\nfalse : pauseを無視しない",
                  Param2Type = CommandListParamType.TrueFalse,
@@ -85,23 +86,57 @@ namespace FullAutomationSupportSystem
         }
 
         //実行処理（これだとデリケード使う意味なし）
-        delegate void CommandListRun(string param1, string param2);
-        public void Run(CommandListType idx, string param1, string param2)
+        delegate bool CommandListRun(string param1, string param2);
+        public bool Run(CommandListType idx, string param1, string param2)
         {
             CommandListRun run = null;
             if (idx == CommandListType.Bat)
             {
                 run = BatRun;
             }
-            run(param1, param2);
+            return run(param1, param2);
         }
-        static public void BatRun(string param1, string param2)
+        static public bool BatRun(string param1, string param2)
         {
+            var fileName = param1;
+            if (File.Exists(fileName) == false) return false;
             if (param2 == "true")
             {
+                //止まらないバッチを作る
+                var stream = "";
+                using (StreamReader sr = new StreamReader(param1))
+                {
+                    while (sr.EndOfStream == false)
+                    {
+                        string line = sr.ReadLine();
+                        //pauseはスルー
+                        if (line.Trim().ToLower() != "pause")
+                        {
+                            stream += line + Environment.NewLine;
+                        }
+                    }
+                    sr.Close();
+                }
+                //かぶらないファイル名を作る
+                int co = 0;
+                while (true)
+                {
+                    var sameName = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + co++ + Path.GetExtension(fileName));
+                    if (File.Exists(sameName) == false)
+                    {
+                        fileName = sameName;
+                        break;
+                    }
+                }
+                File.WriteAllText(fileName, stream);
             }
-            var process = Process.Start(param1);
+            var process = Process.Start(fileName);
             process.WaitForExit();
+            if (param2 == "true")
+            {
+                File.Delete(fileName);
+            }
+            return true;
         }
     }
 }

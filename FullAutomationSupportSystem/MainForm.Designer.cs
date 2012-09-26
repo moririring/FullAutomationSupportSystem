@@ -58,7 +58,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,6 +74,7 @@
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -79,7 +82,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(259, 29);
+            this.label4.Location = new System.Drawing.Point(129, 52);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(17, 12);
             this.label4.TabIndex = 8;
@@ -88,7 +91,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(259, 7);
+            this.label3.Location = new System.Drawing.Point(129, 30);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(17, 12);
             this.label3.TabIndex = 7;
@@ -96,7 +99,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(372, 27);
+            this.numericUpDown1.Location = new System.Drawing.Point(242, 50);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(52, 19);
             this.numericUpDown1.TabIndex = 6;
@@ -104,7 +107,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(282, 28);
+            this.checkBox2.Location = new System.Drawing.Point(152, 51);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(76, 16);
             this.checkBox2.TabIndex = 5;
@@ -113,7 +116,7 @@
             // 
             // TimerTextBox
             // 
-            this.TimerTextBox.Location = new System.Drawing.Point(477, 5);
+            this.TimerTextBox.Location = new System.Drawing.Point(347, 28);
             this.TimerTextBox.Name = "TimerTextBox";
             this.TimerTextBox.ReadOnly = true;
             this.TimerTextBox.Size = new System.Drawing.Size(61, 19);
@@ -124,7 +127,7 @@
             // 
             this.button2.AutoSize = true;
             this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button2.Location = new System.Drawing.Point(449, 2);
+            this.button2.Location = new System.Drawing.Point(319, 25);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(21, 22);
             this.button2.TabIndex = 3;
@@ -134,7 +137,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(372, 4);
+            this.comboBox1.Location = new System.Drawing.Point(242, 27);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(71, 20);
             this.comboBox1.TabIndex = 2;
@@ -143,7 +146,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(282, 6);
+            this.checkBox1.Location = new System.Drawing.Point(152, 29);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(84, 16);
             this.checkBox1.TabIndex = 1;
@@ -152,7 +155,7 @@
             // 
             // RunButton
             // 
-            this.RunButton.Location = new System.Drawing.Point(133, 6);
+            this.RunButton.Location = new System.Drawing.Point(3, 29);
             this.RunButton.Name = "RunButton";
             this.RunButton.Size = new System.Drawing.Size(124, 41);
             this.RunButton.TabIndex = 0;
@@ -276,11 +279,11 @@
             this.Run});
             this.dataGridView1.DataSource = this.taskDataBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 77);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 106);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 21;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(761, 297);
+            this.dataGridView1.Size = new System.Drawing.Size(761, 191);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
@@ -295,20 +298,12 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.checkBox3);
             this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.RunButton);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.checkBox1);
-            this.panel1.Controls.Add(this.numericUpDown1);
-            this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.checkBox2);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.TimerTextBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(761, 53);
+            this.panel1.Size = new System.Drawing.Size(761, 82);
             this.panel1.TabIndex = 10;
             // 
             // button3
@@ -330,12 +325,45 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // backgroundWorker1
+            // panel2
             // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.checkBox4);
+            this.panel2.Controls.Add(this.RunButton);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.TimerTextBox);
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.checkBox2);
+            this.panel2.Controls.Add(this.checkBox1);
+            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Controls.Add(this.numericUpDown1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 297);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(761, 77);
+            this.panel2.TabIndex = 11;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(52, 53);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(67, 16);
+            this.checkBox3.TabIndex = 9;
+            this.checkBox3.Text = "全チェック";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(52, 7);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(69, 16);
+            this.checkBox4.TabIndex = 9;
+            this.checkBox4.Text = "サイレント";
+            this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // checkedDataGridViewCheckBoxColumn
             // 
@@ -402,6 +430,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(761, 396);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
@@ -415,6 +444,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -469,6 +500,8 @@
         private System.Windows.Forms.DataGridViewButtonColumn Run;
         private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.CheckBox checkBox4;
     }
 }
