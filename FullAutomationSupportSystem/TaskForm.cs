@@ -27,9 +27,25 @@ namespace FullAutomationSupportSystem
             {
                 AddDataGridView(command);
             }
-            NameTextBox.Text = gNamePlease;
+            if (string.IsNullOrWhiteSpace(gTaskData.Name))
+            {
+                NameTextBox.Text = gNamePlease;
+            }
+            else
+            {
+                NameTextBox.Text = gTaskData.Name;
+            }
+            if (string.IsNullOrWhiteSpace(gTaskData.ExportFolder))
+            {
+                ExportFolderTextBox.Text = "NewTask";
+            }
+            else
+            {
+                ExportFolderTextBox.Text = gTaskData.ExportFolder;
+            }
             ProjectFolderTextBox.Text = gTaskData.ProjectFolder;
-            LogFolderComboBox.Text = gTaskData.ProjectFolder;
+            LogFolderComboBox.Text = gTaskData.LogFolder;
+            RepositoryTextBox.Text = gTaskData.Repository;
             NameTextBox.Focus();
 
             foreach (CommandListData commandList in CommandListManager.GetInstance())
@@ -65,6 +81,7 @@ namespace FullAutomationSupportSystem
             this.DialogResult = DialogResult.OK; 
 
             gTaskData.Name = NameTextBox.Text;
+            gTaskData.ExportFolder = ExportFolderTextBox.Text;
             gTaskData.ProjectFolder = ProjectFolderTextBox.Text;
             gTaskData.LogFolder = LogFolderComboBox.Text;
             gTaskData.Repository = RepositoryTextBox.Text;

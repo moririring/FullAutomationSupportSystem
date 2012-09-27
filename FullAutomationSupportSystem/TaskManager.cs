@@ -109,6 +109,8 @@ namespace FullAutomationSupportSystem
         public bool Checked { get; set; }
         [DataMember(Name = "名前")]
         public string Name { get; set; }
+        [DataMember(Name = "出力フォルダ名")]
+        public string ExportFolder { get; set; }
         [DataMember(Name = "プロジェクトフォルダ")]
         public string ProjectFolder { get; set; }
         [DataMember(Name = "ログフォルダ")]

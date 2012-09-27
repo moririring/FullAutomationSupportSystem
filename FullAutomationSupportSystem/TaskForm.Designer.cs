@@ -64,6 +64,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.CommandTextBox = new System.Windows.Forms.TextBox();
             this.CommandComboBox = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ExportFolderTextBox = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).BeginInit();
@@ -178,6 +180,8 @@
             // panel6
             // 
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel6.Controls.Add(this.label4);
+            this.panel6.Controls.Add(this.ExportFolderTextBox);
             this.panel6.Controls.Add(this.button2);
             this.panel6.Controls.Add(this.button1);
             this.panel6.Controls.Add(this.label1);
@@ -215,7 +219,7 @@
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.AutoSize = true;
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.Location = new System.Drawing.Point(726, 2);
+            this.button1.Location = new System.Drawing.Point(726, 27);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(21, 22);
             this.button1.TabIndex = 15;
@@ -296,6 +300,7 @@
             this.RepositoryTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.RepositoryTextBox.Location = new System.Drawing.Point(81, 79);
             this.RepositoryTextBox.Name = "RepositoryTextBox";
+            this.RepositoryTextBox.ReadOnly = true;
             this.RepositoryTextBox.Size = new System.Drawing.Size(666, 19);
             this.RepositoryTextBox.TabIndex = 8;
             // 
@@ -324,7 +329,7 @@
             this.ProjectFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.ProjectFolderTextBox.Location = new System.Drawing.Point(82, 29);
             this.ProjectFolderTextBox.Name = "ProjectFolderTextBox";
-            this.ProjectFolderTextBox.Size = new System.Drawing.Size(665, 19);
+            this.ProjectFolderTextBox.Size = new System.Drawing.Size(638, 19);
             this.ProjectFolderTextBox.TabIndex = 4;
             // 
             // label5
@@ -343,7 +348,7 @@
             this.NameTextBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
             this.NameTextBox.Location = new System.Drawing.Point(82, 4);
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(635, 19);
+            this.NameTextBox.Size = new System.Drawing.Size(310, 19);
             this.NameTextBox.TabIndex = 0;
             // 
             // panel1
@@ -436,6 +441,25 @@
             this.CommandComboBox.TabIndex = 19;
             this.CommandComboBox.SelectedIndexChanged += new System.EventHandler(this.CommandComboBox_SelectedIndexChanged);
             // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(403, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 12);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "英数フォルダ名";
+            // 
+            // ExportFolderTextBox
+            // 
+            this.ExportFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
+            this.ExportFolderTextBox.Location = new System.Drawing.Point(485, 4);
+            this.ExportFolderTextBox.Name = "ExportFolderTextBox";
+            this.ExportFolderTextBox.Size = new System.Drawing.Size(262, 19);
+            this.ExportFolderTextBox.TabIndex = 17;
+            // 
             // TaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -501,5 +525,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn param1DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn param2DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn Run;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox ExportFolderTextBox;
     }
 }

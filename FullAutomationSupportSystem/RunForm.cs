@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace FullAutomationSupportSystem
 {
@@ -18,8 +19,48 @@ namespace FullAutomationSupportSystem
             gTaskList = list;
             backgroundWorker1.RunWorkerAsync();
         }
-        public void SetIndex(int index)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
+            CancelButton.Enabled = false;
+            backgroundWorker1.CancelAsync();
+        }
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            int counter = 0;
+            foreach (var task in gTaskList)
+            {
+                //ファイル生成
+                var logFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + "RunLog.txt");
+                if (Directory.Exists(Path.GetDirectoryName(logFile)) == false)
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(logFile));
+                }
+                using (var sw = new StreamWriter(logFile, false, Encoding.UTF8))
+                {
+                    var msg = task.Name + " : " + task.ProjectFolder;
+                    sw.WriteLine("Start!!");
+                    sw.WriteLine(msg);
+                }
+                foreach (var command in task.CommandDataList)
+                {
+                    backgroundWorker1.ReportProgress(counter++);
+                    CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
+                    using (var sw = new StreamWriter(logFile, true, Encoding.UTF8))
+                    {
+                        var msg = command.Name  + " : " + command.Param1  + " : " + command.Param2;
+                        sw.WriteLine(msg);
+                    }
+                }
+                using (var sw = new StreamWriter(logFile, true, Encoding.UTF8))
+                {
+                    sw.WriteLine("End!!");
+                }
+            }
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            var index = e.ProgressPercentage;
             var co = 0;
             var max = 0;
             while (true)
@@ -45,7 +86,7 @@ namespace FullAutomationSupportSystem
                         NextCommandTextBox.Text = "End";
                     }
                     var clv = RunListView.Items.Add(gTaskList[co].CommandDataList[index - max].Name);
-                    var command = gTaskList[co].CommandDataList[index - max].Param1 + " : " + 
+                    var command = gTaskList[co].CommandDataList[index - max].Param1 + " : " +
                         gTaskList[co].CommandDataList[index - max].Param2;
                     clv.SubItems.Add(command);
                     clv.SubItems.Add("");
@@ -55,31 +96,6 @@ namespace FullAutomationSupportSystem
                 max += gTaskList[co].CommandDataList.Count;
                 co++;
             }
-
-        }
-
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            CancelButton.Enabled = false;
-            backgroundWorker1.CancelAsync();
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            int counter = 0;
-            foreach (var task in gTaskList)
-            {
-                foreach (var command in task.CommandDataList)
-                {
-                    backgroundWorker1.ReportProgress(counter++);
-                    CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
-                }
-            }
-        }
-
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-           SetIndex(e.ProgressPercentage);
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -92,8 +108,13 @@ namespace FullAutomationSupportSystem
             }
             else
             {
-                this.Close();
             }
+            //
+            foreach (var task in gTaskList)
+            {
+            }
+
+            this.Close();
         }
     }
 }

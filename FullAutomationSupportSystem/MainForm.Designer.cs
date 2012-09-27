@@ -59,7 +59,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,6 +69,7 @@
             this.spanDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -279,11 +279,11 @@
             this.Run});
             this.dataGridView1.DataSource = this.taskDataBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 106);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 82);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 21;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(761, 191);
+            this.dataGridView1.Size = new System.Drawing.Size(761, 215);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
@@ -298,12 +298,12 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.checkBox3);
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(761, 82);
+            this.panel1.Size = new System.Drawing.Size(761, 58);
             this.panel1.TabIndex = 10;
             // 
             // button3
@@ -344,16 +344,6 @@
             this.panel2.Size = new System.Drawing.Size(761, 77);
             this.panel2.TabIndex = 11;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(52, 53);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(67, 16);
-            this.checkBox3.TabIndex = 9;
-            this.checkBox3.Text = "全チェック";
-            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // checkBox4
             // 
@@ -424,6 +414,15 @@
             // 
             this.commandListDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandListData);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(133, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(124, 41);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "ログ...";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -443,7 +442,6 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
@@ -500,8 +498,8 @@
         private System.Windows.Forms.DataGridViewButtonColumn Run;
         private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.Button button1;
     }
 }
