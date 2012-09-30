@@ -29,32 +29,38 @@ namespace FullAutomationSupportSystem
             int counter = 0;
             foreach (var task in gTaskList)
             {
-                //ファイル生成
-                var logFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + "RunLog.txt");
-                if (Directory.Exists(Path.GetDirectoryName(logFile)) == false)
+                //ログテキストファイル生成
+                var logTxtFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + "RunLog.txt");
+                if (Directory.Exists(Path.GetDirectoryName(logTxtFile)) == false)
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(logFile));
+                    Directory.CreateDirectory(Path.GetDirectoryName(logTxtFile));
                 }
-                using (var sw = new StreamWriter(logFile, false, Encoding.UTF8))
+                using (var sw = new StreamWriter(logTxtFile, false, Encoding.UTF8))
                 {
-                    var msg = task.Name + " : " + task.ProjectFolder;
                     sw.WriteLine("Start!!");
-                    sw.WriteLine(msg);
                 }
                 foreach (var command in task.CommandDataList)
                 {
                     backgroundWorker1.ReportProgress(counter++);
                     CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
-                    using (var sw = new StreamWriter(logFile, true, Encoding.UTF8))
+                    using (var sw = new StreamWriter(logTxtFile, true, Encoding.UTF8))
                     {
                         var msg = command.Name  + " : " + command.Param1  + " : " + command.Param2;
-                        sw.WriteLine(msg);
+                        sw.WriteLine(msg + " " + DateTime.Now);
                     }
                 }
-                using (var sw = new StreamWriter(logFile, true, Encoding.UTF8))
+                using (var sw = new StreamWriter(logTxtFile, true, Encoding.UTF8))
                 {
                     sw.WriteLine("End!!");
                 }
+                //ログcsvファイル生成
+                var logCSVFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + "RunLog.csv");
+                using (var sw = new StreamWriter(logCSVFile, true, Encoding.UTF8))
+                {
+                    //タスク名,前回実行結果,最終更新時間
+                    sw.WriteLine(task.Name + "," +  DateTime.Now);
+                }
+
             }
         }
 

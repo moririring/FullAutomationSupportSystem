@@ -123,6 +123,8 @@ namespace FullAutomationSupportSystem
         public bool Span { get; set; }
         [DataMember(Name = "コマンドデータリスト")]
         public CommandList CommandDataList = new CommandList();
+
+        public DateTime LastRun { get; set; }
     }
     [DataContract(Name = "タスクリストクラス")]
     public class TaskList : IEnumerable<TaskData>, IList<TaskData>, ICloneable

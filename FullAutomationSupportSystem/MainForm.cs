@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Xml;
+using System.Diagnostics;
 
 namespace FullAutomationSupportSystem
 {
@@ -122,7 +123,8 @@ namespace FullAutomationSupportSystem
         private void AddDataGridView(TaskData task)
         {
             int count = taskDataBindingSource.Add(task);
-            dataGridView1[dataGridView1.Columns["run"].Index, count].Value = "実行";
+            dataGridView1[dataGridView1.Columns["Log"].Index, count].Value = "ログ";
+            dataGridView1[dataGridView1.Columns["Run"].Index, count].Value = "実行";
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -240,6 +242,21 @@ namespace FullAutomationSupportSystem
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //実行を押された
+            if (e.ColumnIndex == dataGridView1.Columns["ProjectFolder"].Index)
+            {
+                var task = gTaskList[e.RowIndex];
+                Process.Start(task.ProjectFolder);
+            }
         }
 
 
