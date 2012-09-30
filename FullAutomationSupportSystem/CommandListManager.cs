@@ -86,8 +86,8 @@ namespace FullAutomationSupportSystem
         }
 
         //実行処理（これだとデリケード使う意味なし）
-        delegate bool CommandListRun(string param1, string param2);
-        public bool Run(CommandListType idx, string param1, string param2)
+        delegate string CommandListRun(string param1, string param2);
+        public string Run(CommandListType idx, string param1, string param2)
         {
             CommandListRun run = null;
             if (idx == CommandListType.Bat)
@@ -96,10 +96,10 @@ namespace FullAutomationSupportSystem
             }
             return run(param1, param2);
         }
-        static public bool BatRun(string param1, string param2)
+        static public string BatRun(string param1, string param2)
         {
             var fileName = param1;
-            if (File.Exists(fileName) == false) return false;
+            if (File.Exists(fileName) == false) return "ファイルが存在しない";
             if (param2 == "true")
             {
                 //止まらないバッチを作る
@@ -128,6 +128,8 @@ namespace FullAutomationSupportSystem
                         break;
                     }
                 }
+                //空っぽファイル
+                if (stream == "") return "ファイルの中身が空";
                 File.WriteAllText(fileName, stream);
             }
             var process = Process.Start(fileName);
@@ -136,7 +138,7 @@ namespace FullAutomationSupportSystem
             {
                 File.Delete(fileName);
             }
-            return true;
+            return "成功";
         }
     }
 }

@@ -42,11 +42,11 @@ namespace FullAutomationSupportSystem
                 foreach (var command in task.CommandDataList)
                 {
                     backgroundWorker1.ReportProgress(counter++);
-                    CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
+                    var runMsg = CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
                     using (var sw = new StreamWriter(logTxtFile, true, Encoding.UTF8))
                     {
-                        var msg = command.Name  + " : " + command.Param1  + " : " + command.Param2;
-                        sw.WriteLine(msg + " " + DateTime.Now);
+                        var msg = command.Name + " : " + command.Param1 + " : " + command.Param2 + " : " + runMsg + " : " + DateTime.Now;
+                        sw.WriteLine(msg);
                     }
                 }
                 using (var sw = new StreamWriter(logTxtFile, true, Encoding.UTF8))

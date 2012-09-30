@@ -118,6 +118,19 @@ namespace FullAutomationSupportSystem
             }
         }
         //--------------------------------------------------------------------------
+        //Task編集
+        //--------------------------------------------------------------------------
+        private void TaskEdit(int idx)
+        {
+            var editTask = (TaskData)taskDataBindingSource[idx];
+            var form = new TaskForm(editTask);
+            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                taskDataBindingSource[idx] = editTask;
+                gTaskList[idx] = editTask;
+            }
+        }
+        //--------------------------------------------------------------------------
         //dataGridView追加
         //--------------------------------------------------------------------------
         private void AddDataGridView(TaskData task)
@@ -130,18 +143,9 @@ namespace FullAutomationSupportSystem
         {
             TimerTextBox.Text = DateTime.Now.ToLongTimeString();
         }
-        private void FolderAddToolStripButton_Click(object sender, EventArgs e)
-        {
-        }
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var editTask = (TaskData)taskDataBindingSource[e.RowIndex];
-            var form = new TaskForm(editTask);
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                taskDataBindingSource[e.RowIndex] = editTask;
-                gTaskList[e.RowIndex] = editTask;
-            }
+            TaskEdit(e.RowIndex);
         }
         private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -162,9 +166,7 @@ namespace FullAutomationSupportSystem
                     AddDataGridView(editTask);
                 }
             }
-
         }
-
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -238,17 +240,6 @@ namespace FullAutomationSupportSystem
         {
             RunButton.Enabled = true;
         }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //実行を押された
@@ -257,6 +248,24 @@ namespace FullAutomationSupportSystem
                 var task = gTaskList[e.RowIndex];
                 Process.Start(task.ProjectFolder);
             }
+        }
+
+        private void TaskCopyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TaskEditToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void TaskDeleteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                TaskEdit(row.Index);
+            }
+
         }
 
 
