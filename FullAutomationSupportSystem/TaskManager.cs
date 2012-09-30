@@ -153,11 +153,6 @@ namespace FullAutomationSupportSystem
             throw new NotImplementedException();
         }
 
-        public void RemoveAt(int index)
-        {
-            throw new NotImplementedException();
-        }
-
         public TaskData this[int index]
         {
             get { return taskDataList[index]; }
@@ -196,8 +191,13 @@ namespace FullAutomationSupportSystem
 
         public bool Remove(TaskData item)
         {
-            throw new NotImplementedException();
+            return taskDataList.Remove(item);
         }
+        public void RemoveAt(int index)
+        {
+            taskDataList.RemoveAt(index);
+        }
+
         public ExtensionDataObject ExtensionData { get; set; }
         public bool Save(string fileName)
         {

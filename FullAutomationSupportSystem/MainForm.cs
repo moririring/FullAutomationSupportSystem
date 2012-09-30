@@ -120,7 +120,7 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         //Task編集
         //--------------------------------------------------------------------------
-        private void TaskEdit(int idx)
+        private void EditTask(int idx)
         {
             var editTask = (TaskData)taskDataBindingSource[idx];
             var form = new TaskForm(editTask);
@@ -138,14 +138,6 @@ namespace FullAutomationSupportSystem
             int count = taskDataBindingSource.Add(task);
             dataGridView1[dataGridView1.Columns["Log"].Index, count].Value = "ログ";
             dataGridView1[dataGridView1.Columns["Run"].Index, count].Value = "実行";
-        }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            TimerTextBox.Text = DateTime.Now.ToLongTimeString();
-        }
-        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            TaskEdit(e.RowIndex);
         }
         private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -167,6 +159,16 @@ namespace FullAutomationSupportSystem
                 }
             }
         }
+        //--------------------------------------------------------------------------
+        //時間表示
+        //--------------------------------------------------------------------------
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            TimerTextBox.Text = DateTime.Now.ToLongTimeString();
+        }
+        //--------------------------------------------------------------------------
+        //終了
+        //--------------------------------------------------------------------------
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -257,15 +259,22 @@ namespace FullAutomationSupportSystem
 
         private void TaskEditToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                EditTask(row.Index);
+            }
         }
         private void TaskDeleteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
-                TaskEdit(row.Index);
+                gTaskList.RemoveAt(row.Index);
+                taskDataBindingSource.RemoveAt(row.Index);
             }
-
+        }
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            EditTask(e.RowIndex);
         }
 
 
