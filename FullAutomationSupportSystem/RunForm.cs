@@ -29,8 +29,33 @@ namespace FullAutomationSupportSystem
             int counter = 0;
             foreach (var task in gTaskList)
             {
+                var logHTMLFile = Path.Combine(task.LogFolder, "RunLog.html");
+                if (Directory.Exists(Path.GetDirectoryName(logHTMLFile)) == false)
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(logHTMLFile));
+                }
+                using (var sw = new StreamWriter(logHTMLFile, false, Encoding.UTF8))
+                {
+                    sw.WriteLine("<meta http-equiv='content-type' content='text/html; charset=UTF-8'>");
+                    sw.WriteLine("<table border='1' cellspacing='0' cellpadding='3'>");
+                    sw.WriteLine("<thead>");
+                    sw.WriteLine("<tr>");
+                    sw.WriteLine("<th>タスク名</th>");
+                    sw.WriteLine("<th>最終更新時間</th>");
+                    sw.WriteLine("</tr>");
+                    sw.WriteLine("</thead>");
+                    sw.WriteLine("<tbody>");
+                    sw.WriteLine("<tr>");
+                    sw.WriteLine("<td><a href = 'RunLog.txt'>新しいタスク</a></td>");
+                    sw.WriteLine("<td><a href = 'RunLog2.txt'>2012/09/30 19:21:07</a></td>");
+                    sw.WriteLine("</tr>");
+                    sw.WriteLine("</tbody>");
+                    sw.WriteLine("</table>");
+                }
+
+
                 //ログテキストファイル生成
-                var logTxtFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + "RunLog.txt");
+                var logTxtFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + "RunLogNow.txt");
                 if (Directory.Exists(Path.GetDirectoryName(logTxtFile)) == false)
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(logTxtFile));
@@ -54,7 +79,7 @@ namespace FullAutomationSupportSystem
                     sw.WriteLine("End!!");
                 }
                 //ログcsvファイル生成
-                var logCSVFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + "RunLog.csv");
+                var logCSVFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + "RunLogHistory.txt");
                 using (var sw = new StreamWriter(logCSVFile, true, Encoding.UTF8))
                 {
                     //タスク名,前回実行結果,最終更新時間
