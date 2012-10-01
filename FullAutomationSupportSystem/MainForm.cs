@@ -17,7 +17,8 @@ namespace FullAutomationSupportSystem
     {
         TaskList gTaskList = new TaskList();
         static public readonly string gApplicationIniFileName = @"Fass\Fass.ini";
-        static public string gFileName ="";
+        static public readonly string gSaveTempFileName = @"Fass\SaveTemp.txt";
+        static public string gFileName = "";
         //--------------------------------------------------------------------------
         //コンストラクタ
         //--------------------------------------------------------------------------
@@ -59,7 +60,7 @@ namespace FullAutomationSupportSystem
             //既存セーブファイルがあれば
             if (bSave == true && gFileName != "")
             {
-                var saveTempFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Fass\SaveTemp.txt");
+                var saveTempFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), gSaveTempFileName);
                 gTaskList.Save(saveTempFileName);
                 var sr1 = new StreamReader(saveTempFileName, Encoding.UTF8);
                 var sr2 = new StreamReader(gFileName, Encoding.UTF8);
@@ -70,6 +71,7 @@ namespace FullAutomationSupportSystem
                 }
                 sr1.Close();
                 sr2.Close();
+                File.Delete(saveTempFileName);
             }
             //セーブチェック
             if (bSave)
@@ -92,6 +94,7 @@ namespace FullAutomationSupportSystem
                     }
                 }
             }
+            //セーブ
             using (var ms = new FileStream(iniFileName, FileMode.Create))
             {
                 using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
@@ -143,6 +146,9 @@ namespace FullAutomationSupportSystem
         {
             //セルかどうかは位置で見るしかない？
         }
+        //--------------------------------------------------------------------------
+        //新しいタスク
+        //--------------------------------------------------------------------------
         private void AddTaskToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
@@ -230,33 +236,55 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         //実行
         //--------------------------------------------------------------------------
-        private RunForm gRunForm = null;
+        //private RunForm gRunForm = null;
         private void RunButton_Click(object sender, EventArgs e)
         {
             RunButton.Enabled = false;
-            gRunForm = new RunForm((TaskList)gTaskList.Clone());
-            gRunForm.Show();
-            gRunForm.Disposed += new EventHandler(gRunForm_Disposed);
+            var RunForm = new RunForm((TaskList)gTaskList.Clone());
+            RunForm.Show();
+            RunForm.Disposed += new EventHandler(gRunForm_Disposed);
         }
+        //--------------------------------------------------------------------------
+        //実行終了処理
+        //--------------------------------------------------------------------------
         void gRunForm_Disposed(object sender, EventArgs e)
         {
             RunButton.Enabled = true;
         }
+        //--------------------------------------------------------------------------
+        //セルクリック
+        //--------------------------------------------------------------------------
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //実行を押された
+            var task = gTaskList[e.RowIndex];
+            //実行
             if (e.ColumnIndex == dataGridView1.Columns["ProjectFolder"].Index)
             {
-                var task = gTaskList[e.RowIndex];
                 Process.Start(task.ProjectFolder);
             }
+            //ログ
+            else if (e.ColumnIndex == dataGridView1.Columns["Log"].Index)
+            {
+                var logName = Path.Combine(task.LogFolder, "RunLog.html");
+                if (File.Exists(logName))
+                {
+                    Process.Start(logName);
+                }
+                else
+                {
+                    MessageBox.Show(logName + "が見つかりません");
+                }
+            }
         }
-
+        //--------------------------------------------------------------------------
+        //タスクコピー
+        //--------------------------------------------------------------------------
         private void TaskCopyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
-
+        //--------------------------------------------------------------------------
+        //タスク編集
+        //--------------------------------------------------------------------------
         private void TaskEditToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
@@ -264,6 +292,16 @@ namespace FullAutomationSupportSystem
                 EditTask(row.Index);
             }
         }
+        //--------------------------------------------------------------------------
+        //タスク編集
+        //--------------------------------------------------------------------------
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            EditTask(e.RowIndex);
+        }
+        //--------------------------------------------------------------------------
+        //タスク削除
+        //--------------------------------------------------------------------------
         private void TaskDeleteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
@@ -271,10 +309,6 @@ namespace FullAutomationSupportSystem
                 gTaskList.RemoveAt(row.Index);
                 taskDataBindingSource.RemoveAt(row.Index);
             }
-        }
-        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            EditTask(e.RowIndex);
         }
 
 
