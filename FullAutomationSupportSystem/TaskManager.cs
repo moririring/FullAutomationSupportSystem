@@ -129,6 +129,96 @@ namespace FullAutomationSupportSystem
     [DataContract(Name = "タスクリストクラス")]
     public class TaskList : IEnumerable<TaskData>, IList<TaskData>, ICloneable
     {
+        readonly static public string RunLogHistoryName = "RunLogHistory" ;
+        readonly static public string RunLogNow = "RunLogNow";
+        readonly static public string RunLogHTML = "RunLog";
+        readonly static public Encoding RunLogEncoding = Encoding.UTF8;
+
+        public bool WriteRunLogHTML(bool first, TaskData task)
+        {
+            var logHTMLFile = Path.Combine(task.LogFolder, RunLogHTML + ".html");
+            if (Directory.Exists(Path.GetDirectoryName(logHTMLFile)) == false)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(logHTMLFile));
+            }
+            using (var sw = new StreamWriter(logHTMLFile, false, RunLogEncoding))
+            {
+                sw.WriteLine("<meta http-equiv='content-type' content='text/html; charset=UTF-8'>");
+                sw.WriteLine("<table border='1' cellspacing='0' cellpadding='3'>");
+                sw.WriteLine("<thead>");
+                sw.WriteLine("<tr>");
+                sw.WriteLine("<th>タスク名</th>");
+                sw.WriteLine("<th>最終更新時間</th>");
+                sw.WriteLine("</tr>");
+                sw.WriteLine("</thead>");
+                sw.WriteLine("<tbody>");
+                sw.WriteLine("<tr>");
+                var files = Directory.GetFiles(task.LogFolder, "RunLogHistory.txt", SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    var folder = Path.GetFileName(Path.GetDirectoryName(file));
+                    string logTime = "-";
+                    if (folder != task.ExportFolder || first == false)
+                    {
+                        string line = "";
+                        using (StreamReader sr = new StreamReader(file))
+                        {
+                            sr.ReadLine();
+                            line = sr.ReadLine();
+                        }
+                        logTime = line.Split(',')[0];
+                    }
+                    string taskName = "";
+                    var nowFile = file.Replace("RunLogHistory", "RunLogNow");
+                    using (StreamReader sr = new StreamReader(nowFile))
+                    {
+                        taskName = sr.ReadLine();
+                    }
+
+                    sw.WriteLine("<td><a href = '" + task.ExportFolder + "\\RunLogNow.txt'>" + taskName + "</a></td>");
+                    sw.WriteLine("<td><a href = '" + task.ExportFolder + "\\RunLogHistory.txt'>" + logTime + "</a></td>");
+                }
+                sw.WriteLine("</tr>");
+                sw.WriteLine("</tbody>");
+                sw.WriteLine("</table>");
+            }
+            return true;
+        }
+        public bool WriteRunLogNow(bool first, TaskData task, string write)
+        {
+            var logTxtFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + RunLogNow + ".txt");
+            if (Directory.Exists(Path.GetDirectoryName(logTxtFile)) == false)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(logTxtFile));
+            }
+            using (var sw = new StreamWriter(logTxtFile, !first, RunLogEncoding))
+            {
+                sw.WriteLine(write);
+            }
+            return true;
+        }
+        public bool WriteRunLogHistory(TaskData task, string write)
+        {
+            var logCSVFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + RunLogHistoryName + ".txt");
+
+            string ReadToEnd = "";
+            using (var sr = new StreamReader(logCSVFile))
+            {
+                sr.ReadLine();
+                while (sr.Peek() > -1)
+                {
+                    ReadToEnd += sr.ReadLine() + Environment.NewLine;
+                }
+            }
+            using (var sw = new StreamWriter(logCSVFile, false, RunLogEncoding))
+            {
+                sw.WriteLine("開始時間,終了時間,実行時間");
+                sw.WriteLine(write);
+                sw.WriteLine(ReadToEnd);
+            }
+            return true;
+        }
+
         [DataMember(Name = "タスクデータリスト")]
         private List<TaskData> taskDataList = new List<TaskData>();
         IEnumerator IEnumerable.GetEnumerator()
@@ -244,5 +334,6 @@ namespace FullAutomationSupportSystem
             }
             return clone;
         }
+
     }
 }

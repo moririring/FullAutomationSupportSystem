@@ -24,43 +24,6 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void HTMLWrite(bool bStart, StreamWriter sw, TaskData task)
         {
-            sw.WriteLine("<meta http-equiv='content-type' content='text/html; charset=UTF-8'>");
-            sw.WriteLine("<table border='1' cellspacing='0' cellpadding='3'>");
-            sw.WriteLine("<thead>");
-            sw.WriteLine("<tr>");
-            sw.WriteLine("<th>タスク名</th>");
-            sw.WriteLine("<th>最終更新時間</th>");
-            sw.WriteLine("</tr>");
-            sw.WriteLine("</thead>");
-            sw.WriteLine("<tbody>");
-            sw.WriteLine("<tr>");
-            var files = Directory.GetFiles(task.LogFolder, "RunLogHistory.txt", SearchOption.AllDirectories);
-            foreach (var file in files)
-            {
-                var folder = Path.GetFileName(Path.GetDirectoryName(file));
-                string logTime = "-";
-                if (folder != task.ExportFolder || bStart != false)
-                {
-                    string line = "";
-                    using (StreamReader sr = new StreamReader(file))
-                    {
-                        line = sr.ReadLine();
-                    }
-                    logTime = line.Split(',')[0];
-                }
-                string taskName = "";
-                var nowFile = file.Replace("RunLogNow.txt", "RunLogHistory.txt");
-                using (StreamReader sr = new StreamReader(nowFile))
-                {
-                    taskName = sr.ReadLine();
-                }
-
-                sw.WriteLine("<td><a href = '" + task.ExportFolder + "\\RunLogNow.txt'>" + taskName + "</a></td>");
-                sw.WriteLine("<td><a href = '" + task.ExportFolder + "\\RunLogHistory.txt'>" + logTime + "</a></td>");
-            }
-            sw.WriteLine("</tr>");
-            sw.WriteLine("</tbody>");
-            sw.WriteLine("</table>");
         }
         //--------------------------------------------------------------------------
         //HTML出力
@@ -75,50 +38,25 @@ namespace FullAutomationSupportSystem
             int counter = 0;
             foreach (var task in gTaskList)
             {
-                var logHTMLFile = Path.Combine(task.LogFolder, "RunLog.html");
-                if (Directory.Exists(Path.GetDirectoryName(logHTMLFile)) == false)
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(logHTMLFile));
-                }
-                using (var sw = new StreamWriter(logHTMLFile, false, Encoding.UTF8))
-                {
-                    HTMLWrite(true, sw, task);
-                }
+                var StartTime = DateTime.Now;
+                //HTML
+                gTaskList.WriteRunLogHTML(true, task);
                 //ログテキストファイル生成
-                var logTxtFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + "RunLogNow.txt");
-                if (Directory.Exists(Path.GetDirectoryName(logTxtFile)) == false)
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(logTxtFile));
-                }
-                using (var sw = new StreamWriter(logTxtFile, false, Encoding.UTF8))
-                {
-                    sw.WriteLine(task.Name);
-                }
+                gTaskList.WriteRunLogNow(true, task, task.Name);
                 foreach (var command in task.CommandDataList)
                 {
                     backgroundWorker1.ReportProgress(counter++);
                     var runMsg = CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
-                    using (var sw = new StreamWriter(logTxtFile, true, Encoding.UTF8))
-                    {
-                        var msg = command.Name + " : " + command.Param1 + " : " + command.Param2 + " : " + runMsg + " : " + DateTime.Now;
-                        sw.WriteLine(msg);
-                    }
+                    var msg = command.Name + " : " + command.Param1 + " : " + command.Param2 + " : " + runMsg + " : " + DateTime.Now;
+                    gTaskList.WriteRunLogNow(false, task, msg);
                 }
-                using (var sw = new StreamWriter(logTxtFile, true, Encoding.UTF8))
-                {
-                    sw.WriteLine("End!!");
-                }
+                gTaskList.WriteRunLogNow(false, task, "End!!");
                 //ログcsvファイル生成
-                var logCSVFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + "RunLogHistory.txt");
-                using (var sw = new StreamWriter(logCSVFile, true, Encoding.UTF8))
-                {
-                    //前回実行結果,最終更新時間
-                    sw.WriteLine(DateTime.Now + ",");
-                }
-                using (var sw = new StreamWriter(logHTMLFile, false, Encoding.UTF8))
-                {
-                    HTMLWrite(false, sw, task);
-                }
+                var EndTime = DateTime.Now;
+                var TotalTime = EndTime - StartTime;
+                gTaskList.WriteRunLogHistory(task, StartTime + "," + EndTime + "," + TotalTime + ",");
+                //HTML
+                gTaskList.WriteRunLogHTML(false, task);
 
             }
         }
