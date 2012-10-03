@@ -34,7 +34,7 @@
             this.NowCommandTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.NextCommandTextBox = new System.Windows.Forms.TextBox();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CommandCancelButton = new System.Windows.Forms.Button();
             this.RunListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -100,16 +100,16 @@
             this.NextCommandTextBox.Size = new System.Drawing.Size(209, 19);
             this.NextCommandTextBox.TabIndex = 5;
             // 
-            // CancelButton
+            // CommandCancelButton
             // 
-            this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelButton.Location = new System.Drawing.Point(343, 60);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 7;
-            this.CancelButton.Text = "キャンセル";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CommandCancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommandCancelButton.Location = new System.Drawing.Point(343, 60);
+            this.CommandCancelButton.Name = "CommandCancelButton";
+            this.CommandCancelButton.Size = new System.Drawing.Size(75, 23);
+            this.CommandCancelButton.TabIndex = 7;
+            this.CommandCancelButton.Text = "キャンセル";
+            this.CommandCancelButton.UseVisualStyleBackColor = true;
+            this.CommandCancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // RunListView
             // 
@@ -164,7 +164,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(430, 304);
             this.Controls.Add(this.RunListView);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CommandCancelButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.NextCommandTextBox);
             this.Controls.Add(this.label2);
@@ -187,7 +187,7 @@
         private System.Windows.Forms.TextBox NowCommandTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox NextCommandTextBox;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CommandCancelButton;
         private System.Windows.Forms.ListView RunListView;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;

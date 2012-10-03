@@ -20,47 +20,46 @@ namespace FullAutomationSupportSystem
             backgroundWorker1.RunWorkerAsync();
         }
         //--------------------------------------------------------------------------
-        //HTML出力
-        //--------------------------------------------------------------------------
-        private void HTMLWrite(bool bStart, StreamWriter sw, TaskData task)
-        {
-        }
-        //--------------------------------------------------------------------------
-        //HTML出力
+        //キャンセル
         //--------------------------------------------------------------------------
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            CancelButton.Enabled = false;
+            CommandCancelButton.Enabled = false;
             backgroundWorker1.CancelAsync();
         }
+        //--------------------------------------------------------------------------
+        //実行
+        //--------------------------------------------------------------------------
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             int counter = 0;
             foreach (var task in gTaskList)
             {
+                if (task.Checked == false) continue;
                 var StartTime = DateTime.Now;
                 //HTML
-                gTaskList.WriteRunLogHTML(true, task);
+                task.WriteRunLogHTML(true);
                 //ログテキストファイル生成
-                gTaskList.WriteRunLogNow(true, task, task.Name);
+                task.WriteRunLogNow(true, task.Name);
                 foreach (var command in task.CommandDataList)
                 {
                     backgroundWorker1.ReportProgress(counter++);
                     var runMsg = CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
                     var msg = command.Name + " : " + command.Param1 + " : " + command.Param2 + " : " + runMsg + " : " + DateTime.Now;
-                    gTaskList.WriteRunLogNow(false, task, msg);
+                    task.WriteRunLogNow(false, msg);
                 }
-                gTaskList.WriteRunLogNow(false, task, "End!!");
+                task.WriteRunLogNow(false, "End!!");
                 //ログcsvファイル生成
                 var EndTime = DateTime.Now;
                 var TotalTime = EndTime - StartTime;
-                gTaskList.WriteRunLogHistory(task, StartTime + "," + EndTime + "," + TotalTime + ",");
+                task.WriteRunLogHistory(StartTime + "," + EndTime + "," + TotalTime + ",");
                 //HTML
-                gTaskList.WriteRunLogHTML(false, task);
-
+                task.WriteRunLogHTML(false);
             }
         }
-
+        //--------------------------------------------------------------------------
+        //プログレス処理
+        //--------------------------------------------------------------------------
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             var index = e.ProgressPercentage;
@@ -100,7 +99,9 @@ namespace FullAutomationSupportSystem
                 co++;
             }
         }
-
+        //--------------------------------------------------------------------------
+        //終了
+        //--------------------------------------------------------------------------
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -112,11 +113,6 @@ namespace FullAutomationSupportSystem
             else
             {
             }
-            //
-            foreach (var task in gTaskList)
-            {
-            }
-
             this.Close();
         }
     }

@@ -129,6 +129,7 @@ namespace FullAutomationSupportSystem
             var form = new TaskForm(editTask);
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                editTask.SetLastRun();
                 taskDataBindingSource[idx] = editTask;
                 gTaskList[idx] = editTask;
             }
@@ -138,6 +139,7 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void AddDataGridView(TaskData task)
         {
+            task.SetLastRun();
             int count = taskDataBindingSource.Add(task);
             dataGridView1[dataGridView1.Columns["Log"].Index, count].Value = "ログ";
             dataGridView1[dataGridView1.Columns["Run"].Index, count].Value = "実行";
@@ -250,6 +252,15 @@ namespace FullAutomationSupportSystem
         void gRunForm_Disposed(object sender, EventArgs e)
         {
             RunButton.Enabled = true;
+            for(int i = 0; i < gTaskList.Count; i++)
+            {
+                var task = gTaskList[i];
+                if (task.Checked)
+                {
+                    task.SetLastRun();
+                    taskDataBindingSource[i] = task;
+                }
+            }
         }
         //--------------------------------------------------------------------------
         //セルクリック
@@ -310,7 +321,6 @@ namespace FullAutomationSupportSystem
                 taskDataBindingSource.RemoveAt(row.Index);
             }
         }
-
 
     }
 }

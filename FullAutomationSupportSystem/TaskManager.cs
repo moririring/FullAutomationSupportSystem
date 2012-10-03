@@ -124,19 +124,34 @@ namespace FullAutomationSupportSystem
         [DataMember(Name = "コマンドデータリスト")]
         public CommandList CommandDataList = new CommandList();
 
-        public DateTime LastRun { get; set; }
-    }
-    [DataContract(Name = "タスクリストクラス")]
-    public class TaskList : IEnumerable<TaskData>, IList<TaskData>, ICloneable
-    {
-        readonly static public string RunLogHistoryName = "RunLogHistory" ;
+        public string LastRunTime { get; set; }
+
+        readonly static public string RunLogHistoryName = "RunLogHistory";
         readonly static public string RunLogNow = "RunLogNow";
         readonly static public string RunLogHTML = "RunLog";
         readonly static public Encoding RunLogEncoding = Encoding.UTF8;
 
-        public bool WriteRunLogHTML(bool first, TaskData task)
+        public void SetLastRun()
         {
-            var logHTMLFile = Path.Combine(task.LogFolder, RunLogHTML + ".html");
+            LastRunTime = "-";
+            var file = Path.Combine(LogFolder, ExportFolder + "\\RunLogHistory.txt");
+            if (File.Exists(file))
+            {
+                string line = "";
+                using (StreamReader sr = new StreamReader(file))
+                {
+                    sr.ReadLine();
+                    line = sr.ReadLine();
+                }
+                if (line != "" && line.Split(',').Length != 0)
+                {
+                    LastRunTime = line.Split(',')[0];
+                }
+            }
+        }
+        public bool WriteRunLogHTML(bool first)
+        {
+            var logHTMLFile = Path.Combine(LogFolder, RunLogHTML + ".html");
             if (Directory.Exists(Path.GetDirectoryName(logHTMLFile)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(logHTMLFile));
@@ -153,12 +168,12 @@ namespace FullAutomationSupportSystem
                 sw.WriteLine("</thead>");
                 sw.WriteLine("<tbody>");
                 sw.WriteLine("<tr>");
-                var files = Directory.GetFiles(task.LogFolder, "RunLogHistory.txt", SearchOption.AllDirectories);
+                var files = Directory.GetFiles(LogFolder, "RunLogHistory.txt", SearchOption.AllDirectories);
                 foreach (var file in files)
                 {
                     var folder = Path.GetFileName(Path.GetDirectoryName(file));
                     string logTime = "-";
-                    if (folder != task.ExportFolder || first == false)
+                    if (folder != ExportFolder || first == false)
                     {
                         string line = "";
                         using (StreamReader sr = new StreamReader(file))
@@ -175,8 +190,8 @@ namespace FullAutomationSupportSystem
                         taskName = sr.ReadLine();
                     }
 
-                    sw.WriteLine("<td><a href = '" + task.ExportFolder + "\\RunLogNow.txt'>" + taskName + "</a></td>");
-                    sw.WriteLine("<td><a href = '" + task.ExportFolder + "\\RunLogHistory.txt'>" + logTime + "</a></td>");
+                    sw.WriteLine("<td><a href = '" + ExportFolder + "\\RunLogNow.txt'>" + taskName + "</a></td>");
+                    sw.WriteLine("<td><a href = '" + ExportFolder + "\\RunLogHistory.txt'>" + logTime + "</a></td>");
                 }
                 sw.WriteLine("</tr>");
                 sw.WriteLine("</tbody>");
@@ -184,9 +199,9 @@ namespace FullAutomationSupportSystem
             }
             return true;
         }
-        public bool WriteRunLogNow(bool first, TaskData task, string write)
+        public bool WriteRunLogNow(bool first, string write)
         {
-            var logTxtFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + RunLogNow + ".txt");
+            var logTxtFile = Path.Combine(LogFolder, ExportFolder + "\\" + RunLogNow + ".txt");
             if (Directory.Exists(Path.GetDirectoryName(logTxtFile)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(logTxtFile));
@@ -197,27 +212,69 @@ namespace FullAutomationSupportSystem
             }
             return true;
         }
-        public bool WriteRunLogHistory(TaskData task, string write)
+        public bool WriteRunLogHistory(string write)
         {
-            var logCSVFile = Path.Combine(task.LogFolder, task.ExportFolder + "\\" + RunLogHistoryName + ".txt");
-
+            var logCSVFile = Path.Combine(LogFolder, ExportFolder + "\\" + RunLogHistoryName + ".txt");
             string ReadToEnd = "";
-            using (var sr = new StreamReader(logCSVFile))
+            if (File.Exists(logCSVFile) == true)
             {
-                sr.ReadLine();
-                while (sr.Peek() > -1)
+                using (var sr = new StreamReader(logCSVFile))
                 {
-                    ReadToEnd += sr.ReadLine() + Environment.NewLine;
+                    sr.ReadLine();
+                    while (sr.Peek() > -1)
+                    {
+                        ReadToEnd += sr.ReadLine() + Environment.NewLine;
+                    }
                 }
             }
             using (var sw = new StreamWriter(logCSVFile, false, RunLogEncoding))
             {
                 sw.WriteLine("開始時間,終了時間,実行時間");
                 sw.WriteLine(write);
-                sw.WriteLine(ReadToEnd);
+                if(ReadToEnd != "")
+                {
+                    sw.WriteLine(ReadToEnd);
+                }
             }
             return true;
         }
+    }
+    [DataContract(Name = "タスクリストクラス")]
+    public class TaskList : IEnumerable<TaskData>, IList<TaskData>, ICloneable
+    {
+        public bool Save(string fileName)
+        {
+            if (Directory.Exists(Path.GetDirectoryName(fileName)) == false)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            }
+            bool bSuccess = false;
+            using (var ms = new FileStream(fileName, FileMode.Create))
+            {
+                using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
+                {
+                    var serializer = new DataContractSerializer(typeof(List<TaskData>));
+                    serializer.WriteObject(xw, taskDataList);
+                    bSuccess = true;
+                }
+            }
+            return bSuccess;
+        }
+        public bool Load(string fileName)
+        {
+            if (File.Exists(fileName) == false) return false;
+            bool bSuccess = false;
+            //読み込むファイルを開く
+            using (var fs = new FileStream(fileName, FileMode.Open))
+            {
+                var serializer = new DataContractSerializer(typeof(List<TaskData>));
+                taskDataList = (List<TaskData>)serializer.ReadObject(fs);
+                fs.Close();
+                bSuccess = true;
+            }
+            return bSuccess;
+        }
+
 
         [DataMember(Name = "タスクデータリスト")]
         private List<TaskData> taskDataList = new List<TaskData>();
@@ -287,41 +344,7 @@ namespace FullAutomationSupportSystem
         {
             taskDataList.RemoveAt(index);
         }
-
         public ExtensionDataObject ExtensionData { get; set; }
-        public bool Save(string fileName)
-        {
-            if (Directory.Exists(Path.GetDirectoryName(fileName)) == false)
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(fileName));
-            }
-            bool bSuccess = false;
-            using (var ms = new FileStream(fileName, FileMode.Create))
-            {
-                using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
-                {
-                    var serializer = new DataContractSerializer(typeof(List<TaskData>));
-                    serializer.WriteObject(xw, taskDataList);
-                    bSuccess = true;
-                }
-            }
-            return bSuccess;
-        }
-        public bool Load(string fileName)
-        {
-            if (File.Exists(fileName) == false) return false;
-            bool bSuccess = false;
-            //読み込むファイルを開く
-            using (var fs = new FileStream(fileName, FileMode.Open))
-            {
-                var serializer = new DataContractSerializer(typeof(List<TaskData>));
-                taskDataList = (List<TaskData>)serializer.ReadObject(fs);
-                fs.Close();
-                bSuccess = true;
-            }
-            return bSuccess;
-        }
-
         public object Clone()
         {
             var clone = new TaskList();

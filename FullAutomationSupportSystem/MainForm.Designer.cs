@@ -58,6 +58,17 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.LastRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Log = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridVewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.削除DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.checkedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProjectFolder = new System.Windows.Forms.DataGridViewLinkColumn();
@@ -65,26 +76,15 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.spanDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.LastRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Log = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridVewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.削除DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.dataGridVewContextMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -343,6 +343,100 @@
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
             // 
+            // LastRun
+            // 
+            this.LastRun.DataPropertyName = "LastRunTime";
+            this.LastRun.HeaderText = "最終実行時間";
+            this.LastRun.Name = "LastRun";
+            this.LastRun.ReadOnly = true;
+            this.LastRun.Width = 102;
+            // 
+            // Log
+            // 
+            this.Log.HeaderText = "ログ";
+            this.Log.Name = "Log";
+            this.Log.Width = 29;
+            // 
+            // Run
+            // 
+            this.Run.HeaderText = "実行";
+            this.Run.Name = "Run";
+            this.Run.ReadOnly = true;
+            this.Run.Width = 35;
+            // 
+            // dataGridVewContextMenuStrip
+            // 
+            this.dataGridVewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.編集EToolStripMenuItem,
+            this.削除DToolStripMenuItem});
+            this.dataGridVewContextMenuStrip.Name = "contextMenuStrip1";
+            this.dataGridVewContextMenuStrip.Size = new System.Drawing.Size(111, 48);
+            // 
+            // 編集EToolStripMenuItem
+            // 
+            this.編集EToolStripMenuItem.Name = "編集EToolStripMenuItem";
+            this.編集EToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.編集EToolStripMenuItem.Text = "編集(&E)";
+            this.編集EToolStripMenuItem.Click += new System.EventHandler(this.TaskEditToolStripMenuItem1_Click);
+            // 
+            // 削除DToolStripMenuItem
+            // 
+            this.削除DToolStripMenuItem.Name = "削除DToolStripMenuItem";
+            this.削除DToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.削除DToolStripMenuItem.Text = "削除(&D)";
+            this.削除DToolStripMenuItem.Click += new System.EventHandler(this.TaskDeleteToolStripMenuItem1_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(761, 58);
+            this.panel1.TabIndex = 10;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(3, 6);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(124, 41);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "新しいタスク...";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.AddTaskToolStripMenuItem_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "fas";
+            this.saveFileDialog1.Filter = "fasファイル|*.fas";
+            this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.DefaultExt = "fas";
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "fasファイル|*.fas";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.RunButton);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.TimerTextBox);
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.checkBox2);
+            this.panel2.Controls.Add(this.checkBox1);
+            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Controls.Add(this.numericUpDown1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 321);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(761, 53);
+            this.panel2.TabIndex = 11;
+            // 
             // checkedDataGridViewCheckBoxColumn
             // 
             this.checkedDataGridViewCheckBoxColumn.DataPropertyName = "Checked";
@@ -396,103 +490,9 @@
             this.spanDataGridViewCheckBoxColumn.Name = "spanDataGridViewCheckBoxColumn";
             this.spanDataGridViewCheckBoxColumn.Width = 39;
             // 
-            // LastRun
-            // 
-            this.LastRun.DataPropertyName = "LastRun";
-            this.LastRun.HeaderText = "最終実行時間";
-            this.LastRun.Name = "LastRun";
-            this.LastRun.ReadOnly = true;
-            this.LastRun.Width = 102;
-            // 
-            // Log
-            // 
-            this.Log.HeaderText = "ログ";
-            this.Log.Name = "Log";
-            this.Log.Width = 29;
-            // 
-            // Run
-            // 
-            this.Run.HeaderText = "実行";
-            this.Run.Name = "Run";
-            this.Run.ReadOnly = true;
-            this.Run.Width = 35;
-            // 
-            // dataGridVewContextMenuStrip
-            // 
-            this.dataGridVewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.編集EToolStripMenuItem,
-            this.削除DToolStripMenuItem});
-            this.dataGridVewContextMenuStrip.Name = "contextMenuStrip1";
-            this.dataGridVewContextMenuStrip.Size = new System.Drawing.Size(111, 48);
-            // 
-            // 編集EToolStripMenuItem
-            // 
-            this.編集EToolStripMenuItem.Name = "編集EToolStripMenuItem";
-            this.編集EToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            this.編集EToolStripMenuItem.Text = "編集(&E)";
-            this.編集EToolStripMenuItem.Click += new System.EventHandler(this.TaskEditToolStripMenuItem1_Click);
-            // 
-            // 削除DToolStripMenuItem
-            // 
-            this.削除DToolStripMenuItem.Name = "削除DToolStripMenuItem";
-            this.削除DToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            this.削除DToolStripMenuItem.Text = "削除(&D)";
-            this.削除DToolStripMenuItem.Click += new System.EventHandler(this.TaskDeleteToolStripMenuItem1_Click);
-            // 
             // taskDataBindingSource
             // 
             this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 24);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(761, 58);
-            this.panel1.TabIndex = 10;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(3, 6);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(124, 41);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "新しいタスク...";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.AddTaskToolStripMenuItem_Click);
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.DefaultExt = "fas";
-            this.saveFileDialog1.Filter = "fasファイル|*.fas";
-            this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.DefaultExt = "fas";
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "fasファイル|*.fas";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
-            // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.RunButton);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.TimerTextBox);
-            this.panel2.Controls.Add(this.button2);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.checkBox2);
-            this.panel2.Controls.Add(this.checkBox1);
-            this.panel2.Controls.Add(this.comboBox1);
-            this.panel2.Controls.Add(this.numericUpDown1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 321);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(761, 53);
-            this.panel2.TabIndex = 11;
             // 
             // commandListDataBindingSource
             // 
@@ -517,10 +517,10 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.dataGridVewContextMenuStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -567,6 +567,14 @@
         private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ToolStripMenuItem タスクTToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TaskCopyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TaskEditToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem TaskDeleteToolStripMenuItem1;
+        private System.Windows.Forms.ContextMenuStrip dataGridVewContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem 編集EToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 削除DToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn checkedDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewLinkColumn ProjectFolder;
@@ -577,13 +585,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn LastRun;
         private System.Windows.Forms.DataGridViewButtonColumn Log;
         private System.Windows.Forms.DataGridViewButtonColumn Run;
-        private System.Windows.Forms.ToolStripMenuItem タスクTToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem TaskCopyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem TaskEditToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem TaskDeleteToolStripMenuItem1;
-        private System.Windows.Forms.ContextMenuStrip dataGridVewContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem 編集EToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 削除DToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }
