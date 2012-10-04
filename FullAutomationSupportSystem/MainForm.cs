@@ -126,7 +126,7 @@ namespace FullAutomationSupportSystem
         private void EditTask(int idx)
         {
             var editTask = (TaskData)taskDataBindingSource[idx];
-            var form = new TaskForm(editTask);
+            var form = new TaskForm(editTask, gTaskList);
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 editTask.SetLastRun();
@@ -156,7 +156,6 @@ namespace FullAutomationSupportSystem
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 var editTask = new TaskData();
-
                 //かぶらないファイル名を作る
                 var co = 1;
                 while (true)
@@ -178,10 +177,9 @@ namespace FullAutomationSupportSystem
                         break;
                     }
                 }
-
-                editTask.ProjectFolder = folderBrowserDialog1.SelectedPath;
+                editTask.ProjectFolder.Add(folderBrowserDialog1.SelectedPath);
                 editTask.LogFolder = folderBrowserDialog1.SelectedPath;
-                var form = new TaskForm(editTask);
+                var form = new TaskForm(editTask, gTaskList);
                 if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     editTask.Checked = true;
@@ -293,7 +291,7 @@ namespace FullAutomationSupportSystem
             //実行
             if (e.ColumnIndex == dataGridView1.Columns["ProjectFolder"].Index)
             {
-                Process.Start(task.ProjectFolder);
+                Process.Start(task.ProjectFolder[0]);
             }
             //ログ
             else if (e.ColumnIndex == dataGridView1.Columns["Log"].Index)

@@ -18,7 +18,7 @@ namespace FullAutomationSupportSystem
         public void タスクに存在するパスで追加()
         {
             var data = new TaskData();
-            data.ProjectFolder = @"C:\Program Files";
+            data.ProjectFolder[0] = @"C:\Program Files";
             gTaskList.Add(data);
             Assert.True(gTaskList.Count == 1);
         }
@@ -26,7 +26,7 @@ namespace FullAutomationSupportSystem
         public void タスクに存在しないパスで追加()
         {
             var data = new TaskData();
-            data.ProjectFolder = @"C:\Program Files2";
+            data.ProjectFolder[0] = @"C:\Program Files2";
             gTaskList.Add(data);
             Assert.False(gTaskList.Count == 0);
         }
@@ -40,7 +40,7 @@ namespace FullAutomationSupportSystem
         public void タスクの取得()
         {
             var data = new TaskData();
-            data.ProjectFolder = @"C:\Program Files";
+            data.ProjectFolder.Add(@"C:\Program Files");
             gTaskList.Add(data);
             Assert.True(gTaskList[0].ProjectFolder == data.ProjectFolder);
         }
@@ -49,7 +49,7 @@ namespace FullAutomationSupportSystem
         {
             var task = new TaskData();
             var command = new CommandData();
-            task.ProjectFolder = @"C:\Program Files";
+            task.ProjectFolder.Add(@"C:\Program Files");
             gTaskList.Add(task);
             task.CommandDataList.Add(command);
             Assert.True(task.CommandDataList.Count == 1);

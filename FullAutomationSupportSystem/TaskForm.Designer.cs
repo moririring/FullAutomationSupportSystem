@@ -41,8 +41,8 @@
             this.CommandListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel6 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.ExportFolderTextBox = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,9 +54,7 @@
             this.RepositoryTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.ProjectFolderTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.NameTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.OKButton = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -66,7 +64,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.CommandTextBox = new System.Windows.Forms.TextBox();
             this.CommandComboBox = new System.Windows.Forms.ComboBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.ProjectFolderComboBox = new System.Windows.Forms.ComboBox();
+            this.NameComboBox = new System.Windows.Forms.ComboBox();
+            this.ExportFolderComboBox = new System.Windows.Forms.ComboBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).BeginInit();
@@ -181,9 +181,11 @@
             // panel6
             // 
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel6.Controls.Add(this.ExportFolderComboBox);
+            this.panel6.Controls.Add(this.NameComboBox);
+            this.panel6.Controls.Add(this.ProjectFolderComboBox);
             this.panel6.Controls.Add(this.button3);
             this.panel6.Controls.Add(this.label4);
-            this.panel6.Controls.Add(this.ExportFolderTextBox);
             this.panel6.Controls.Add(this.button2);
             this.panel6.Controls.Add(this.button1);
             this.panel6.Controls.Add(this.label1);
@@ -195,14 +197,24 @@
             this.panel6.Controls.Add(this.RepositoryTextBox);
             this.panel6.Controls.Add(this.label8);
             this.panel6.Controls.Add(this.label7);
-            this.panel6.Controls.Add(this.ProjectFolderTextBox);
             this.panel6.Controls.Add(this.label5);
-            this.panel6.Controls.Add(this.NameTextBox);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(761, 129);
             this.panel6.TabIndex = 0;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.AutoSize = true;
+            this.button3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button3.Location = new System.Drawing.Point(663, 27);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(39, 22);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "追加";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -213,15 +225,6 @@
             this.label4.Size = new System.Drawing.Size(76, 12);
             this.label4.TabIndex = 18;
             this.label4.Text = "英数フォルダ名";
-            // 
-            // ExportFolderTextBox
-            // 
-            this.ExportFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExportFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
-            this.ExportFolderTextBox.Location = new System.Drawing.Point(434, 4);
-            this.ExportFolderTextBox.Name = "ExportFolderTextBox";
-            this.ExportFolderTextBox.Size = new System.Drawing.Size(205, 19);
-            this.ExportFolderTextBox.TabIndex = 17;
             // 
             // button2
             // 
@@ -343,16 +346,6 @@
             this.label7.TabIndex = 5;
             this.label7.Text = "作業フォルダ";
             // 
-            // ProjectFolderTextBox
-            // 
-            this.ProjectFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProjectFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.ProjectFolderTextBox.Location = new System.Drawing.Point(82, 29);
-            this.ProjectFolderTextBox.Name = "ProjectFolderTextBox";
-            this.ProjectFolderTextBox.Size = new System.Drawing.Size(575, 19);
-            this.ProjectFolderTextBox.TabIndex = 4;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -361,16 +354,6 @@
             this.label5.Size = new System.Drawing.Size(29, 12);
             this.label5.TabIndex = 1;
             this.label5.Text = "名前";
-            // 
-            // NameTextBox
-            // 
-            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameTextBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
-            this.NameTextBox.Location = new System.Drawing.Point(82, 4);
-            this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(264, 19);
-            this.NameTextBox.TabIndex = 0;
             // 
             // panel1
             // 
@@ -462,17 +445,35 @@
             this.CommandComboBox.TabIndex = 19;
             this.CommandComboBox.SelectedIndexChanged += new System.EventHandler(this.CommandComboBox_SelectedIndexChanged);
             // 
-            // button3
+            // ProjectFolderComboBox
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.AutoSize = true;
-            this.button3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button3.Location = new System.Drawing.Point(663, 27);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(39, 22);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "追加";
-            this.button3.UseVisualStyleBackColor = true;
+            this.ProjectFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProjectFolderComboBox.FormattingEnabled = true;
+            this.ProjectFolderComboBox.Location = new System.Drawing.Point(81, 29);
+            this.ProjectFolderComboBox.Name = "ProjectFolderComboBox";
+            this.ProjectFolderComboBox.Size = new System.Drawing.Size(576, 20);
+            this.ProjectFolderComboBox.TabIndex = 20;
+            // 
+            // NameComboBox
+            // 
+            this.NameComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NameComboBox.FormattingEnabled = true;
+            this.NameComboBox.Location = new System.Drawing.Point(81, 4);
+            this.NameComboBox.Name = "NameComboBox";
+            this.NameComboBox.Size = new System.Drawing.Size(265, 20);
+            this.NameComboBox.TabIndex = 21;
+            // 
+            // ExportFolderComboBox
+            // 
+            this.ExportFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportFolderComboBox.FormattingEnabled = true;
+            this.ExportFolderComboBox.Location = new System.Drawing.Point(434, 4);
+            this.ExportFolderComboBox.Name = "ExportFolderComboBox";
+            this.ExportFolderComboBox.Size = new System.Drawing.Size(205, 20);
+            this.ExportFolderComboBox.TabIndex = 22;
             // 
             // TaskForm
             // 
@@ -514,9 +515,7 @@
         private System.Windows.Forms.TextBox RepositoryTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox ProjectFolderTextBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox NameTextBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -540,7 +539,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn param2DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn Run;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox ExportFolderTextBox;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox ExportFolderComboBox;
+        private System.Windows.Forms.ComboBox NameComboBox;
+        private System.Windows.Forms.ComboBox ProjectFolderComboBox;
     }
 }

@@ -105,6 +105,10 @@ namespace FullAutomationSupportSystem
     [DataContract(Name = "タスクデータクラス")]
     public class TaskData
     {
+        public TaskData()
+        {
+            ProjectFolder = new List<string>();
+        }
         [DataMember(Name = "チェック")]
         public bool Checked { get; set; }
         [DataMember(Name = "名前")]
@@ -112,7 +116,7 @@ namespace FullAutomationSupportSystem
         [DataMember(Name = "出力フォルダ名")]
         public string ExportFolder { get; set; }
         [DataMember(Name = "プロジェクトフォルダ")]
-        public string ProjectFolder { get; set; }
+        public List<string> ProjectFolder { get; set; }
         [DataMember(Name = "ログフォルダ")]
         public string LogFolder { get; set; }
         [DataMember(Name = "リポジトリ")]

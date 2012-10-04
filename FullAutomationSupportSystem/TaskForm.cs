@@ -15,10 +15,16 @@ namespace FullAutomationSupportSystem
     {
         static readonly public string gNamePlease = "新しいタスク";
         private TaskData gTaskData = null;
-        public TaskForm(TaskData data)
+        public TaskForm(TaskData data, TaskList lists)
         {
             InitializeComponent();
             gTaskData = data;
+            foreach(var task in lists)
+            {
+                NameComboBox.Items.Add(task.Name);
+                ExportFolderComboBox.Items.Add(task.ExportFolder);
+                LogFolderComboBox.Items.Add(task.LogFolder);
+            }
         }
 
         private void TaskForm_Load(object sender, EventArgs e)
@@ -27,13 +33,12 @@ namespace FullAutomationSupportSystem
             {
                 AddDataGridView(command);
             }
-
-            NameTextBox.Text = gTaskData.Name;
-            ExportFolderTextBox.Text = gTaskData.ExportFolder;
-            ProjectFolderTextBox.Text = gTaskData.ProjectFolder;
+            NameComboBox.Text = gTaskData.Name;
+            ExportFolderComboBox.Text = gTaskData.ExportFolder;
+            ProjectFolderComboBox.Text = gTaskData.ProjectFolder[0];
             LogFolderComboBox.Text = gTaskData.LogFolder;
             RepositoryTextBox.Text = gTaskData.Repository;
-            NameTextBox.Focus();
+            NameComboBox.Focus();
             foreach (CommandListData commandList in CommandListManager.GetInstance())
             {
                 CommandComboBox.Items.Add(commandList.Name);
@@ -53,7 +58,7 @@ namespace FullAutomationSupportSystem
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(ProjectFolderTextBox.Text) == false)
+            if (Directory.Exists(ProjectFolderComboBox.Text) == false)
             {
                 MessageBox.Show("作業フォルダが存在しません");
                 return;
@@ -64,11 +69,15 @@ namespace FullAutomationSupportSystem
                 return;
             }
 
-            this.DialogResult = DialogResult.OK; 
+            this.DialogResult = DialogResult.OK;
 
-            gTaskData.Name = NameTextBox.Text;
-            gTaskData.ExportFolder = ExportFolderTextBox.Text;
-            gTaskData.ProjectFolder = ProjectFolderTextBox.Text;
+            gTaskData.Name = NameComboBox.Text;
+            gTaskData.ExportFolder = ExportFolderComboBox.Text;
+            gTaskData.ProjectFolder.Clear();
+            foreach(var item in ProjectFolderComboBox.Items)
+            {
+                gTaskData.ProjectFolder.Add(item.ToString());
+            }
             gTaskData.LogFolder = LogFolderComboBox.Text;
             gTaskData.Repository = RepositoryTextBox.Text;
             gTaskData.Timer = TimerCheckBox.Checked;

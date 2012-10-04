@@ -76,7 +76,7 @@ namespace FullAutomationSupportSystem
                     if (index - max == 0)
                     {
                         var tlv = RunListView.Items.Add(gTaskList[co].Name);
-                        tlv.SubItems.Add(gTaskList[co].ProjectFolder);
+                        tlv.SubItems.Add(gTaskList[co].ProjectFolder[0]);
                         tlv.SubItems.Add("");
                     }
                     if (gTaskList[co].CommandDataList.Count != index - max + 1)
