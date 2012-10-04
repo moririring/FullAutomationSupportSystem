@@ -27,27 +27,13 @@ namespace FullAutomationSupportSystem
             {
                 AddDataGridView(command);
             }
-            if (string.IsNullOrWhiteSpace(gTaskData.Name))
-            {
-                NameTextBox.Text = gNamePlease;
-            }
-            else
-            {
-                NameTextBox.Text = gTaskData.Name;
-            }
-            if (string.IsNullOrWhiteSpace(gTaskData.ExportFolder))
-            {
-                ExportFolderTextBox.Text = "NewTask";
-            }
-            else
-            {
-                ExportFolderTextBox.Text = gTaskData.ExportFolder;
-            }
+
+            NameTextBox.Text = gTaskData.Name;
+            ExportFolderTextBox.Text = gTaskData.ExportFolder;
             ProjectFolderTextBox.Text = gTaskData.ProjectFolder;
             LogFolderComboBox.Text = gTaskData.LogFolder;
             RepositoryTextBox.Text = gTaskData.Repository;
             NameTextBox.Focus();
-
             foreach (CommandListData commandList in CommandListManager.GetInstance())
             {
                 CommandComboBox.Items.Add(commandList.Name);

@@ -156,6 +156,29 @@ namespace FullAutomationSupportSystem
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 var editTask = new TaskData();
+
+                //かぶらないファイル名を作る
+                var co = 1;
+                while (true)
+                {
+                    var NumberTaskName = "新しいタスク" + co++;
+                    if (gTaskList.Count(t => t.Name == NumberTaskName) == 0)
+                    {
+                        editTask.Name = NumberTaskName;
+                        break;
+                    }
+                }
+                var eco = 1;
+                while (true)
+                {
+                    var NumberExportFolder = "NewTask" + eco++;
+                    if (gTaskList.Count(t => t.ExportFolder == NumberExportFolder) == 0)
+                    {
+                        editTask.ExportFolder = NumberExportFolder;
+                        break;
+                    }
+                }
+
                 editTask.ProjectFolder = folderBrowserDialog1.SelectedPath;
                 editTask.LogFolder = folderBrowserDialog1.SelectedPath;
                 var form = new TaskForm(editTask);
@@ -238,7 +261,6 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         //実行
         //--------------------------------------------------------------------------
-        //private RunForm gRunForm = null;
         private void RunButton_Click(object sender, EventArgs e)
         {
             RunButton.Enabled = false;

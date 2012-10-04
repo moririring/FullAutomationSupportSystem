@@ -41,6 +41,8 @@
             this.CommandListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ExportFolderTextBox = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -64,8 +66,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.CommandTextBox = new System.Windows.Forms.TextBox();
             this.CommandComboBox = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.ExportFolderTextBox = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).BeginInit();
@@ -180,6 +181,7 @@
             // panel6
             // 
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel6.Controls.Add(this.button3);
             this.panel6.Controls.Add(this.label4);
             this.panel6.Controls.Add(this.ExportFolderTextBox);
             this.panel6.Controls.Add(this.button2);
@@ -202,12 +204,31 @@
             this.panel6.Size = new System.Drawing.Size(761, 129);
             this.panel6.TabIndex = 0;
             // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(352, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 12);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "英数フォルダ名";
+            // 
+            // ExportFolderTextBox
+            // 
+            this.ExportFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
+            this.ExportFolderTextBox.Location = new System.Drawing.Point(434, 4);
+            this.ExportFolderTextBox.Name = "ExportFolderTextBox";
+            this.ExportFolderTextBox.Size = new System.Drawing.Size(205, 19);
+            this.ExportFolderTextBox.TabIndex = 17;
+            // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.AutoSize = true;
             this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button2.Location = new System.Drawing.Point(618, 51);
+            this.button2.Location = new System.Drawing.Point(726, 51);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(21, 22);
             this.button2.TabIndex = 16;
@@ -219,18 +240,18 @@
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.AutoSize = true;
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.Location = new System.Drawing.Point(726, 27);
+            this.button1.Location = new System.Drawing.Point(708, 27);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(21, 22);
+            this.button1.Size = new System.Drawing.Size(39, 22);
             this.button1.TabIndex = 15;
-            this.button1.Text = "...";
+            this.button1.Text = "削除";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(645, 57);
+            this.label1.Location = new System.Drawing.Point(645, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 12);
             this.label1.TabIndex = 14;
@@ -238,18 +259,18 @@
             // 
             // LogFolderComboBox
             // 
-            this.LogFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LogFolderComboBox.FormattingEnabled = true;
             this.LogFolderComboBox.Location = new System.Drawing.Point(81, 53);
             this.LogFolderComboBox.Name = "LogFolderComboBox";
-            this.LogFolderComboBox.Size = new System.Drawing.Size(531, 20);
+            this.LogFolderComboBox.Size = new System.Drawing.Size(639, 20);
             this.LogFolderComboBox.TabIndex = 13;
             // 
             // numericUpDown1
             // 
             this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(698, 54);
+            this.numericUpDown1.Location = new System.Drawing.Point(698, 5);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             999,
             0,
@@ -295,8 +316,8 @@
             // 
             // RepositoryTextBox
             // 
-            this.RepositoryTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.RepositoryTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RepositoryTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.RepositoryTextBox.Location = new System.Drawing.Point(81, 79);
             this.RepositoryTextBox.Name = "RepositoryTextBox";
@@ -324,12 +345,12 @@
             // 
             // ProjectFolderTextBox
             // 
-            this.ProjectFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProjectFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ProjectFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.ProjectFolderTextBox.Location = new System.Drawing.Point(82, 29);
             this.ProjectFolderTextBox.Name = "ProjectFolderTextBox";
-            this.ProjectFolderTextBox.Size = new System.Drawing.Size(638, 19);
+            this.ProjectFolderTextBox.Size = new System.Drawing.Size(575, 19);
             this.ProjectFolderTextBox.TabIndex = 4;
             // 
             // label5
@@ -343,12 +364,12 @@
             // 
             // NameTextBox
             // 
-            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.NameTextBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
             this.NameTextBox.Location = new System.Drawing.Point(82, 4);
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(310, 19);
+            this.NameTextBox.Size = new System.Drawing.Size(264, 19);
             this.NameTextBox.TabIndex = 0;
             // 
             // panel1
@@ -423,8 +444,8 @@
             // 
             // CommandTextBox
             // 
-            this.CommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CommandTextBox.Location = new System.Drawing.Point(322, 5);
             this.CommandTextBox.Multiline = true;
             this.CommandTextBox.Name = "CommandTextBox";
@@ -441,24 +462,17 @@
             this.CommandComboBox.TabIndex = 19;
             this.CommandComboBox.SelectedIndexChanged += new System.EventHandler(this.CommandComboBox_SelectedIndexChanged);
             // 
-            // label4
+            // button3
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(403, 7);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 12);
-            this.label4.TabIndex = 18;
-            this.label4.Text = "英数フォルダ名";
-            // 
-            // ExportFolderTextBox
-            // 
-            this.ExportFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExportFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana;
-            this.ExportFolderTextBox.Location = new System.Drawing.Point(485, 4);
-            this.ExportFolderTextBox.Name = "ExportFolderTextBox";
-            this.ExportFolderTextBox.Size = new System.Drawing.Size(262, 19);
-            this.ExportFolderTextBox.TabIndex = 17;
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.AutoSize = true;
+            this.button3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button3.Location = new System.Drawing.Point(663, 27);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(39, 22);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "追加";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // TaskForm
             // 
@@ -527,5 +541,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn Run;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox ExportFolderTextBox;
+        private System.Windows.Forms.Button button3;
     }
 }
