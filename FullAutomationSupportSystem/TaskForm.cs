@@ -21,10 +21,10 @@ namespace FullAutomationSupportSystem
             gTaskData = data;
             foreach(var task in lists)
             {
-                NameComboBox.Items.Add(task.Name);
-                ExportFolderComboBox.Items.Add(task.ExportFolder);
                 LogFolderComboBox.Items.Add(task.LogFolder);
             }
+            NameTextBox.Text = data.Name;
+            ExportFolderTextBox.Text = data.ExportFolder;
         }
 
         private void TaskForm_Load(object sender, EventArgs e)
@@ -33,12 +33,16 @@ namespace FullAutomationSupportSystem
             {
                 AddDataGridView(command);
             }
-            NameComboBox.Text = gTaskData.Name;
-            ExportFolderComboBox.Text = gTaskData.ExportFolder;
+            NameTextBox.Text = gTaskData.Name;
+            ExportFolderTextBox.Text = gTaskData.ExportFolder;
             ProjectFolderComboBox.Text = gTaskData.ProjectFolder[0];
+            foreach (var folder in gTaskData.ProjectFolder)
+            {
+                ProjectFolderComboBox.Items.Add(folder);
+            }
             LogFolderComboBox.Text = gTaskData.LogFolder;
             RepositoryTextBox.Text = gTaskData.Repository;
-            NameComboBox.Focus();
+            NameTextBox.Focus();
             foreach (CommandListData commandList in CommandListManager.GetInstance())
             {
                 CommandComboBox.Items.Add(commandList.Name);
@@ -71,8 +75,8 @@ namespace FullAutomationSupportSystem
 
             this.DialogResult = DialogResult.OK;
 
-            gTaskData.Name = NameComboBox.Text;
-            gTaskData.ExportFolder = ExportFolderComboBox.Text;
+            gTaskData.Name = NameTextBox.Text;
+            gTaskData.ExportFolder = ExportFolderTextBox.Text;
             gTaskData.ProjectFolder.Clear();
             foreach(var item in ProjectFolderComboBox.Items)
             {
@@ -123,6 +127,16 @@ namespace FullAutomationSupportSystem
                 commandDataBindingSource[e.RowIndex] = editCommand;
                 gTaskData.CommandDataList[e.RowIndex] = editCommand;
             }
+        }
+
+        private void ExportFolderComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
 
 

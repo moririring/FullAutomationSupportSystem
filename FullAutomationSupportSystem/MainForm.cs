@@ -291,7 +291,7 @@ namespace FullAutomationSupportSystem
             //実行
             if (e.ColumnIndex == dataGridView1.Columns["ProjectFolder"].Index)
             {
-                Process.Start(task.ProjectFolder[0]);
+                //Process.Start(task.ProjectFolder[0]);
             }
             //ログ
             else if (e.ColumnIndex == dataGridView1.Columns["Log"].Index)

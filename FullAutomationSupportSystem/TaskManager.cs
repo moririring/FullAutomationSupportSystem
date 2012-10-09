@@ -116,6 +116,7 @@ namespace FullAutomationSupportSystem
         [DataMember(Name = "出力フォルダ名")]
         public string ExportFolder { get; set; }
         [DataMember(Name = "プロジェクトフォルダ")]
+        //public IBindingList<string> 
         public List<string> ProjectFolder { get; set; }
         [DataMember(Name = "ログフォルダ")]
         public string LogFolder { get; set; }
@@ -272,7 +273,7 @@ namespace FullAutomationSupportSystem
             using (var fs = new FileStream(fileName, FileMode.Open))
             {
                 var serializer = new DataContractSerializer(typeof(List<TaskData>));
-                taskDataList = (List<TaskData>)serializer.ReadObject(fs);
+                //taskDataList = (List<TaskData>)serializer.ReadObject(fs);
                 fs.Close();
                 bSuccess = true;
             }
