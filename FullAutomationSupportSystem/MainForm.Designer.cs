@@ -58,6 +58,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.projectFolderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridVewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.削除DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,7 +67,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.projectFolderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.checkedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -82,10 +82,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectFolderBindingSource)).BeginInit();
             this.dataGridVewContextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.projectFolderBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -189,7 +189,7 @@
             this.タスクTToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(761, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(761, 26);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -206,13 +206,13 @@
             this.toolStripSeparator2,
             this.ExitToolStripMenuItem});
             this.ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
-            this.ファイルFToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.ファイルFToolStripMenuItem.Size = new System.Drawing.Size(85, 22);
             this.ファイルFToolStripMenuItem.Text = "ファイル(&F)";
             // 
             // AddTaskToolStripMenuItem
             // 
             this.AddTaskToolStripMenuItem.Name = "AddTaskToolStripMenuItem";
-            this.AddTaskToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.AddTaskToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.AddTaskToolStripMenuItem.Text = "新しいタスク(&T)...";
             this.AddTaskToolStripMenuItem.Click += new System.EventHandler(this.AddTaskToolStripMenuItem_Click);
             // 
@@ -220,52 +220,52 @@
             // 
             this.OpenFileToolStripMenuItem.Name = "OpenFileToolStripMenuItem";
             this.OpenFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.OpenFileToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.OpenFileToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.OpenFileToolStripMenuItem.Text = "ファイルを開く(&O)...";
             this.OpenFileToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(236, 6);
             // 
             // CloseToolStripMenuItem
             // 
             this.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem";
-            this.CloseToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.CloseToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.CloseToolStripMenuItem.Text = "閉じる(&C)";
             this.CloseToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(188, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(236, 6);
             // 
             // SaveToolStripMenuItem
             // 
             this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
             this.SaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.SaveToolStripMenuItem.Text = "保存(&S)";
             this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // NameSaveToolStripMenuItem
             // 
             this.NameSaveToolStripMenuItem.Name = "NameSaveToolStripMenuItem";
-            this.NameSaveToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.NameSaveToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.NameSaveToolStripMenuItem.Text = "名前を付けて保存(&A)...";
             this.NameSaveToolStripMenuItem.Click += new System.EventHandler(this.NameSaveToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(188, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(236, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
             this.ExitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.ExitToolStripMenuItem.Text = "終了(&X)";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -277,14 +277,14 @@
             this.toolStripSeparator4,
             this.TaskCopyToolStripMenuItem});
             this.タスクTToolStripMenuItem.Name = "タスクTToolStripMenuItem";
-            this.タスクTToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.タスクTToolStripMenuItem.Size = new System.Drawing.Size(74, 22);
             this.タスクTToolStripMenuItem.Text = "タスク(&T)";
             // 
             // TaskEditToolStripMenuItem1
             // 
             this.TaskEditToolStripMenuItem1.Name = "TaskEditToolStripMenuItem1";
             this.TaskEditToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.TaskEditToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
+            this.TaskEditToolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
             this.TaskEditToolStripMenuItem1.Text = "編集(&E)";
             this.TaskEditToolStripMenuItem1.Click += new System.EventHandler(this.TaskEditToolStripMenuItem1_Click);
             // 
@@ -292,20 +292,20 @@
             // 
             this.TaskDeleteToolStripMenuItem1.Name = "TaskDeleteToolStripMenuItem1";
             this.TaskDeleteToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.TaskDeleteToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
+            this.TaskDeleteToolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
             this.TaskDeleteToolStripMenuItem1.Text = "削除(&D)";
             this.TaskDeleteToolStripMenuItem1.Click += new System.EventHandler(this.TaskDeleteToolStripMenuItem1_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(148, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(174, 6);
             // 
             // TaskCopyToolStripMenuItem
             // 
             this.TaskCopyToolStripMenuItem.Name = "TaskCopyToolStripMenuItem";
             this.TaskCopyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.TaskCopyToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.TaskCopyToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.TaskCopyToolStripMenuItem.Text = "コピー(&C)";
             this.TaskCopyToolStripMenuItem.Click += new System.EventHandler(this.TaskCopyToolStripMenuItem_Click);
             // 
@@ -334,16 +334,24 @@
             this.dataGridView1.ContextMenuStrip = this.dataGridVewContextMenuStrip;
             this.dataGridView1.DataSource = this.taskDataBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 82);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 84);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 21;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(761, 239);
+            this.dataGridView1.Size = new System.Drawing.Size(761, 237);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
+            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
+            // 
+            // projectFolderBindingSource
+            // 
+            this.projectFolderBindingSource.AllowNew = false;
+            this.projectFolderBindingSource.DataMember = "ProjectFolder";
+            this.projectFolderBindingSource.DataSource = this.taskDataBindingSource;
             // 
             // dataGridVewContextMenuStrip
             // 
@@ -351,19 +359,19 @@
             this.編集EToolStripMenuItem,
             this.削除DToolStripMenuItem});
             this.dataGridVewContextMenuStrip.Name = "contextMenuStrip1";
-            this.dataGridVewContextMenuStrip.Size = new System.Drawing.Size(111, 48);
+            this.dataGridVewContextMenuStrip.Size = new System.Drawing.Size(120, 48);
             // 
             // 編集EToolStripMenuItem
             // 
             this.編集EToolStripMenuItem.Name = "編集EToolStripMenuItem";
-            this.編集EToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.編集EToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.編集EToolStripMenuItem.Text = "編集(&E)";
             this.編集EToolStripMenuItem.Click += new System.EventHandler(this.TaskEditToolStripMenuItem1_Click);
             // 
             // 削除DToolStripMenuItem
             // 
             this.削除DToolStripMenuItem.Name = "削除DToolStripMenuItem";
-            this.削除DToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.削除DToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.削除DToolStripMenuItem.Text = "削除(&D)";
             this.削除DToolStripMenuItem.Click += new System.EventHandler(this.TaskDeleteToolStripMenuItem1_Click);
             // 
@@ -372,7 +380,7 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.button3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.Location = new System.Drawing.Point(0, 26);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(761, 58);
             this.panel1.TabIndex = 10;
@@ -418,12 +426,6 @@
             this.panel2.Size = new System.Drawing.Size(761, 53);
             this.panel2.TabIndex = 11;
             // 
-            // projectFolderBindingSource
-            // 
-            this.projectFolderBindingSource.AllowNew = true;
-            this.projectFolderBindingSource.DataMember = "ProjectFolder";
-            this.projectFolderBindingSource.DataSource = this.taskDataBindingSource;
-            // 
             // taskDataBindingSource
             // 
             this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
@@ -449,7 +451,6 @@
             // ProjectFolder
             // 
             this.ProjectFolder.DataSource = this.projectFolderBindingSource;
-            this.ProjectFolder.DisplayMember = "Length";
             this.ProjectFolder.HeaderText = "プロジェクト";
             this.ProjectFolder.Name = "ProjectFolder";
             this.ProjectFolder.Width = 62;
@@ -524,11 +525,11 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectFolderBindingSource)).EndInit();
             this.dataGridVewContextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.projectFolderBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).EndInit();
             this.ResumeLayout(false);

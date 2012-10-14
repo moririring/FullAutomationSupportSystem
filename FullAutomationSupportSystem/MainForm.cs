@@ -141,6 +141,7 @@ namespace FullAutomationSupportSystem
         {
             task.SetLastRun();
             int count = taskDataBindingSource.Add(task);
+            dataGridView1[dataGridView1.Columns["ProjectFolder"].Index, count].Value = task.ProjectFolder[0];
             dataGridView1[dataGridView1.Columns["Log"].Index, count].Value = "ログ";
             dataGridView1[dataGridView1.Columns["Run"].Index, count].Value = "実行";
         }
@@ -340,6 +341,23 @@ namespace FullAutomationSupportSystem
                 gTaskList.RemoveAt(row.Index);
                 taskDataBindingSource.RemoveAt(row.Index);
             }
+        }
+        //--------------------------------------------------------------------------
+        //dataGridViewがワンクリックですむおまじない
+        //--------------------------------------------------------------------------
+        private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            if (dgv.Columns[e.ColumnIndex].Name == "ProjectFolder" && dgv.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
+            {
+                SendKeys.Send("{F4}");
+            }
+        }
+        //--------------------------------------------------------------------------
+        //dataGridViewがストップしないおまじない
+        //--------------------------------------------------------------------------
+        private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
         }
 
     }
