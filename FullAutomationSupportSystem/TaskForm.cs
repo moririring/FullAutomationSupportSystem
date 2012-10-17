@@ -57,7 +57,7 @@ namespace FullAutomationSupportSystem
         private void AddDataGridView(CommandData command)
         {
             int count = commandDataBindingSource.Add(command);
-            dataGridView1[dataGridView1.Columns["run"].Index, count].Value = "実行";
+            dataGridView1["run", count].Value = "実行";
         }
 
         private void OKButton_Click(object sender, EventArgs e)
@@ -80,6 +80,7 @@ namespace FullAutomationSupportSystem
             gTaskData.ProjectFolder.Clear();
             foreach(var item in ProjectFolderComboBox.Items)
             {
+                gTaskData.ProjectFolder.Add(item.ToString());
                 gTaskData.ProjectFolder.Add(item.ToString());
             }
             gTaskData.LogFolder = LogFolderComboBox.Text;
@@ -128,15 +129,79 @@ namespace FullAutomationSupportSystem
                 gTaskData.CommandDataList[e.RowIndex] = editCommand;
             }
         }
-
         private void ExportFolderComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        //--------------------------------------------------------------------------
+        //ドラッグ&ドロップ
+        //--------------------------------------------------------------------------
+        private Rectangle dragBoxFromMouseDown;
+        private int rowIndexFromMouseDown;
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
         {
+            rowIndexFromMouseDown = dataGridView1.HitTest(e.X, e.Y).RowIndex;
+            if (rowIndexFromMouseDown != -1)
+            {
+                Size dragSize = SystemInformation.DragSize;
+                dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
+            }
+            else
+            {
+                dragBoxFromMouseDown = Rectangle.Empty;
+            }
+        }
+        private void dataGridView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                if (dragBoxFromMouseDown != Rectangle.Empty && !dragBoxFromMouseDown.Contains(e.X, e.Y))
+                {
+                    DragDropEffects dropEffect = dataGridView1.DoDragDrop(dataGridView1.Rows[rowIndexFromMouseDown], DragDropEffects.Move);
+                }
+            }
+        }
+        private int rowIndexFromDragOver;
+        private void dataGridView1_DragOver(object sender, DragEventArgs e)
+        {
+            Point clientPoint = dataGridView1.PointToClient(new Point(e.X, e.Y));
+            rowIndexFromDragOver = dataGridView1.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                //e.Effect = DragDropEffects.All;
+            }
 
+            if (rowIndexFromDragOver != -1)
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+        private void dataGridView1_DragDrop(object sender, DragEventArgs e)
+        {
+            //ファイルドロップ
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] s = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                if (Directory.Exists(s[0]) == true)
+                {
+                }
+                else if (File.Exists(s[0]) == true)
+                {
+                }
+            }
+            //コントロール内操作
+            else
+            {
+                var command = (CommandData)commandDataBindingSource[rowIndexFromMouseDown];
+                commandDataBindingSource.RemoveAt(rowIndexFromMouseDown);
+                commandDataBindingSource.Insert(rowIndexFromDragOver, command);
+                gTaskData.CommandDataList.RemoveAt(rowIndexFromMouseDown);
+                gTaskData.CommandDataList.Insert(rowIndexFromDragOver, command);
+                dataGridView1["run", rowIndexFromDragOver].Value = "実行";
+            }
         }
 
 

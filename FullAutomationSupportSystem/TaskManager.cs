@@ -53,12 +53,12 @@ namespace FullAutomationSupportSystem
 
         public void Insert(int index, CommandData item)
         {
-            throw new NotImplementedException();
+            commandDataList.Insert(index, item);
         }
 
         public void RemoveAt(int index)
         {
-            throw new NotImplementedException();
+            commandDataList.RemoveAt(index);
         }
 
         public CommandData this[int index]
@@ -103,7 +103,7 @@ namespace FullAutomationSupportSystem
         }
     }
     [DataContract(Name = "タスクデータクラス")]
-    public class TaskData
+    public class TaskData : ICloneable
     {
         public TaskData()
         {
@@ -243,6 +243,18 @@ namespace FullAutomationSupportSystem
             }
             return true;
         }
+        public object Clone()
+        {
+            var clone = new TaskData();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                var serializer = new DataContractSerializer(typeof(TaskData));
+                serializer.WriteObject(stream, this);
+                stream.Position = 0;
+                clone = (TaskData)serializer.ReadObject(stream);
+            }
+            return clone;
+        }
     }
     [DataContract(Name = "タスクリストクラス")]
     public class TaskList : IEnumerable<TaskData>, IList<TaskData>, ICloneable
@@ -273,7 +285,7 @@ namespace FullAutomationSupportSystem
             using (var fs = new FileStream(fileName, FileMode.Open))
             {
                 var serializer = new DataContractSerializer(typeof(List<TaskData>));
-                //taskDataList = (List<TaskData>)serializer.ReadObject(fs);
+                taskDataList = (List<TaskData>)serializer.ReadObject(fs);
                 fs.Close();
                 bSuccess = true;
             }
@@ -302,15 +314,13 @@ namespace FullAutomationSupportSystem
 
         public void Insert(int index, TaskData item)
         {
-            throw new NotImplementedException();
+            taskDataList.Insert(index,item);
         }
-
         public TaskData this[int index]
         {
             get { return taskDataList[index]; }
             set { taskDataList[index] = value; }
         }
-
         public void Add(TaskData item)
         {
             taskDataList.Add(item);

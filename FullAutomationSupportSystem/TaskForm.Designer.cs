@@ -41,6 +41,8 @@
             this.CommandListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel6 = new System.Windows.Forms.Panel();
+            this.ExportFolderTextBox = new System.Windows.Forms.TextBox();
+            this.NameTextBox = new System.Windows.Forms.TextBox();
             this.ProjectFolderComboBox = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -65,8 +67,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.CommandTextBox = new System.Windows.Forms.TextBox();
             this.CommandComboBox = new System.Windows.Forms.ComboBox();
-            this.NameTextBox = new System.Windows.Forms.TextBox();
-            this.ExportFolderTextBox = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).BeginInit();
@@ -89,6 +89,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowDrop = true;
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
@@ -110,6 +111,10 @@
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
+            this.dataGridView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridView1_DragDrop);
+            this.dataGridView1.DragOver += new System.Windows.Forms.DragEventHandler(this.dataGridView1_DragOver);
+            this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
+            this.dataGridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseMove);
             // 
             // checkedDataGridViewCheckBoxColumn
             // 
@@ -204,10 +209,25 @@
             this.panel6.Size = new System.Drawing.Size(761, 150);
             this.panel6.TabIndex = 0;
             // 
+            // ExportFolderTextBox
+            // 
+            this.ExportFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
+            this.ExportFolderTextBox.Location = new System.Drawing.Point(82, 79);
+            this.ExportFolderTextBox.Name = "ExportFolderTextBox";
+            this.ExportFolderTextBox.Size = new System.Drawing.Size(303, 19);
+            this.ExportFolderTextBox.TabIndex = 24;
+            // 
+            // NameTextBox
+            // 
+            this.NameTextBox.Location = new System.Drawing.Point(82, 4);
+            this.NameTextBox.Name = "NameTextBox";
+            this.NameTextBox.Size = new System.Drawing.Size(303, 19);
+            this.NameTextBox.TabIndex = 23;
+            // 
             // ProjectFolderComboBox
             // 
-            this.ProjectFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProjectFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ProjectFolderComboBox.FormattingEnabled = true;
             this.ProjectFolderComboBox.Location = new System.Drawing.Point(81, 29);
             this.ProjectFolderComboBox.Name = "ProjectFolderComboBox";
@@ -247,7 +267,6 @@
             this.button2.TabIndex = 16;
             this.button2.Text = "...";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -273,8 +292,8 @@
             // 
             // LogFolderComboBox
             // 
-            this.LogFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogFolderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LogFolderComboBox.FormattingEnabled = true;
             this.LogFolderComboBox.Location = new System.Drawing.Point(81, 53);
             this.LogFolderComboBox.Name = "LogFolderComboBox";
@@ -330,8 +349,8 @@
             // 
             // RepositoryTextBox
             // 
-            this.RepositoryTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.RepositoryTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RepositoryTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.RepositoryTextBox.Location = new System.Drawing.Point(81, 105);
             this.RepositoryTextBox.Name = "RepositoryTextBox";
@@ -438,8 +457,8 @@
             // 
             // CommandTextBox
             // 
-            this.CommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CommandTextBox.Location = new System.Drawing.Point(322, 5);
             this.CommandTextBox.Multiline = true;
             this.CommandTextBox.Name = "CommandTextBox";
@@ -455,21 +474,6 @@
             this.CommandComboBox.Size = new System.Drawing.Size(173, 20);
             this.CommandComboBox.TabIndex = 19;
             this.CommandComboBox.SelectedIndexChanged += new System.EventHandler(this.CommandComboBox_SelectedIndexChanged);
-            // 
-            // NameTextBox
-            // 
-            this.NameTextBox.Location = new System.Drawing.Point(82, 4);
-            this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(303, 19);
-            this.NameTextBox.TabIndex = 23;
-            // 
-            // ExportFolderTextBox
-            // 
-            this.ExportFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
-            this.ExportFolderTextBox.Location = new System.Drawing.Point(82, 79);
-            this.ExportFolderTextBox.Name = "ExportFolderTextBox";
-            this.ExportFolderTextBox.Size = new System.Drawing.Size(303, 19);
-            this.ExportFolderTextBox.TabIndex = 24;
             // 
             // TaskForm
             // 

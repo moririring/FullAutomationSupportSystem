@@ -115,13 +115,13 @@ namespace FullAutomationSupportSystem
             {
                 foreach (var task in gTaskList)
                 {
-                    AddDataGridView(task);
+                    AddDataGridView(task, taskDataBindingSource.Add(task));
                 }
                 gFileName = fileName;
             }
         }
         //--------------------------------------------------------------------------
-        //Task編集
+        //タスク編集
         //--------------------------------------------------------------------------
         private void EditTask(int idx)
         {
@@ -135,15 +135,55 @@ namespace FullAutomationSupportSystem
             }
         }
         //--------------------------------------------------------------------------
+        //タスク追加
+        //--------------------------------------------------------------------------
+        private void AddTask(string path)
+        {
+            var editTask = new TaskData();
+            //かぶらないファイル名を作る
+            var co = 1;
+            while (true)
+            {
+                var NumberTaskName = "新しいタスク" + co++;
+                if (gTaskList.Count(t => t.Name == NumberTaskName) == 0)
+                {
+                    editTask.Name = NumberTaskName;
+                    break;
+                }
+            }
+            var eco = 1;
+            while (true)
+            {
+                var NumberExportFolder = "NewTask" + eco++;
+                if (gTaskList.Count(t => t.ExportFolder == NumberExportFolder) == 0)
+                {
+                    editTask.ExportFolder = NumberExportFolder;
+                    break;
+                }
+            }
+            editTask.ProjectFolder.Add(path);
+            editTask.LogFolder = path;
+            var form = new TaskForm(editTask, gTaskList);
+            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                editTask.Checked = true;
+                gTaskList.Add(editTask);
+                AddDataGridView(editTask, taskDataBindingSource.Add(editTask));
+            }
+        }
+        //--------------------------------------------------------------------------
         //dataGridView追加
         //--------------------------------------------------------------------------
-        private void AddDataGridView(TaskData task)
+        private void AddDataGridView(TaskData task, int count)
         {
             task.SetLastRun();
-            int count = taskDataBindingSource.Add(task);
-            dataGridView1[dataGridView1.Columns["ProjectFolder"].Index, count].Value = task.ProjectFolder[0];
-            dataGridView1[dataGridView1.Columns["Log"].Index, count].Value = "ログ";
-            dataGridView1[dataGridView1.Columns["Run"].Index, count].Value = "実行";
+            var folders = new List<string>();
+            folders.AddRange(task.ProjectFolder);
+            var combobind = dataGridView1["ProjectFolder", count] as DataGridViewComboBoxCell;
+            combobind.DataSource = new BindingSource(folders, string.Empty); 
+            dataGridView1["ProjectFolder", count].Value = task.ProjectFolder[0];
+            dataGridView1["Log", count].Value = "ログ";
+            dataGridView1["Run", count].Value = "実行";
         }
         private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -156,37 +196,7 @@ namespace FullAutomationSupportSystem
         {
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
-                var editTask = new TaskData();
-                //かぶらないファイル名を作る
-                var co = 1;
-                while (true)
-                {
-                    var NumberTaskName = "新しいタスク" + co++;
-                    if (gTaskList.Count(t => t.Name == NumberTaskName) == 0)
-                    {
-                        editTask.Name = NumberTaskName;
-                        break;
-                    }
-                }
-                var eco = 1;
-                while (true)
-                {
-                    var NumberExportFolder = "NewTask" + eco++;
-                    if (gTaskList.Count(t => t.ExportFolder == NumberExportFolder) == 0)
-                    {
-                        editTask.ExportFolder = NumberExportFolder;
-                        break;
-                    }
-                }
-                editTask.ProjectFolder.Add(folderBrowserDialog1.SelectedPath);
-                editTask.LogFolder = folderBrowserDialog1.SelectedPath;
-                var form = new TaskForm(editTask, gTaskList);
-                if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    editTask.Checked = true;
-                    gTaskList.Add(editTask);
-                    AddDataGridView(editTask);
-                }
+                AddTask(folderBrowserDialog1.SelectedPath);
             }
         }
         //--------------------------------------------------------------------------
@@ -288,7 +298,20 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var task = gTaskList[e.RowIndex];
+            //チェック
+            if (e.ColumnIndex == dataGridView1.Columns["Checked"].Index)
+            {
+                //全部以外ははじく
+                if (e.RowIndex != -1) return;
+
+                var count = dataGridView1.Rows.Cast<DataGridViewRow>().Count(r => (bool)r.Cells["Checked"].EditedFormattedValue == true);
+                var bCheckd = (count != dataGridView1.Rows.Count);
+                for (int i = 0; i < gTaskList.Count; i++)
+                {
+                    gTaskList[i].Checked = bCheckd;
+                    taskDataBindingSource[i] = gTaskList[i];
+                }
+            }
             //実行
             if (e.ColumnIndex == dataGridView1.Columns["ProjectFolder"].Index)
             {
@@ -297,6 +320,9 @@ namespace FullAutomationSupportSystem
             //ログ
             else if (e.ColumnIndex == dataGridView1.Columns["Log"].Index)
             {
+                if (e.RowIndex == -1) return;
+                var task = gTaskList[e.RowIndex];
+
                 var logName = Path.Combine(task.LogFolder, "RunLog.html");
                 if (File.Exists(logName))
                 {
@@ -307,6 +333,9 @@ namespace FullAutomationSupportSystem
                     MessageBox.Show(logName + "が見つかりません");
                 }
             }
+        }
+        private void taskDataBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
         }
         //--------------------------------------------------------------------------
         //タスクコピー
@@ -358,6 +387,78 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
+        }
+        //--------------------------------------------------------------------------
+        //dataGridViewドラッグ&ドロップ
+        //--------------------------------------------------------------------------
+        private Rectangle dragBoxFromMouseDown;
+        private int rowIndexFromMouseDown;
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            rowIndexFromMouseDown = dataGridView1.HitTest(e.X, e.Y).RowIndex;
+            if (rowIndexFromMouseDown != -1)
+            {
+                Size dragSize = SystemInformation.DragSize;
+                dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
+            }
+            else
+            {
+                dragBoxFromMouseDown = Rectangle.Empty;
+            }
+        }
+        private void dataGridView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                if (dragBoxFromMouseDown != Rectangle.Empty && !dragBoxFromMouseDown.Contains(e.X, e.Y))
+                {
+                    DragDropEffects dropEffect = dataGridView1.DoDragDrop(dataGridView1.Rows[rowIndexFromMouseDown], DragDropEffects.Move);
+                }
+            }
+        }
+        private int rowIndexFromDragOver;
+        private void dataGridView1_DragOver(object sender, DragEventArgs e)
+        {
+            Point clientPoint = dataGridView1.PointToClient(new Point(e.X, e.Y));
+            rowIndexFromDragOver = dataGridView1.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+            else if (rowIndexFromDragOver != -1)
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+        private void dataGridView1_DragDrop(object sender, DragEventArgs e)
+        {
+            //ファイルドロップ
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] s = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                if (Directory.Exists(s[0]) == true)
+                {
+                    AddTask(s[0]);
+                }
+                else if (File.Exists(s[0]) == true)
+                {
+                    AddTask(Path.GetDirectoryName(s[0]));
+                }
+            }
+            //コントロール内操作
+            else
+            {
+                var editTask = (TaskData)taskDataBindingSource[rowIndexFromMouseDown];
+                taskDataBindingSource.RemoveAt(rowIndexFromMouseDown);
+                taskDataBindingSource.Insert(rowIndexFromDragOver, editTask);
+                gTaskList.RemoveAt(rowIndexFromMouseDown);
+                gTaskList.Insert(rowIndexFromDragOver, editTask);
+                AddDataGridView(editTask, rowIndexFromDragOver);
+            }
         }
 
     }
