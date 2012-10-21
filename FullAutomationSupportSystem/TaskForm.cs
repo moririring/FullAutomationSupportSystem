@@ -81,7 +81,6 @@ namespace FullAutomationSupportSystem
             foreach(var item in ProjectFolderComboBox.Items)
             {
                 gTaskData.ProjectFolder.Add(item.ToString());
-                gTaskData.ProjectFolder.Add(item.ToString());
             }
             gTaskData.LogFolder = LogFolderComboBox.Text;
             gTaskData.Repository = RepositoryTextBox.Text;

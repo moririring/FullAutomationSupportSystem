@@ -19,13 +19,14 @@ namespace FullAutomationSupportSystem
         static public readonly string gApplicationIniFileName = @"Fass\Fass.ini";
         static public readonly string gSaveTempFileName = @"Fass\SaveTemp.txt";
         static public string gFileName = "";
+
         //--------------------------------------------------------------------------
         //コンストラクタ
         //--------------------------------------------------------------------------
         public MainForm()
         {
             InitializeComponent();
-            TimerTextBox.Text = DateTime.Now.ToLongTimeString();
+
         }
         //--------------------------------------------------------------------------
         //開始
@@ -107,6 +108,32 @@ namespace FullAutomationSupportSystem
             }
         }
         //--------------------------------------------------------------------------
+        //のこり時間
+        //--------------------------------------------------------------------------
+        private string GetRemainingLongTime(DateTime longTime)
+        {
+            //longTimeを今日にパースしてから引き算
+            var remainingTime = DateTime.Parse(longTime.ToLongTimeString()) - DateTime.Now;
+            //現在が15時で設定時間が17時だと+2、設定時間が13だと-2が変える
+            if (remainingTime.TotalDays < 0.0)
+            {
+                //マイナス2時間とは表示出来ないので1日プラス
+                remainingTime = remainingTime.Add(new TimeSpan(1, 0, 0, 0));
+            }
+            //TimeSpanはToLongTimeString関数がないので、DataTimeにパースしてから取得
+            return DateTime.Parse(remainingTime.ToString()).ToLongTimeString();
+        }
+        //--------------------------------------------------------------------------
+        //のこり分
+        //--------------------------------------------------------------------------
+        private DateTime StartSpanTime;
+        private string GetRemainingLongTime(int minutes)
+        {
+            var remainingTime = new TimeSpan(0, minutes, 0);
+            remainingTime = remainingTime - (DateTime.Now - StartSpanTime);
+            return DateTime.Parse(remainingTime.ToString()).ToLongTimeString();
+        }
+        //--------------------------------------------------------------------------
         //ファイルロード
         //--------------------------------------------------------------------------
         private void FileLoad(string fileName)
@@ -172,6 +199,16 @@ namespace FullAutomationSupportSystem
             }
         }
         //--------------------------------------------------------------------------
+        //タスク実行
+        //--------------------------------------------------------------------------
+        private void RunTask(TaskList taskList)
+        {
+            RunButton.Enabled = false;
+            var RunForm = new RunForm(taskList);
+            RunForm.Show();
+            RunForm.Disposed += new EventHandler(gRunForm_Disposed);
+        }
+        //--------------------------------------------------------------------------
         //dataGridView追加
         //--------------------------------------------------------------------------
         private void AddDataGridView(TaskData task, int count)
@@ -204,7 +241,36 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void timer1_Tick(object sender, EventArgs e)
         {
-            TimerTextBox.Text = DateTime.Now.ToLongTimeString();
+            //タイマー
+            if (TimerCheckBox.Checked == true)
+            {
+                TimerTextBox.Text = GetRemainingLongTime(TimerDateTimePicker.Value);
+                if (TimerTextBox.Text == "0:00:00")
+                {
+                    var taskList = (TaskList)gTaskList.Clone();
+                    foreach (var task in taskList)
+                    {
+                        task.Checked = (task.Timer == true && task.Checked == true);
+                    }
+                    RunTask(taskList);
+                }
+            }
+            //スパン
+            if (SpanCheckBox.Checked == true)
+            {
+                SpanTextBox.Text = GetRemainingLongTime((int)SpanNumericUpDown.Value);
+                if (SpanTextBox.Text == "0:00:00")
+                {
+                    StartSpanTime = DateTime.Now;
+                    var taskList = (TaskList)gTaskList.Clone();
+                    foreach (var task in taskList)
+                    {
+                        task.Checked = (task.Span == true && task.Checked == true);
+                    }
+                    RunTask(taskList);
+                }
+            }
+
         }
         //--------------------------------------------------------------------------
         //終了
@@ -272,10 +338,7 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void RunButton_Click(object sender, EventArgs e)
         {
-            RunButton.Enabled = false;
-            var RunForm = new RunForm((TaskList)gTaskList.Clone());
-            RunForm.Show();
-            RunForm.Disposed += new EventHandler(gRunForm_Disposed);
+            RunTask((TaskList)gTaskList.Clone());
         }
         //--------------------------------------------------------------------------
         //実行終了処理
@@ -296,22 +359,43 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         //セルクリック
         //--------------------------------------------------------------------------
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1CheckboxCheck(string name, DataGridViewCellEventArgs e)
         {
             //チェック
-            if (e.ColumnIndex == dataGridView1.Columns["Checked"].Index)
+            if (e.ColumnIndex == dataGridView1.Columns[name].Index)
             {
                 //全部以外ははじく
                 if (e.RowIndex != -1) return;
 
-                var count = dataGridView1.Rows.Cast<DataGridViewRow>().Count(r => (bool)r.Cells["Checked"].EditedFormattedValue == true);
+                var count = dataGridView1.Rows.Cast<DataGridViewRow>().Count(r => (bool)r.Cells[name].EditedFormattedValue == true);
                 var bCheckd = (count != dataGridView1.Rows.Count);
                 for (int i = 0; i < gTaskList.Count; i++)
                 {
-                    gTaskList[i].Checked = bCheckd;
+                    if (name == "Checked")
+                    {
+                        gTaskList[i].Checked = bCheckd;
+                    }
+                    else if (name == "Timer")
+                    {
+                        gTaskList[i].Timer = bCheckd;
+                    }
+                    else if (name == "Span")
+                    {
+                        gTaskList[i].Span = bCheckd;
+                    }
                     taskDataBindingSource[i] = gTaskList[i];
                 }
             }
+        }
+        //--------------------------------------------------------------------------
+        //セルクリック
+        //--------------------------------------------------------------------------
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView1CheckboxCheck("Checked", e);
+            dataGridView1CheckboxCheck("Timer", e);
+            dataGridView1CheckboxCheck("Span", e);
+
             //実行
             if (e.ColumnIndex == dataGridView1.Columns["ProjectFolder"].Index)
             {
@@ -358,6 +442,7 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            if (e.RowIndex == -1) return;
             EditTask(e.RowIndex);
         }
         //--------------------------------------------------------------------------
@@ -459,6 +544,24 @@ namespace FullAutomationSupportSystem
                 gTaskList.Insert(rowIndexFromDragOver, editTask);
                 AddDataGridView(editTask, rowIndexFromDragOver);
             }
+        }
+        private void SpanNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            StartSpanTime = DateTime.Now;
+        }
+
+        private void TimerCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            var check = sender as CheckBox;
+            TimerTextBox.Text =  (check.Checked == true) ? GetRemainingLongTime(TimerDateTimePicker.Value) : "--:--:--";
+        }
+
+        private void SpanCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            StartSpanTime = DateTime.Now;
+
+            var check = sender as CheckBox;
+            SpanTextBox.Text = (check.Checked == true) ? GetRemainingLongTime((int)SpanNumericUpDown.Value) : "--:--:--";
         }
 
     }
