@@ -36,25 +36,34 @@ namespace FullAutomationSupportSystem
             foreach (var task in gTaskList)
             {
                 if (task.Checked == false) continue;
-                var StartTime = DateTime.Now;
-                //HTML
-                task.WriteRunLogHTML(true);
-                //ログテキストファイル生成
-                task.WriteRunLogNow(true, task.Name);
-                foreach (var command in task.CommandDataList)
+                try
                 {
-                    backgroundWorker1.ReportProgress(counter++);
-                    var runMsg = CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
-                    var msg = command.Name + " : " + command.Param1 + " : " + command.Param2 + " : " + runMsg + " : " + DateTime.Now;
-                    task.WriteRunLogNow(false, msg);
+
+                    var StartTime = DateTime.Now;
+                    //HTML
+                    task.WriteRunLogHTML(true);
+                    //ログテキストファイル生成
+                    task.WriteRunLogNow(true, task.Name);
+                    foreach (var command in task.CommandDataList)
+                    {
+                        backgroundWorker1.ReportProgress(counter++);
+                        var runMsg = CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
+                        var msg = command.Name + " : " + command.Param1 + " : " + command.Param2 + " : " + runMsg + " : " + DateTime.Now;
+                        task.WriteRunLogNow(false, msg);
+                    }
+                    task.WriteRunLogNow(false, "End!!");
+                    //ログcsvファイル生成
+                    var EndTime = DateTime.Now;
+                    var TotalTime = EndTime - StartTime;
+                    task.WriteRunLogHistory(StartTime + "," + EndTime + "," + TotalTime + ",");
+                    //HTML
+                    task.WriteRunLogHTML(false);
                 }
-                task.WriteRunLogNow(false, "End!!");
-                //ログcsvファイル生成
-                var EndTime = DateTime.Now;
-                var TotalTime = EndTime - StartTime;
-                task.WriteRunLogHistory(StartTime + "," + EndTime + "," + TotalTime + ",");
-                //HTML
-                task.WriteRunLogHTML(false);
+                catch (Exception ex)
+                {
+                    task.WriteRunLogNow(false, ex.Message);
+                    throw;
+                }
             }
         }
         //--------------------------------------------------------------------------

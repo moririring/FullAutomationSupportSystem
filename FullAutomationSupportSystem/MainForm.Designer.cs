@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.SpanNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -59,16 +59,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProjectFolder = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Timer = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Span = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.LastRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Log = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridVewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.削除DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,6 +74,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.SpanTextBox = new System.Windows.Forms.TextBox();
             this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProjectFolder = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Timer = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Span = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Log = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.SpanNumericUpDown)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -326,47 +326,47 @@
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Checked,
             this.dataGridViewTextBoxColumn1,
+            this.LastRun,
             this.ProjectFolder,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.Timer,
             this.Span,
-            this.LastRun,
             this.Log,
             this.Run});
             this.dataGridView1.ContextMenuStrip = this.dataGridVewContextMenuStrip;
             this.dataGridView1.DataSource = this.taskDataBindingSource;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 82);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowTemplate.Height = 21;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(761, 239);
@@ -380,81 +380,6 @@
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             this.dataGridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseMove);
-            // 
-            // Checked
-            // 
-            this.Checked.DataPropertyName = "Checked";
-            this.Checked.HeaderText = "チェック";
-            this.Checked.Name = "Checked";
-            this.Checked.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Checked.Width = 61;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn1.HeaderText = "名前";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 54;
-            // 
-            // ProjectFolder
-            // 
-            this.ProjectFolder.HeaderText = "プロジェクト";
-            this.ProjectFolder.Name = "ProjectFolder";
-            this.ProjectFolder.Width = 62;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "LogFolder";
-            this.dataGridViewTextBoxColumn3.HeaderText = "ログ";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn3.Visible = false;
-            this.dataGridViewTextBoxColumn3.Width = 48;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Repository";
-            this.dataGridViewTextBoxColumn4.HeaderText = "リポジトリ";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Visible = false;
-            this.dataGridViewTextBoxColumn4.Width = 72;
-            // 
-            // Timer
-            // 
-            this.Timer.DataPropertyName = "Timer";
-            this.Timer.HeaderText = "タイマー";
-            this.Timer.Name = "Timer";
-            this.Timer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Timer.Width = 66;
-            // 
-            // Span
-            // 
-            this.Span.DataPropertyName = "Span";
-            this.Span.HeaderText = "スパン";
-            this.Span.Name = "Span";
-            this.Span.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Span.Width = 58;
-            // 
-            // LastRun
-            // 
-            this.LastRun.DataPropertyName = "LastRunTime";
-            this.LastRun.HeaderText = "最終実行時間";
-            this.LastRun.Name = "LastRun";
-            this.LastRun.ReadOnly = true;
-            this.LastRun.Width = 102;
-            // 
-            // Log
-            // 
-            this.Log.HeaderText = "ログ";
-            this.Log.Name = "Log";
-            this.Log.Width = 29;
-            // 
-            // Run
-            // 
-            this.Run.HeaderText = "実行";
-            this.Run.Name = "Run";
-            this.Run.ReadOnly = true;
-            this.Run.Width = 35;
             // 
             // dataGridVewContextMenuStrip
             // 
@@ -589,6 +514,81 @@
             // 
             this.commandListDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandListData);
             // 
+            // Checked
+            // 
+            this.Checked.DataPropertyName = "Checked";
+            this.Checked.HeaderText = "チェック";
+            this.Checked.Name = "Checked";
+            this.Checked.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Checked.Width = 61;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn1.HeaderText = "名前";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 54;
+            // 
+            // LastRun
+            // 
+            this.LastRun.DataPropertyName = "LastRunTime";
+            this.LastRun.HeaderText = "最終実行時間";
+            this.LastRun.Name = "LastRun";
+            this.LastRun.ReadOnly = true;
+            this.LastRun.Width = 102;
+            // 
+            // ProjectFolder
+            // 
+            this.ProjectFolder.HeaderText = "プロジェクト";
+            this.ProjectFolder.Name = "ProjectFolder";
+            this.ProjectFolder.Width = 62;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "LogFolder";
+            this.dataGridViewTextBoxColumn3.HeaderText = "ログ";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn3.Visible = false;
+            this.dataGridViewTextBoxColumn3.Width = 48;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Repository";
+            this.dataGridViewTextBoxColumn4.HeaderText = "リポジトリ";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            this.dataGridViewTextBoxColumn4.Width = 72;
+            // 
+            // Timer
+            // 
+            this.Timer.DataPropertyName = "Timer";
+            this.Timer.HeaderText = "タイマー";
+            this.Timer.Name = "Timer";
+            this.Timer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Timer.Width = 66;
+            // 
+            // Span
+            // 
+            this.Span.DataPropertyName = "Span";
+            this.Span.HeaderText = "スパン";
+            this.Span.Name = "Span";
+            this.Span.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Span.Width = 58;
+            // 
+            // Log
+            // 
+            this.Log.HeaderText = "ログ";
+            this.Log.Name = "Log";
+            this.Log.Width = 29;
+            // 
+            // Run
+            // 
+            this.Run.HeaderText = "実行";
+            this.Run.Name = "Run";
+            this.Run.ReadOnly = true;
+            this.Run.Width = 35;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -671,12 +671,12 @@
         private System.Windows.Forms.DateTimePicker TimerDateTimePicker;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Checked;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastRun;
         private System.Windows.Forms.DataGridViewComboBoxColumn ProjectFolder;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Timer;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Span;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastRun;
         private System.Windows.Forms.DataGridViewButtonColumn Log;
         private System.Windows.Forms.DataGridViewButtonColumn Run;
     }

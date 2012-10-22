@@ -450,6 +450,10 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void TaskDeleteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count == 0) return;
+            DialogResult result = MessageBox.Show("本当に削除してよろしいですか？", "確認", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No) return;
+
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 gTaskList.RemoveAt(row.Index);
@@ -493,7 +497,7 @@ namespace FullAutomationSupportSystem
         }
         private void dataGridView1_MouseMove(object sender, MouseEventArgs e)
         {
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left && dataGridView1.Rows.Count > rowIndexFromMouseDown)
             {
                 if (dragBoxFromMouseDown != Rectangle.Empty && !dragBoxFromMouseDown.Contains(e.X, e.Y))
                 {

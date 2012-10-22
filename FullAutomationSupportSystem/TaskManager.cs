@@ -172,7 +172,6 @@ namespace FullAutomationSupportSystem
                 sw.WriteLine("</tr>");
                 sw.WriteLine("</thead>");
                 sw.WriteLine("<tbody>");
-                sw.WriteLine("<tr>");
                 var files = Directory.GetFiles(LogFolder, "RunLogHistory.txt", SearchOption.AllDirectories);
                 foreach (var file in files)
                 {
@@ -194,11 +193,11 @@ namespace FullAutomationSupportSystem
                     {
                         taskName = sr.ReadLine();
                     }
-
-                    sw.WriteLine("<td><a href = '" + ExportFolder + "\\RunLogNow.txt'>" + taskName + "</a></td>");
-                    sw.WriteLine("<td><a href = '" + ExportFolder + "\\RunLogHistory.txt'>" + logTime + "</a></td>");
+                    sw.WriteLine("<tr>");
+                    sw.WriteLine("<td><a href = '" + folder + "\\RunLogNow.txt'>" + taskName + "</a></td>");
+                    sw.WriteLine("<td><a href = '" + folder + "\\RunLogHistory.txt'>" + logTime + "</a></td>");
+                    sw.WriteLine("</tr>");
                 }
-                sw.WriteLine("</tr>");
                 sw.WriteLine("</tbody>");
                 sw.WriteLine("</table>");
             }
