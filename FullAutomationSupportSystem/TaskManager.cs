@@ -105,9 +105,13 @@ namespace FullAutomationSupportSystem
     [DataContract(Name = "タスクデータクラス")]
     public class TaskData : ICloneable
     {
+        [CollectionDataContract(ItemName = "プロジェクトフォルダリスト")]
+        public class  ProjectFolderClass :List<string> {}
+
+
         public TaskData()
         {
-            ProjectFolder = new List<string>();
+            ProjectFolder = new ProjectFolderClass();
         }
         [DataMember(Name = "チェック")]
         public bool Checked { get; set; }
@@ -116,8 +120,7 @@ namespace FullAutomationSupportSystem
         [DataMember(Name = "出力フォルダ名")]
         public string ExportFolder { get; set; }
         [DataMember(Name = "プロジェクトフォルダ")]
-        //public IBindingList<string> 
-        public List<string> ProjectFolder { get; set; }
+        public ProjectFolderClass ProjectFolder { get; set; }
         [DataMember(Name = "ログフォルダ")]
         public string LogFolder { get; set; }
         [DataMember(Name = "リポジトリ")]
@@ -269,8 +272,8 @@ namespace FullAutomationSupportSystem
             {
                 using (var xw = XmlWriter.Create(ms, new XmlWriterSettings { Indent = true }))
                 {
-                    var serializer = new DataContractSerializer(typeof(List<TaskData>));
-                    serializer.WriteObject(xw, taskDataList);
+                    var serializer = new DataContractSerializer(typeof(TaskList));
+                    serializer.WriteObject(xw, this);
                     bSuccess = true;
                 }
             }
@@ -284,7 +287,7 @@ namespace FullAutomationSupportSystem
             using (var fs = new FileStream(fileName, FileMode.Open))
             {
                 var serializer = new DataContractSerializer(typeof(List<TaskData>));
-                taskDataList = (List<TaskData>)serializer.ReadObject(fs);
+                //taskDataList = (List<TaskData>)serializer.ReadObject(fs);
                 fs.Close();
                 bSuccess = true;
             }

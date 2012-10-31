@@ -59,48 +59,47 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProjectFolder = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Timer = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Span = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Log = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridVewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.削除DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TimerDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.SpanTextBox = new System.Windows.Forms.TextBox();
+            this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Timer = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Span = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.SpanNumericUpDown)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.dataGridVewContextMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 21);
+            this.label4.Location = new System.Drawing.Point(10, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(17, 12);
             this.label4.TabIndex = 8;
@@ -109,7 +108,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 45);
+            this.label3.Location = new System.Drawing.Point(10, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(17, 12);
             this.label3.TabIndex = 7;
@@ -117,7 +116,7 @@
             // 
             // SpanNumericUpDown
             // 
-            this.SpanNumericUpDown.Location = new System.Drawing.Point(113, 40);
+            this.SpanNumericUpDown.Location = new System.Drawing.Point(123, 34);
             this.SpanNumericUpDown.Maximum = new decimal(new int[] {
             1440,
             0,
@@ -142,7 +141,7 @@
             // SpanCheckBox
             // 
             this.SpanCheckBox.AutoSize = true;
-            this.SpanCheckBox.Location = new System.Drawing.Point(33, 41);
+            this.SpanCheckBox.Location = new System.Drawing.Point(33, 35);
             this.SpanCheckBox.Name = "SpanCheckBox";
             this.SpanCheckBox.Size = new System.Drawing.Size(76, 16);
             this.SpanCheckBox.TabIndex = 5;
@@ -152,7 +151,7 @@
             // 
             // TimerTextBox
             // 
-            this.TimerTextBox.Location = new System.Drawing.Point(221, 17);
+            this.TimerTextBox.Location = new System.Drawing.Point(231, 11);
             this.TimerTextBox.Name = "TimerTextBox";
             this.TimerTextBox.ReadOnly = true;
             this.TimerTextBox.Size = new System.Drawing.Size(48, 19);
@@ -163,7 +162,7 @@
             // TimerCheckBox
             // 
             this.TimerCheckBox.AutoSize = true;
-            this.TimerCheckBox.Location = new System.Drawing.Point(33, 19);
+            this.TimerCheckBox.Location = new System.Drawing.Point(33, 13);
             this.TimerCheckBox.Name = "TimerCheckBox";
             this.TimerCheckBox.Size = new System.Drawing.Size(84, 16);
             this.TimerCheckBox.TabIndex = 1;
@@ -173,7 +172,7 @@
             // 
             // RunButton
             // 
-            this.RunButton.Location = new System.Drawing.Point(3, 17);
+            this.RunButton.Location = new System.Drawing.Point(3, 14);
             this.RunButton.Name = "RunButton";
             this.RunButton.Size = new System.Drawing.Size(124, 41);
             this.RunButton.TabIndex = 0;
@@ -372,7 +371,7 @@
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowTemplate.Height = 21;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(761, 205);
+            this.dataGridView1.Size = new System.Drawing.Size(761, 217);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
@@ -383,21 +382,6 @@
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             this.dataGridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseMove);
-            // 
-            // Checked
-            // 
-            this.Checked.DataPropertyName = "Checked";
-            this.Checked.HeaderText = "チェック";
-            this.Checked.Name = "Checked";
-            this.Checked.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Checked.Width = 61;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn1.HeaderText = "名前";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 54;
             // 
             // LastRun
             // 
@@ -412,39 +396,6 @@
             this.ProjectFolder.HeaderText = "プロジェクト";
             this.ProjectFolder.Name = "ProjectFolder";
             this.ProjectFolder.Width = 62;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "LogFolder";
-            this.dataGridViewTextBoxColumn3.HeaderText = "ログ";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn3.Visible = false;
-            this.dataGridViewTextBoxColumn3.Width = 48;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Repository";
-            this.dataGridViewTextBoxColumn4.HeaderText = "リポジトリ";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Visible = false;
-            this.dataGridViewTextBoxColumn4.Width = 72;
-            // 
-            // Timer
-            // 
-            this.Timer.DataPropertyName = "Timer";
-            this.Timer.HeaderText = "タイマー";
-            this.Timer.Name = "Timer";
-            this.Timer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Timer.Width = 66;
-            // 
-            // Span
-            // 
-            this.Span.DataPropertyName = "Span";
-            this.Span.HeaderText = "スパン";
-            this.Span.Name = "Span";
-            this.Span.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Span.Width = 58;
             // 
             // Log
             // 
@@ -465,26 +416,21 @@
             this.編集EToolStripMenuItem,
             this.削除DToolStripMenuItem});
             this.dataGridVewContextMenuStrip.Name = "contextMenuStrip1";
-            this.dataGridVewContextMenuStrip.Size = new System.Drawing.Size(120, 48);
+            this.dataGridVewContextMenuStrip.Size = new System.Drawing.Size(111, 48);
             // 
             // 編集EToolStripMenuItem
             // 
             this.編集EToolStripMenuItem.Name = "編集EToolStripMenuItem";
-            this.編集EToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.編集EToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.編集EToolStripMenuItem.Text = "編集(&E)";
             this.編集EToolStripMenuItem.Click += new System.EventHandler(this.TaskEditToolStripMenuItem1_Click);
             // 
             // 削除DToolStripMenuItem
             // 
             this.削除DToolStripMenuItem.Name = "削除DToolStripMenuItem";
-            this.削除DToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.削除DToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.削除DToolStripMenuItem.Text = "削除(&D)";
             this.削除DToolStripMenuItem.Click += new System.EventHandler(this.TaskDeleteToolStripMenuItem1_Click);
-            // 
-            // taskDataBindingSource
-            // 
-            this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
-            this.taskDataBindingSource.CurrentItemChanged += new System.EventHandler(this.taskDataBindingSource_CurrentItemChanged);
             // 
             // panel1
             // 
@@ -522,24 +468,13 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Controls.Add(this.RunButton);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 287);
+            this.panel2.Location = new System.Drawing.Point(0, 299);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(761, 87);
+            this.panel2.Size = new System.Drawing.Size(761, 75);
             this.panel2.TabIndex = 11;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(139, 67);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 16);
-            this.checkBox1.TabIndex = 14;
-            this.checkBox1.Text = "スケジュール";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -556,7 +491,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Location = new System.Drawing.Point(133, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(614, 63);
+            this.groupBox1.Size = new System.Drawing.Size(614, 54);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             // 
@@ -564,7 +499,7 @@
             // 
             this.TimerDateTimePicker.CustomFormat = "HH:mm:ss";
             this.TimerDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.TimerDateTimePicker.Location = new System.Drawing.Point(113, 17);
+            this.TimerDateTimePicker.Location = new System.Drawing.Point(123, 11);
             this.TimerDateTimePicker.Name = "TimerDateTimePicker";
             this.TimerDateTimePicker.ShowUpDown = true;
             this.TimerDateTimePicker.Size = new System.Drawing.Size(71, 19);
@@ -574,7 +509,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(191, 42);
+            this.label5.Location = new System.Drawing.Point(201, 36);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(25, 12);
             this.label5.TabIndex = 12;
@@ -583,7 +518,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(190, 21);
+            this.label2.Location = new System.Drawing.Point(200, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(25, 12);
             this.label2.TabIndex = 11;
@@ -592,7 +527,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(171, 43);
+            this.label1.Location = new System.Drawing.Point(181, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(17, 12);
             this.label1.TabIndex = 10;
@@ -600,13 +535,66 @@
             // 
             // SpanTextBox
             // 
-            this.SpanTextBox.Location = new System.Drawing.Point(222, 39);
+            this.SpanTextBox.Location = new System.Drawing.Point(232, 33);
             this.SpanTextBox.Name = "SpanTextBox";
             this.SpanTextBox.ReadOnly = true;
             this.SpanTextBox.Size = new System.Drawing.Size(47, 19);
             this.SpanTextBox.TabIndex = 9;
             this.SpanTextBox.Text = "--:--:--";
             this.SpanTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // Checked
+            // 
+            this.Checked.DataPropertyName = "Checked";
+            this.Checked.HeaderText = "チェック";
+            this.Checked.Name = "Checked";
+            this.Checked.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Checked.Width = 61;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn1.HeaderText = "名前";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 54;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "LogFolder";
+            this.dataGridViewTextBoxColumn3.HeaderText = "ログ";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn3.Visible = false;
+            this.dataGridViewTextBoxColumn3.Width = 48;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Repository";
+            this.dataGridViewTextBoxColumn4.HeaderText = "リポジトリ";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            this.dataGridViewTextBoxColumn4.Width = 72;
+            // 
+            // Timer
+            // 
+            this.Timer.DataPropertyName = "Timer";
+            this.Timer.HeaderText = "タイマー";
+            this.Timer.Name = "Timer";
+            this.Timer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Timer.Width = 66;
+            // 
+            // Span
+            // 
+            this.Span.DataPropertyName = "Span";
+            this.Span.HeaderText = "スパン";
+            this.Span.Name = "Span";
+            this.Span.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Span.Width = 58;
+            // 
+            // taskDataBindingSource
+            // 
+            this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
+            this.taskDataBindingSource.CurrentItemChanged += new System.EventHandler(this.taskDataBindingSource_CurrentItemChanged);
             // 
             // commandListDataBindingSource
             // 
@@ -631,12 +619,11 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.dataGridVewContextMenuStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -705,6 +692,5 @@
         private System.Windows.Forms.DataGridViewButtonColumn Log;
         private System.Windows.Forms.DataGridViewButtonColumn Run;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
