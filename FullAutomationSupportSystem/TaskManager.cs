@@ -283,14 +283,54 @@ namespace FullAutomationSupportSystem
         {
             if (File.Exists(fileName) == false) return false;
             bool bSuccess = false;
-            //読み込むファイルを開く
-            using (var fs = new FileStream(fileName, FileMode.Open))
+
+            using (var reader = new XmlTextReader(fileName))
             {
-                var serializer = new DataContractSerializer(typeof(List<TaskData>));
-                //taskDataList = (List<TaskData>)serializer.ReadObject(fs);
-                fs.Close();
-                bSuccess = true;
+                bool bCommandClass = false;
+
+                while (reader.Read())
+                {
+                    if (reader.NodeType == XmlNodeType.Element)
+                    {
+                        if (reader.Name == "コマンドデータクラス")
+                        {
+                            TaskData task = new TaskData();
+
+                            reader.ReadToDescendant("タイプ");
+                            //task.var name = reader.ReadElementContentAsString();
+
+                            bCommandClass = true;
+                        }
+                    }
+                    else if (reader.NodeType == XmlNodeType.Text)
+                    {
+                        if (bCommandClass == true)
+                        {
+                            if (reader.Name == "コマンドデータクラス")
+                            {
+                                bCommandClass = true;
+                            }
+                        }
+
+                    }
+                    else if (reader.NodeType == XmlNodeType.EndElement)
+                    {
+                        if (reader.Name == "コマンドデータクラス")
+                        {
+                            bCommandClass = false;
+                        }
+                    }
+                }
             }
+
+            //読み込むファイルを開く
+            //using (var fs = new FileStream(fileName, FileMode.Open))
+            //{
+            //    var serializer = new DataContractSerializer(typeof(List<TaskData>));
+            //    //taskDataList = (List<TaskData>)serializer.ReadObject(fs);
+            //    fs.Close();
+            //    bSuccess = true;
+            //}
             return bSuccess;
         }
 
