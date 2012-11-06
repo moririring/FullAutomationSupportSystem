@@ -7,10 +7,11 @@ using System.Collections;
 using System.Runtime.Serialization;
 using System.Xml;
 using System.Runtime.Serialization.Formatters.Binary;
+using RazorEngine;
 
 namespace FullAutomationSupportSystem
 {
-    [DataContract(Name = "コマンドデータクラス")]
+    [DataContract]
     public class CommandData
     {
         public CommandData()
@@ -18,21 +19,47 @@ namespace FullAutomationSupportSystem
             Param1 = "";
             Param2 = "";
         }
-        [DataMember(Name = "チェック")]
+        [DataMember(Order = 0)]
         public bool Checked { get; set; }
-        [DataMember(Name = "タイプ")]
+        [DataMember(Order = 1)]
         public CommandListType Type { get; set; }
-        [DataMember(Name = "名前")]
+        [DataMember(Order = 2)]
         public string Name { get; set; }
-        [DataMember(Name = "パラメータ1")]
+        [DataMember(Order = 3)]
         public string Param1 { get; set; }
-        [DataMember(Name = "パラメータ2")]
+        [DataMember(Order = 4)]
         public string Param2 { get; set; }
+
+        public CommandData(XmlReader reader)
+        {
+            if (reader.ReadToFollowing("Checked"))
+            {
+                Checked = reader.ReadElementContentAsBoolean();
+            }
+            if (reader.ReadToFollowing("Type"))
+            {
+                Type = (CommandListType)Enum.Parse(typeof(CommandListType), reader.ReadElementContentAsString());
+            }
+            if (reader.ReadToFollowing("Name"))
+            {
+                Name = reader.ReadElementContentAsString();
+            }
+            if (reader.ReadToFollowing("Param1"))
+            {
+                Param1 = reader.ReadElementContentAsString();
+            }
+            if (reader.ReadToFollowing("Param2"))
+            {
+                Param2 = reader.ReadElementContentAsString();
+            }
+        }
+
+
     }
-    [DataContract(Name = "コマンドリストクラス")]
+    [DataContract]
     public class CommandList : IEnumerable<CommandData>, IList<CommandData>
     {
-        [DataMember(Name = "コマンドデータリスト")]
+        [DataMember]
         private List<CommandData> commandDataList = new List<CommandData>();
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -102,10 +129,23 @@ namespace FullAutomationSupportSystem
             throw new NotImplementedException();
         }
     }
-    [DataContract(Name = "タスクデータクラス")]
+    public class RunLogHTMLData
+    {
+        public string TaskName { set; get; }
+        public string TaskNameLink { set; get; }
+        public string LogTime { set; get; }
+        public string LogTimeLink { set; get; }
+    };
+    public class RunLogHTMLDatas
+    {
+        public List<RunLogHTMLData> Datas;
+    };
+
+
+    [DataContract]
     public class TaskData : ICloneable
     {
-        [CollectionDataContract(ItemName = "プロジェクトフォルダリスト")]
+        [CollectionDataContract]
         public class  ProjectFolderClass :List<string> {}
 
 
@@ -113,31 +153,81 @@ namespace FullAutomationSupportSystem
         {
             ProjectFolder = new ProjectFolderClass();
         }
-        [DataMember(Name = "チェック")]
+        [DataMember(Order = 0)]
         public bool Checked { get; set; }
-        [DataMember(Name = "名前")]
+        [DataMember(Order = 1)]
         public string Name { get; set; }
-        [DataMember(Name = "出力フォルダ名")]
+        [DataMember(Order = 2)]
         public string ExportFolder { get; set; }
-        [DataMember(Name = "プロジェクトフォルダ")]
+        [DataMember(Order = 3)]
         public ProjectFolderClass ProjectFolder { get; set; }
-        [DataMember(Name = "ログフォルダ")]
+        [DataMember(Order = 4)]
         public string LogFolder { get; set; }
-        [DataMember(Name = "リポジトリ")]
+        [DataMember(Order = 5)]
         public string Repository { get; set; }
-        [DataMember(Name = "タイマー")]
+        [DataMember(Order = 6)]
         public bool Timer { get; set; }
-        [DataMember(Name = "スパン")]
+        [DataMember(Order = 7)]
         public bool Span { get; set; }
-        [DataMember(Name = "コマンドデータリスト")]
+        [DataMember(Order = 8)]
         public CommandList CommandDataList = new CommandList();
+
+        public void Load(XmlReader reader)
+        {
+            if (reader.ReadToFollowing("Checked"))
+            {
+                Checked = reader.ReadElementContentAsBoolean();
+            }
+            if (reader.ReadToFollowing("Name"))
+            {
+                Name = reader.ReadElementContentAsString();
+            }
+            if (reader.ReadToFollowing("ExportFolder"))
+            {
+                ExportFolder = reader.ReadElementContentAsString();
+            }
+            if (reader.ReadToFollowing("ProjectFolder"))
+            {
+                ProjectFolder.Clear();
+                while (reader.Read())
+                {
+                    if (reader.NodeType == XmlNodeType.Text)
+                    {
+                        ProjectFolder.Add(reader.ReadString());
+                    }
+                    else if (reader.NodeType == XmlNodeType.EndElement)
+                    {
+                        if (reader.Name == "ProjectFolder")
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            if (reader.ReadToFollowing("LogFolder"))
+            {
+                LogFolder = reader.ReadElementContentAsString();
+            }
+            if (reader.ReadToFollowing("Repository"))
+            {
+                Repository = reader.ReadElementContentAsString();
+            }
+            if (reader.ReadToFollowing("Timer"))
+            {
+                Timer = reader.ReadElementContentAsBoolean();
+            }
+            if (reader.ReadToFollowing("Span"))
+            {
+                Checked = reader.ReadElementContentAsBoolean();
+            }
+        }
 
         public string LastRunTime { get; set; }
 
         readonly static public string RunLogHistoryName = "RunLogHistory";
         readonly static public string RunLogNow = "RunLogNow";
         readonly static public string RunLogHTML = "RunLog";
-        readonly static public Encoding RunLogEncoding = Encoding.UTF8;
+        readonly static public System.Text.Encoding RunLogEncoding = System.Text.Encoding.UTF8;
 
         public void SetLastRun()
         {
@@ -164,6 +254,47 @@ namespace FullAutomationSupportSystem
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(logHTMLFile));
             }
+            var runLogDatas = new List<RunLogHTMLData>();
+            var files = Directory.GetFiles(LogFolder, "RunLogHistory.txt", SearchOption.AllDirectories);
+            foreach (var file in files)
+            {
+                var folder = Path.GetFileName(Path.GetDirectoryName(file));
+                string logTime = "-";
+                if (folder != ExportFolder || first == false)
+                {
+                    string line = "";
+                    using (StreamReader sr = new StreamReader(file))
+                    {
+                        sr.ReadLine();
+                        line = sr.ReadLine();
+                    }
+                    logTime = line.Split(',')[0];
+                }
+                string taskName = "";
+                var nowFile = file.Replace("RunLogHistory", "RunLogNow");
+                using (StreamReader sr = new StreamReader(nowFile))
+                {
+                    taskName = sr.ReadLine();
+                }
+                RunLogHTMLData data = new RunLogHTMLData();
+                data.TaskNameLink = folder + "\\RunLogNow.txt";
+                data.TaskName = taskName;
+                data.LogTime = logTime;
+                data.LogTimeLink = folder + "\\RunLogHistory.txt";
+                runLogDatas.Add(data);
+            }
+            var template = File.ReadAllText("RunLog.cshtml");
+            var result = Razor.Parse(template, new RunLogHTMLDatas(){ Datas = runLogDatas });
+            using (var sw = new StreamWriter(logHTMLFile, false, RunLogEncoding))
+            {
+                sw.Write(result);
+            }
+
+
+
+
+
+/*
             using (var sw = new StreamWriter(logHTMLFile, false, RunLogEncoding))
             {
                 sw.WriteLine("<meta http-equiv='content-type' content='text/html; charset=UTF-8'>");
@@ -204,6 +335,7 @@ namespace FullAutomationSupportSystem
                 sw.WriteLine("</tbody>");
                 sw.WriteLine("</table>");
             }
+ */ 
             return true;
         }
         public bool WriteRunLogNow(bool first, string write)
@@ -258,7 +390,7 @@ namespace FullAutomationSupportSystem
             return clone;
         }
     }
-    [DataContract(Name = "タスクリストクラス")]
+    [DataContract]
     public class TaskList : IEnumerable<TaskData>, IList<TaskData>, ICloneable
     {
         public bool Save(string fileName)
@@ -284,45 +416,36 @@ namespace FullAutomationSupportSystem
             if (File.Exists(fileName) == false) return false;
             bool bSuccess = false;
 
-            using (var reader = new XmlTextReader(fileName))
+            XmlReaderSettings settings = new XmlReaderSettings();
+            using (var reader = XmlReader.Create(fileName, settings))
             {
-                bool bCommandClass = false;
-
+                TaskData task = new TaskData();
                 while (reader.Read())
                 {
                     if (reader.NodeType == XmlNodeType.Element)
                     {
-                        if (reader.Name == "コマンドデータクラス")
+                        if (reader.Name == "TaskData")
                         {
-                            TaskData task = new TaskData();
-
-                            reader.ReadToDescendant("タイプ");
-                            //task.var name = reader.ReadElementContentAsString();
-
-                            bCommandClass = true;
+                            task.Load(reader);
                         }
-                    }
-                    else if (reader.NodeType == XmlNodeType.Text)
-                    {
-                        if (bCommandClass == true)
+                        if (reader.Name == "CommandData")
                         {
-                            if (reader.Name == "コマンドデータクラス")
-                            {
-                                bCommandClass = true;
-                            }
+                            CommandData command = new CommandData(reader);
+                            task.CommandDataList.Add(command);
                         }
-
                     }
                     else if (reader.NodeType == XmlNodeType.EndElement)
                     {
-                        if (reader.Name == "コマンドデータクラス")
+                        if (reader.Name == "TaskData")
                         {
-                            bCommandClass = false;
+                            taskDataList.Add((TaskData)task.Clone());
+                            //初期化。コンストラクタと同一化するのがベター
+                            task.CommandDataList.Clear();
                         }
                     }
                 }
             }
-
+            bSuccess = true;
             //読み込むファイルを開く
             //using (var fs = new FileStream(fileName, FileMode.Open))
             //{
@@ -335,7 +458,7 @@ namespace FullAutomationSupportSystem
         }
 
 
-        [DataMember(Name = "タスクデータリスト")]
+        [DataMember]
         private List<TaskData> taskDataList = new List<TaskData>();
         IEnumerator IEnumerable.GetEnumerator()
         {

@@ -1,0 +1,24 @@
+@inherits RazorEngine.Templating.TemplateBase<FullAutomationSupportSystem.RunLogHTMLDatas>
+
+<meta http-equiv='content-type' content='text/html; charset=UTF-8' />
+<table border='1' cellspacing='0' cellpadding='3'>
+<thead>
+<tr>
+<th>タスク名</th>
+<th>最終更新時間</th>
+</tr>
+</thead>
+<tbody>
+  @foreach (var task in @Model.Datas)
+  {
+  <tr>
+    <td>
+      <a href = '@(task.TaskNameLink)'>@(task.TaskName)</a>
+    </td>
+    <td>
+      <a href = '@(task.LogTimeLink)'>@(task.LogTime)</a>
+    </td>
+  </tr>
+  }
+</tbody>
+</table>
