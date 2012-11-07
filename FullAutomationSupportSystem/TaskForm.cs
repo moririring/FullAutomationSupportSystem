@@ -21,10 +21,27 @@ namespace FullAutomationSupportSystem
             gTaskData = data;
             foreach(var task in lists)
             {
-                LogFolderComboBox.Items.Add(task.LogFolder);
+                LogPathComboBox.Items.Add(task.LogPath);
+                ProjectPathComboBox.Items.Add(task.ProjectPath);
             }
             NameTextBox.Text = data.Name;
-            ExportFolderTextBox.Text = data.ExportFolder;
+            LogFolderTextBox.Text = data.ExportPath;
+            if (data.LogNumber == -1)
+            {
+                for (int i = 0; i <= lists.Count; i++)
+                {
+                    if (lists.Cast<TaskData>().Count(t => t.LogNumber == i) == 0)
+                    {
+                        LogNumericUpDown.Value = i;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                LogNumericUpDown.Value = data.LogNumber;
+            }
+
         }
 
         private void TaskForm_Load(object sender, EventArgs e)
@@ -34,13 +51,15 @@ namespace FullAutomationSupportSystem
                 AddDataGridView(command);
             }
             NameTextBox.Text = gTaskData.Name;
-            ExportFolderTextBox.Text = gTaskData.ExportFolder;
-            ProjectFolderComboBox.Text = gTaskData.ProjectFolder[0];
-            foreach (var folder in gTaskData.ProjectFolder)
-            {
-                ProjectFolderComboBox.Items.Add(folder);
-            }
-            LogFolderComboBox.Text = gTaskData.LogFolder;
+            LogFolderTextBox.Text = gTaskData.ExportPath;
+            ProjectPathComboBox.Text = gTaskData.ProjectPath;
+            //ProjectFolderComboBox.Text = gTaskData.ProjectPath[0];
+            //foreach (var folder in gTaskData.ProjectPath)
+            //{
+            //    ProjectFolderComboBox.Items.Add(folder);
+            //}
+            LogPathComboBox.Text = gTaskData.LogPath;
+            //LogNumericUpDown.
             RepositoryTextBox.Text = gTaskData.Repository;
             NameTextBox.Focus();
             foreach (CommandListData commandList in CommandListManager.GetInstance())
@@ -62,12 +81,12 @@ namespace FullAutomationSupportSystem
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(ProjectFolderComboBox.Text) == false)
+            if (Directory.Exists(ProjectPathComboBox.Text) == false)
             {
                 MessageBox.Show("作業フォルダが存在しません");
                 return;
             }
-            if (Directory.Exists(LogFolderComboBox.Text) == false)
+            if (Directory.Exists(LogPathComboBox.Text) == false)
             {
                 MessageBox.Show("ログフォルダが存在しません");
                 return;
@@ -76,16 +95,18 @@ namespace FullAutomationSupportSystem
             this.DialogResult = DialogResult.OK;
 
             gTaskData.Name = NameTextBox.Text;
-            gTaskData.ExportFolder = ExportFolderTextBox.Text;
-            gTaskData.ProjectFolder.Clear();
-            foreach(var item in ProjectFolderComboBox.Items)
-            {
-                gTaskData.ProjectFolder.Add(item.ToString());
-            }
-            gTaskData.LogFolder = LogFolderComboBox.Text;
+            gTaskData.ExportPath = LogFolderTextBox.Text;
+            gTaskData.ProjectPath = ProjectPathComboBox.Text;
+            //gTaskData.ProjectPath.Clear();
+            //foreach(var item in ProjectFolderComboBox.Items)
+            //{
+            //    gTaskData.ProjectPath.Add(item.ToString());
+            //}
+            gTaskData.LogPath = LogPathComboBox.Text;
             gTaskData.Repository = RepositoryTextBox.Text;
             gTaskData.Timer = TimerCheckBox.Checked;
             gTaskData.Span = IntervalCheckBox.Checked;
+            gTaskData.LogNumber = (int)LogNumericUpDown.Value;
         }
 
         private void CommandComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -203,6 +224,56 @@ namespace FullAutomationSupportSystem
             }
         }
 
+        private void LogFolderButton_Click(object sender, EventArgs e)
+        {
+            if(Directory.Exists(LogPathComboBox.Text))
+            {
+                folderBrowserDialog1.SelectedPath = LogPathComboBox.Text;
+            }
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                LogPathComboBox.Text = folderBrowserDialog1.SelectedPath;
+            }
+        }
+        private void ProjectFolderButton_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(ProjectPathComboBox.Text))
+            {
+                folderBrowserDialog1.SelectedPath = ProjectPathComboBox.Text;
+            }
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                ProjectPathComboBox.Text = folderBrowserDialog1.SelectedPath;
+            }
+        }
+        private string DropFileName = "";
+        private void FolderComboBox_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.None;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var fileName = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (Directory.Exists(fileName[0]) == true)
+                {
+                    DropFileName = fileName[0];
+                    e.Effect = DragDropEffects.All;
+                }
+                else if (Directory.Exists(Path.GetDirectoryName(fileName[0])) == true)
+                {
+                    DropFileName = Path.GetDirectoryName(fileName[0]);
+                    e.Effect = DragDropEffects.All;
+                }
+            }
+        }
+        private void LogFolderComboBox_DragDrop(object sender, DragEventArgs e)
+        {
+            LogPathComboBox.Text = DropFileName;
+        }
+        private void ProjectFolderComboBox_DragDrop(object sender, DragEventArgs e)
+        {
+            ProjectPathComboBox.Text = DropFileName;
+
+        }
 
     }
 }

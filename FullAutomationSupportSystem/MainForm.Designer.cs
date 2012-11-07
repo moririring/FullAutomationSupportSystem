@@ -59,10 +59,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.LastRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProjectFolder = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Log = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridVewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.削除DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,14 +73,19 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.SpanTextBox = new System.Windows.Forms.TextBox();
+            this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProjectPaths = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ProjectPath = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.LogPath = new System.Windows.Forms.DataGridViewLinkColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Timer = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Span = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Log = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.SpanNumericUpDown)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -340,8 +341,9 @@
             this.Checked,
             this.dataGridViewTextBoxColumn1,
             this.LastRun,
-            this.ProjectFolder,
-            this.dataGridViewTextBoxColumn3,
+            this.ProjectPaths,
+            this.ProjectPath,
+            this.LogPath,
             this.dataGridViewTextBoxColumn4,
             this.Timer,
             this.Span,
@@ -382,33 +384,6 @@
             this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             this.dataGridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseMove);
-            // 
-            // LastRun
-            // 
-            this.LastRun.DataPropertyName = "LastRunTime";
-            this.LastRun.HeaderText = "最終実行時間";
-            this.LastRun.Name = "LastRun";
-            this.LastRun.ReadOnly = true;
-            this.LastRun.Width = 102;
-            // 
-            // ProjectFolder
-            // 
-            this.ProjectFolder.HeaderText = "プロジェクト";
-            this.ProjectFolder.Name = "ProjectFolder";
-            this.ProjectFolder.Width = 62;
-            // 
-            // Log
-            // 
-            this.Log.HeaderText = "ログ";
-            this.Log.Name = "Log";
-            this.Log.Width = 29;
-            // 
-            // Run
-            // 
-            this.Run.HeaderText = "実行";
-            this.Run.Name = "Run";
-            this.Run.ReadOnly = true;
-            this.Run.Width = 35;
             // 
             // dataGridVewContextMenuStrip
             // 
@@ -543,6 +518,15 @@
             this.SpanTextBox.Text = "--:--:--";
             this.SpanTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // taskDataBindingSource
+            // 
+            this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
+            this.taskDataBindingSource.CurrentItemChanged += new System.EventHandler(this.taskDataBindingSource_CurrentItemChanged);
+            // 
+            // commandListDataBindingSource
+            // 
+            this.commandListDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandListData);
+            // 
             // Checked
             // 
             this.Checked.DataPropertyName = "Checked";
@@ -558,14 +542,34 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Width = 54;
             // 
-            // dataGridViewTextBoxColumn3
+            // LastRun
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "LogFolder";
-            this.dataGridViewTextBoxColumn3.HeaderText = "ログ";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn3.Visible = false;
-            this.dataGridViewTextBoxColumn3.Width = 48;
+            this.LastRun.DataPropertyName = "LastRunTime";
+            this.LastRun.HeaderText = "最終実行時間";
+            this.LastRun.Name = "LastRun";
+            this.LastRun.ReadOnly = true;
+            this.LastRun.Width = 102;
+            // 
+            // ProjectPaths
+            // 
+            this.ProjectPaths.HeaderText = "プロジェクト";
+            this.ProjectPaths.Name = "ProjectPaths";
+            this.ProjectPaths.Visible = false;
+            this.ProjectPaths.Width = 62;
+            // 
+            // ProjectPath
+            // 
+            this.ProjectPath.HeaderText = "作業パス";
+            this.ProjectPath.Name = "ProjectPath";
+            this.ProjectPath.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ProjectPath.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ProjectPath.Width = 73;
+            // 
+            // LogPath
+            // 
+            this.LogPath.HeaderText = "ログパス";
+            this.LogPath.Name = "LogPath";
+            this.LogPath.Width = 48;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -591,14 +595,18 @@
             this.Span.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Span.Width = 58;
             // 
-            // taskDataBindingSource
+            // Log
             // 
-            this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
-            this.taskDataBindingSource.CurrentItemChanged += new System.EventHandler(this.taskDataBindingSource_CurrentItemChanged);
+            this.Log.HeaderText = "ログ";
+            this.Log.Name = "Log";
+            this.Log.Width = 29;
             // 
-            // commandListDataBindingSource
+            // Run
             // 
-            this.commandListDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandListData);
+            this.Run.HeaderText = "実行";
+            this.Run.Name = "Run";
+            this.Run.ReadOnly = true;
+            this.Run.Width = 35;
             // 
             // MainForm
             // 
@@ -681,16 +689,18 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker TimerDateTimePicker;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Checked;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastRun;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ProjectFolder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ProjectPaths;
+        private System.Windows.Forms.DataGridViewLinkColumn ProjectPath;
+        private System.Windows.Forms.DataGridViewLinkColumn LogPath;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Timer;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Span;
         private System.Windows.Forms.DataGridViewButtonColumn Log;
         private System.Windows.Forms.DataGridViewButtonColumn Run;
-        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

@@ -182,14 +182,15 @@ namespace FullAutomationSupportSystem
             while (true)
             {
                 var NumberExportFolder = "NewTask" + eco++;
-                if (gTaskList.Count(t => t.ExportFolder == NumberExportFolder) == 0)
+                if (gTaskList.Count(t => t.ExportPath == NumberExportFolder) == 0)
                 {
-                    editTask.ExportFolder = NumberExportFolder;
+                    editTask.ExportPath = NumberExportFolder;
                     break;
                 }
             }
-            editTask.ProjectFolder.Add(path);
-            editTask.LogFolder = path;
+            editTask.ProjectPath = path;
+            editTask.ProjectPaths.Add(path);
+            editTask.LogPath = path;
             var form = new TaskForm(editTask, gTaskList);
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -209,16 +210,34 @@ namespace FullAutomationSupportSystem
             RunForm.Disposed += new EventHandler(gRunForm_Disposed);
         }
         //--------------------------------------------------------------------------
+        //Pathの名前を19文字にして返す
+        //--------------------------------------------------------------------------
+        private string GetShortPathName(string path)
+        {
+            var shortPath = path;
+            if (path.Length > 19)
+            {
+                shortPath = path.Substring(0, 8) + "..." + path.Substring(path.Length - 8, 8);
+            }
+            return shortPath;
+        }
+        //--------------------------------------------------------------------------
         //dataGridView追加
         //--------------------------------------------------------------------------
         private void AddDataGridView(TaskData task, int count)
         {
             task.SetLastRun();
             var folders = new List<string>();
-            folders.AddRange(task.ProjectFolder);
-            var combobind = dataGridView1["ProjectFolder", count] as DataGridViewComboBoxCell;
-            combobind.DataSource = new BindingSource(folders, string.Empty); 
-            dataGridView1["ProjectFolder", count].Value = task.ProjectFolder[0];
+
+            if (task.ProjectPaths != null && task.ProjectPaths.Count != 0)
+            {
+                folders.AddRange(task.ProjectPaths);
+                var combobind = dataGridView1["ProjectPaths", count] as DataGridViewComboBoxCell;
+                combobind.DataSource = new BindingSource(folders, string.Empty);
+                dataGridView1["ProjectPaths", count].Value = task.ProjectPaths[0];
+            }
+            dataGridView1["ProjectPath", count].Value = GetShortPathName(task.ProjectPath);
+            dataGridView1["LogPath", count].Value = GetShortPathName(task.LogPath);
             dataGridView1["Log", count].Value = "ログ";
             dataGridView1["Run", count].Value = "実行";
         }
@@ -397,17 +416,21 @@ namespace FullAutomationSupportSystem
             dataGridView1CheckboxCheck("Span", e);
 
             //実行
-            if (e.ColumnIndex == dataGridView1.Columns["ProjectFolder"].Index)
+            if (e.RowIndex == -1) return;
+            var task = gTaskList[e.RowIndex];
+            if (e.ColumnIndex == dataGridView1.Columns["ProjectPath"].Index)
             {
-                //Process.Start(task.ProjectFolder[0]);
+                Process.Start(task.ProjectPath);
+            }
+            if (e.ColumnIndex == dataGridView1.Columns["LogPath"].Index)
+            {
+                Process.Start(task.LogPath);
             }
             //ログ
             else if (e.ColumnIndex == dataGridView1.Columns["Log"].Index)
             {
-                if (e.RowIndex == -1) return;
-                var task = gTaskList[e.RowIndex];
 
-                var logName = Path.Combine(task.LogFolder, "RunLog.html");
+                var logName = Path.Combine(task.LogPath, "RunLog.html");
                 if (File.Exists(logName))
                 {
                     Process.Start(logName);
@@ -466,7 +489,7 @@ namespace FullAutomationSupportSystem
         private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
-            if (dgv.Columns[e.ColumnIndex].Name == "ProjectFolder" && dgv.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
+            if (dgv.Columns[e.ColumnIndex].Name == "ProjectPath" && dgv.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
             {
                 SendKeys.Send("{F4}");
             }

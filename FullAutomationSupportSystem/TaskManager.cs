@@ -53,8 +53,6 @@ namespace FullAutomationSupportSystem
                 Param2 = reader.ReadElementContentAsString();
             }
         }
-
-
     }
     [DataContract]
     public class CommandList : IEnumerable<CommandData>, IList<CommandData>
@@ -148,21 +146,22 @@ namespace FullAutomationSupportSystem
         [CollectionDataContract]
         public class  ProjectFolderClass :List<string> {}
 
-
         public TaskData()
         {
-            ProjectFolder = new ProjectFolderClass();
+            ProjectPaths = new ProjectFolderClass();
+            LogNumber = -1;
         }
         [DataMember(Order = 0)]
         public bool Checked { get; set; }
         [DataMember(Order = 1)]
         public string Name { get; set; }
         [DataMember(Order = 2)]
-        public string ExportFolder { get; set; }
+        public string ExportPath { get; set; }
         [DataMember(Order = 3)]
-        public ProjectFolderClass ProjectFolder { get; set; }
+        public string ProjectPath { get; set; }
+        public ProjectFolderClass ProjectPaths { get; set; }
         [DataMember(Order = 4)]
-        public string LogFolder { get; set; }
+        public string LogPath { get; set; }
         [DataMember(Order = 5)]
         public string Repository { get; set; }
         [DataMember(Order = 6)]
@@ -171,6 +170,8 @@ namespace FullAutomationSupportSystem
         public bool Span { get; set; }
         [DataMember(Order = 8)]
         public CommandList CommandDataList = new CommandList();
+        [DataMember(Order = 9)]
+        public int LogNumber { get; set; }
 
         public void Load(XmlReader reader)
         {
@@ -182,31 +183,35 @@ namespace FullAutomationSupportSystem
             {
                 Name = reader.ReadElementContentAsString();
             }
-            if (reader.ReadToFollowing("ExportFolder"))
+            if (reader.ReadToFollowing("ExportPath"))
             {
-                ExportFolder = reader.ReadElementContentAsString();
+                ExportPath = reader.ReadElementContentAsString();
             }
-            if (reader.ReadToFollowing("ProjectFolder"))
+            if (reader.ReadToFollowing("ProjectPath"))
             {
-                ProjectFolder.Clear();
-                while (reader.Read())
-                {
-                    if (reader.NodeType == XmlNodeType.Text)
-                    {
-                        ProjectFolder.Add(reader.ReadString());
-                    }
-                    else if (reader.NodeType == XmlNodeType.EndElement)
-                    {
-                        if (reader.Name == "ProjectFolder")
-                        {
-                            break;
-                        }
-                    }
-                }
+                ProjectPath = reader.ReadElementContentAsString();
             }
-            if (reader.ReadToFollowing("LogFolder"))
+            //if (reader.ReadToFollowing("ProjectFolder"))
+            //{
+            //    ProjectPath.Clear();
+            //    while (reader.Read())
+            //    {
+            //        if (reader.NodeType == XmlNodeType.Text)
+            //        {
+            //            ProjectPath.Add(reader.ReadString());
+            //        }
+            //        else if (reader.NodeType == XmlNodeType.EndElement)
+            //        {
+            //            if (reader.Name == "ProjectFolder")
+            //            {
+            //                break;
+            //            }
+            //        }
+            //    }
+            //}
+            if (reader.ReadToFollowing("LogPath"))
             {
-                LogFolder = reader.ReadElementContentAsString();
+                LogPath = reader.ReadElementContentAsString();
             }
             if (reader.ReadToFollowing("Repository"))
             {
@@ -218,7 +223,11 @@ namespace FullAutomationSupportSystem
             }
             if (reader.ReadToFollowing("Span"))
             {
-                Checked = reader.ReadElementContentAsBoolean();
+                Span = reader.ReadElementContentAsBoolean();
+            }
+            //if (reader.ReadElementContentAs("LogNumber"))
+            {
+                //LogNumber = reader.ReadContentAsInt();
             }
         }
 
@@ -232,7 +241,7 @@ namespace FullAutomationSupportSystem
         public void SetLastRun()
         {
             LastRunTime = "-";
-            var file = Path.Combine(LogFolder, ExportFolder + "\\RunLogHistory.txt");
+            var file = Path.Combine(LogPath, ExportPath + "\\RunLogHistory.txt");
             if (File.Exists(file))
             {
                 string line = "";
@@ -249,18 +258,18 @@ namespace FullAutomationSupportSystem
         }
         public bool WriteRunLogHTML(bool first)
         {
-            var logHTMLFile = Path.Combine(LogFolder, RunLogHTML + ".html");
+            var logHTMLFile = Path.Combine(LogPath, RunLogHTML + ".html");
             if (Directory.Exists(Path.GetDirectoryName(logHTMLFile)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(logHTMLFile));
             }
             var runLogDatas = new List<RunLogHTMLData>();
-            var files = Directory.GetFiles(LogFolder, "RunLogHistory.txt", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(LogPath, "RunLogHistory.txt", SearchOption.AllDirectories);
             foreach (var file in files)
             {
                 var folder = Path.GetFileName(Path.GetDirectoryName(file));
                 string logTime = "-";
-                if (folder != ExportFolder || first == false)
+                if (folder != ExportPath || first == false)
                 {
                     string line = "";
                     using (StreamReader sr = new StreamReader(file))
@@ -289,58 +298,11 @@ namespace FullAutomationSupportSystem
             {
                 sw.Write(result);
             }
-
-
-
-
-
-/*
-            using (var sw = new StreamWriter(logHTMLFile, false, RunLogEncoding))
-            {
-                sw.WriteLine("<meta http-equiv='content-type' content='text/html; charset=UTF-8'>");
-                sw.WriteLine("<table border='1' cellspacing='0' cellpadding='3'>");
-                sw.WriteLine("<thead>");
-                sw.WriteLine("<tr>");
-                sw.WriteLine("<th>タスク名</th>");
-                sw.WriteLine("<th>最終更新時間</th>");
-                sw.WriteLine("</tr>");
-                sw.WriteLine("</thead>");
-                sw.WriteLine("<tbody>");
-                var files = Directory.GetFiles(LogFolder, "RunLogHistory.txt", SearchOption.AllDirectories);
-                foreach (var file in files)
-                {
-                    var folder = Path.GetFileName(Path.GetDirectoryName(file));
-                    string logTime = "-";
-                    if (folder != ExportFolder || first == false)
-                    {
-                        string line = "";
-                        using (StreamReader sr = new StreamReader(file))
-                        {
-                            sr.ReadLine();
-                            line = sr.ReadLine();
-                        }
-                        logTime = line.Split(',')[0];
-                    }
-                    string taskName = "";
-                    var nowFile = file.Replace("RunLogHistory", "RunLogNow");
-                    using (StreamReader sr = new StreamReader(nowFile))
-                    {
-                        taskName = sr.ReadLine();
-                    }
-                    sw.WriteLine("<tr>");
-                    sw.WriteLine("<td><a href = '" + folder + "\\RunLogNow.txt'>" + taskName + "</a></td>");
-                    sw.WriteLine("<td><a href = '" + folder + "\\RunLogHistory.txt'>" + logTime + "</a></td>");
-                    sw.WriteLine("</tr>");
-                }
-                sw.WriteLine("</tbody>");
-                sw.WriteLine("</table>");
-            }
- */ 
             return true;
         }
         public bool WriteRunLogNow(bool first, string write)
         {
-            var logTxtFile = Path.Combine(LogFolder, ExportFolder + "\\" + RunLogNow + ".txt");
+            var logTxtFile = Path.Combine(LogPath, ExportPath + "\\" + RunLogNow + ".txt");
             if (Directory.Exists(Path.GetDirectoryName(logTxtFile)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(logTxtFile));
@@ -353,7 +315,7 @@ namespace FullAutomationSupportSystem
         }
         public bool WriteRunLogHistory(string write)
         {
-            var logCSVFile = Path.Combine(LogFolder, ExportFolder + "\\" + RunLogHistoryName + ".txt");
+            var logCSVFile = Path.Combine(LogPath, ExportPath + "\\" + RunLogHistoryName + ".txt");
             string ReadToEnd = "";
             if (File.Exists(logCSVFile) == true)
             {
