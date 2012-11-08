@@ -102,6 +102,16 @@ namespace FullAutomationSupportSystem
             //{
             //    gTaskData.ProjectPath.Add(item.ToString());
             //}
+            //ログパス変更時はデータ移行
+            if (Directory.Exists(gTaskData.LogPath) == true && Directory.Exists(LogPathComboBox.Text) == true &&
+                gTaskData.LogPath != LogPathComboBox.Text)
+            {
+                var files = Directory.GetFiles(gTaskData.LogPath, "*.*");
+                foreach (var file in files)
+                {
+                    File.Copy(file, Path.Combine(LogPathComboBox.Text, Path.GetFileName(file)));
+                }
+            }
             gTaskData.LogPath = LogPathComboBox.Text;
             gTaskData.Repository = RepositoryTextBox.Text;
             gTaskData.Timer = TimerCheckBox.Checked;
@@ -141,6 +151,7 @@ namespace FullAutomationSupportSystem
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            if (e.RowIndex == -1) return;
             var editCommand = (CommandData)commandDataBindingSource[e.RowIndex];
             var form = new CommandForm(editCommand);
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -272,6 +283,11 @@ namespace FullAutomationSupportSystem
         private void ProjectFolderComboBox_DragDrop(object sender, DragEventArgs e)
         {
             ProjectPathComboBox.Text = DropFileName;
+
+        }
+
+        private void LogPathComboBox_TextChanged(object sender, EventArgs e)
+        {
 
         }
 

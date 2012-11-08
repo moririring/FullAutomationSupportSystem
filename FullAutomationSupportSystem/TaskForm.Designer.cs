@@ -268,6 +268,7 @@
             this.LogPathComboBox.Name = "LogPathComboBox";
             this.LogPathComboBox.Size = new System.Drawing.Size(417, 20);
             this.LogPathComboBox.TabIndex = 13;
+            this.LogPathComboBox.TextChanged += new System.EventHandler(this.LogPathComboBox_TextChanged);
             this.LogPathComboBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.LogFolderComboBox_DragDrop);
             this.LogPathComboBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.FolderComboBox_DragEnter);
             // 

@@ -30,27 +30,32 @@ namespace FullAutomationSupportSystem
         [DataMember(Order = 4)]
         public string Param2 { get; set; }
 
-        public CommandData(XmlReader reader)
+        public void XmlReader(XmlReader reader)
         {
-            if (reader.ReadToFollowing("Checked"))
+            if (reader.Name == "Checked")
             {
-                Checked = reader.ReadElementContentAsBoolean();
+                reader.Read();
+                Checked = bool.Parse(reader.Value);
             }
-            if (reader.ReadToFollowing("Type"))
+            if (reader.Name == "Type")
             {
-                Type = (CommandListType)Enum.Parse(typeof(CommandListType), reader.ReadElementContentAsString());
+                reader.Read();
+                Type = (CommandListType)Enum.Parse(typeof(CommandListType), reader.Value);
             }
-            if (reader.ReadToFollowing("Name"))
+            if (reader.Name == "Name")
             {
-                Name = reader.ReadElementContentAsString();
+                reader.Read();
+                Name = reader.Value;
             }
-            if (reader.ReadToFollowing("Param1"))
+            if (reader.Name == "Param1")
             {
-                Param1 = reader.ReadElementContentAsString();
+                reader.Read();
+                Param1 = reader.Value;
             }
-            if (reader.ReadToFollowing("Param2"))
+            if (reader.Name == "Param2")
             {
-                Param2 = reader.ReadElementContentAsString();
+                reader.Read();
+                Param2 = reader.Value;
             }
         }
     }
@@ -173,64 +178,49 @@ namespace FullAutomationSupportSystem
         [DataMember(Order = 9)]
         public int LogNumber { get; set; }
 
-        public void Load(XmlReader reader)
+        public void XmlReader(XmlReader reader)
         {
-            if (reader.ReadToFollowing("Checked"))
+            if (reader.Name == "Checked")
             {
-                Checked = reader.ReadElementContentAsBoolean();
+                reader.Read();
+                Checked = bool.Parse(reader.Value);
             }
-            if (reader.ReadToFollowing("Name"))
+            if (reader.Name == "Name")
             {
-                Name = reader.ReadElementContentAsString();
+                reader.Read();
+                Name = reader.Value;
             }
-            if (reader.ReadToFollowing("ExportPath"))
+            if (reader.Name == "ExportPath")
             {
-                ExportPath = reader.ReadElementContentAsString();
+                reader.Read();
+                ExportPath = reader.Value;
             }
-            if (reader.ReadToFollowing("ProjectPath"))
+            if (reader.Name == "ProjectPath")
             {
-                ProjectPath = reader.ReadElementContentAsString();
+                reader.Read();
+                ProjectPath = reader.Value;
             }
-            //if (reader.ReadToFollowing("ProjectFolder"))
-            //{
-            //    ProjectPath.Clear();
-            //    while (reader.Read())
-            //    {
-            //        if (reader.NodeType == XmlNodeType.Text)
-            //        {
-            //            ProjectPath.Add(reader.ReadString());
-            //        }
-            //        else if (reader.NodeType == XmlNodeType.EndElement)
-            //        {
-            //            if (reader.Name == "ProjectFolder")
-            //            {
-            //                break;
-            //            }
-            //        }
-            //    }
-            //}
-            if (reader.ReadToFollowing("LogPath"))
+            if (reader.Name == "LogPath")
             {
-                LogPath = reader.ReadElementContentAsString();
+                reader.Read();
+                LogPath = reader.Value;
             }
-            if (reader.ReadToFollowing("Repository"))
+            if (reader.Name == "Repository")
             {
-                Repository = reader.ReadElementContentAsString();
+                reader.Read();
+                Repository = reader.Value;
             }
-            if (reader.ReadToFollowing("Timer"))
+            if (reader.Name == "Timer")
             {
-                Timer = reader.ReadElementContentAsBoolean();
+                reader.Read();
+                Timer = bool.Parse(reader.Value);
             }
-            if (reader.ReadToFollowing("Span"))
+            if (reader.Name == "Span")
             {
-                Span = reader.ReadElementContentAsBoolean();
-            }
-            //if (reader.ReadElementContentAs("LogNumber"))
-            {
-                //LogNumber = reader.ReadContentAsInt();
+                reader.Read();
+                Span = bool.Parse(reader.Value);
             }
         }
-
         public string LastRunTime { get; set; }
 
         readonly static public string RunLogHistoryName = "RunLogHistory";
@@ -264,9 +254,10 @@ namespace FullAutomationSupportSystem
                 Directory.CreateDirectory(Path.GetDirectoryName(logHTMLFile));
             }
             var runLogDatas = new List<RunLogHTMLData>();
-            var files = Directory.GetFiles(LogPath, "RunLogHistory.txt", SearchOption.AllDirectories);
-            foreach (var file in files)
+            var fileNums = Directory.GetFiles(LogPath, "????", SearchOption.AllDirectories);
+            foreach (var fileNum in fileNums)
             {
+                var file = Path.Combine(Path.GetDirectoryName(fileNum),"RunLogHistory.txt");
                 var folder = Path.GetFileName(Path.GetDirectoryName(file));
                 string logTime = "-";
                 if (folder != ExportPath || first == false)
@@ -332,11 +323,25 @@ namespace FullAutomationSupportSystem
             {
                 sw.WriteLine("開始時間,終了時間,実行時間");
                 sw.WriteLine(write);
-                if(ReadToEnd != "")
+                if (ReadToEnd != "")
                 {
                     sw.WriteLine(ReadToEnd);
                 }
             }
+            //リネーム対策に消してから作成
+            var files = Directory.GetFiles(Path.Combine(LogPath, ExportPath), "????");
+            foreach(var file in files)
+            {
+                var fileSize = new System.IO.FileInfo(file);
+                if (fileSize.Length == 0)
+                {
+                    File.Delete(file);
+                }
+            }
+            using (File.Create(Path.Combine(LogPath, ExportPath + "\\" + string.Format("{0:D4}", LogNumber))))
+            {
+            }
+
             return true;
         }
         public object Clone()
@@ -382,18 +387,28 @@ namespace FullAutomationSupportSystem
             using (var reader = XmlReader.Create(fileName, settings))
             {
                 TaskData task = new TaskData();
+                CommandData command = new CommandData();
+                bool bTaskData = false;
+                bool bCommandData = false;
                 while (reader.Read())
                 {
                     if (reader.NodeType == XmlNodeType.Element)
                     {
                         if (reader.Name == "TaskData")
                         {
-                            task.Load(reader);
+                            bTaskData = true;
                         }
                         if (reader.Name == "CommandData")
                         {
-                            CommandData command = new CommandData(reader);
-                            task.CommandDataList.Add(command);
+                            bCommandData = true;
+                        }
+                        if (bCommandData)
+                        {
+                            command.XmlReader(reader);
+                        }
+                        else if (bTaskData)
+                        {
+                            task.XmlReader(reader);
                         }
                     }
                     else if (reader.NodeType == XmlNodeType.EndElement)
@@ -403,6 +418,12 @@ namespace FullAutomationSupportSystem
                             taskDataList.Add((TaskData)task.Clone());
                             //初期化。コンストラクタと同一化するのがベター
                             task.CommandDataList.Clear();
+                            bTaskData = false;
+                        }
+                        if (reader.Name == "CommandData")
+                        {
+                            task.CommandDataList.Add(command);
+                            bCommandData = false;
                         }
                     }
                 }
