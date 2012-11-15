@@ -291,7 +291,7 @@
             // 
             this.TaskEditToolStripMenuItem1.Name = "TaskEditToolStripMenuItem1";
             this.TaskEditToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.TaskEditToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
+            this.TaskEditToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.TaskEditToolStripMenuItem1.Text = "編集(&E)";
             this.TaskEditToolStripMenuItem1.Click += new System.EventHandler(this.TaskEditToolStripMenuItem1_Click);
             // 
@@ -299,20 +299,20 @@
             // 
             this.TaskDeleteToolStripMenuItem1.Name = "TaskDeleteToolStripMenuItem1";
             this.TaskDeleteToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.TaskDeleteToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
+            this.TaskDeleteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.TaskDeleteToolStripMenuItem1.Text = "削除(&D)";
             this.TaskDeleteToolStripMenuItem1.Click += new System.EventHandler(this.TaskDeleteToolStripMenuItem1_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(148, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // TaskCopyToolStripMenuItem
             // 
             this.TaskCopyToolStripMenuItem.Name = "TaskCopyToolStripMenuItem";
             this.TaskCopyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.TaskCopyToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.TaskCopyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.TaskCopyToolStripMenuItem.Text = "コピー(&C)";
             this.TaskCopyToolStripMenuItem.Click += new System.EventHandler(this.TaskCopyToolStripMenuItem_Click);
             // 
@@ -569,7 +569,8 @@
             // 
             this.LogPath.HeaderText = "ログパス";
             this.LogPath.Name = "LogPath";
-            this.LogPath.Width = 48;
+            this.LogPath.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.LogPath.Width = 67;
             // 
             // dataGridViewTextBoxColumn4
             // 

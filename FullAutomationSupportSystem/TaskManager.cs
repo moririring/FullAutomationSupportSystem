@@ -155,13 +155,15 @@ namespace FullAutomationSupportSystem
         {
             ProjectPaths = new ProjectFolderClass();
             LogNumber = -1;
+            LogFolder = "";
+            LogPath = "";
         }
         [DataMember(Order = 0)]
         public bool Checked { get; set; }
         [DataMember(Order = 1)]
         public string Name { get; set; }
         [DataMember(Order = 2)]
-        public string ExportPath { get; set; }
+        public string LogFolder { get; set; }
         [DataMember(Order = 3)]
         public string ProjectPath { get; set; }
         public ProjectFolderClass ProjectPaths { get; set; }
@@ -190,10 +192,10 @@ namespace FullAutomationSupportSystem
                 reader.Read();
                 Name = reader.Value;
             }
-            if (reader.Name == "ExportPath")
+            if (reader.Name == "LogFolder")
             {
                 reader.Read();
-                ExportPath = reader.Value;
+                LogFolder = reader.Value;
             }
             if (reader.Name == "ProjectPath")
             {
@@ -231,7 +233,7 @@ namespace FullAutomationSupportSystem
         public void SetLastRun()
         {
             LastRunTime = "-";
-            var file = Path.Combine(LogPath, ExportPath + "\\RunLogHistory.txt");
+            var file = Path.Combine(LogPath, LogFolder + "\\RunLogHistory.txt");
             if (File.Exists(file))
             {
                 string line = "";
@@ -260,7 +262,7 @@ namespace FullAutomationSupportSystem
                 var file = Path.Combine(Path.GetDirectoryName(fileNum),"RunLogHistory.txt");
                 var folder = Path.GetFileName(Path.GetDirectoryName(file));
                 string logTime = "-";
-                if (folder != ExportPath || first == false)
+                if (folder != LogFolder || first == false)
                 {
                     string line = "";
                     using (StreamReader sr = new StreamReader(file))
@@ -283,6 +285,7 @@ namespace FullAutomationSupportSystem
                 data.LogTimeLink = folder + "\\RunLogHistory.txt";
                 runLogDatas.Add(data);
             }
+            //相対パス危険。駄目。絶対。
             var template = File.ReadAllText("RunLog.cshtml");
             var result = Razor.Parse(template, new RunLogHTMLDatas(){ Datas = runLogDatas });
             using (var sw = new StreamWriter(logHTMLFile, false, RunLogEncoding))
@@ -293,7 +296,7 @@ namespace FullAutomationSupportSystem
         }
         public bool WriteRunLogNow(bool first, string write)
         {
-            var logTxtFile = Path.Combine(LogPath, ExportPath + "\\" + RunLogNow + ".txt");
+            var logTxtFile = Path.Combine(LogPath, LogFolder + "\\" + RunLogNow + ".txt");
             if (Directory.Exists(Path.GetDirectoryName(logTxtFile)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(logTxtFile));
@@ -306,7 +309,7 @@ namespace FullAutomationSupportSystem
         }
         public bool WriteRunLogHistory(string write)
         {
-            var logCSVFile = Path.Combine(LogPath, ExportPath + "\\" + RunLogHistoryName + ".txt");
+            var logCSVFile = Path.Combine(LogPath, LogFolder + "\\" + RunLogHistoryName + ".txt");
             string ReadToEnd = "";
             if (File.Exists(logCSVFile) == true)
             {
@@ -329,7 +332,7 @@ namespace FullAutomationSupportSystem
                 }
             }
             //リネーム対策に消してから作成
-            var files = Directory.GetFiles(Path.Combine(LogPath, ExportPath), "????");
+            var files = Directory.GetFiles(Path.Combine(LogPath, LogFolder), "????");
             foreach(var file in files)
             {
                 var fileSize = new System.IO.FileInfo(file);
@@ -338,7 +341,7 @@ namespace FullAutomationSupportSystem
                     File.Delete(file);
                 }
             }
-            using (File.Create(Path.Combine(LogPath, ExportPath + "\\" + string.Format("{0:D4}", LogNumber))))
+            using (File.Create(Path.Combine(LogPath, LogFolder + "\\" + string.Format("{0:D4}", LogNumber))))
             {
             }
 

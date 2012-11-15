@@ -182,9 +182,9 @@ namespace FullAutomationSupportSystem
             while (true)
             {
                 var NumberExportFolder = "NewTask" + eco++;
-                if (gTaskList.Count(t => t.ExportPath == NumberExportFolder) == 0)
+                if (gTaskList.Count(t => t.LogFolder == NumberExportFolder) == 0)
                 {
-                    editTask.ExportPath = NumberExportFolder;
+                    editTask.LogFolder = NumberExportFolder;
                     break;
                 }
             }

@@ -15,17 +15,19 @@ namespace FullAutomationSupportSystem
     {
         static readonly public string gNamePlease = "新しいタスク";
         private TaskData gTaskData = null;
+        private TaskList gTaskList = null;
         public TaskForm(TaskData data, TaskList lists)
         {
             InitializeComponent();
             gTaskData = data;
-            foreach(var task in lists)
+            gTaskList = lists;
+            foreach (var task in lists)
             {
                 LogPathComboBox.Items.Add(task.LogPath);
                 ProjectPathComboBox.Items.Add(task.ProjectPath);
             }
             NameTextBox.Text = data.Name;
-            LogFolderTextBox.Text = data.ExportPath;
+            LogFolderTextBox.Text = data.LogFolder;
             if (data.LogNumber == -1)
             {
                 for (int i = 0; i <= lists.Count; i++)
@@ -51,7 +53,7 @@ namespace FullAutomationSupportSystem
                 AddDataGridView(command);
             }
             NameTextBox.Text = gTaskData.Name;
-            LogFolderTextBox.Text = gTaskData.ExportPath;
+            LogFolderTextBox.Text = gTaskData.LogFolder;
             ProjectPathComboBox.Text = gTaskData.ProjectPath;
             //ProjectFolderComboBox.Text = gTaskData.ProjectPath[0];
             //foreach (var folder in gTaskData.ProjectPath)
@@ -59,7 +61,6 @@ namespace FullAutomationSupportSystem
             //    ProjectFolderComboBox.Items.Add(folder);
             //}
             LogPathComboBox.Text = gTaskData.LogPath;
-            //LogNumericUpDown.
             RepositoryTextBox.Text = gTaskData.Repository;
             NameTextBox.Focus();
             foreach (CommandListData commandList in CommandListManager.GetInstance())
@@ -95,7 +96,7 @@ namespace FullAutomationSupportSystem
             this.DialogResult = DialogResult.OK;
 
             gTaskData.Name = NameTextBox.Text;
-            gTaskData.ExportPath = LogFolderTextBox.Text;
+            gTaskData.LogFolder = LogFolderTextBox.Text;
             gTaskData.ProjectPath = ProjectPathComboBox.Text;
             //gTaskData.ProjectPath.Clear();
             //foreach(var item in ProjectFolderComboBox.Items)
@@ -144,8 +145,22 @@ namespace FullAutomationSupportSystem
             //実行を押された
             if(e.ColumnIndex == dataGridView1.Columns["run"].Index)
             {
+                if (e.RowIndex == -1) return;
                 var command = gTaskData.CommandDataList[e.RowIndex];
                 CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
+            }
+            //チェック
+            if (e.ColumnIndex == dataGridView1.Columns["Checked"].Index)
+            {
+                if (e.RowIndex != -1) return;
+                var count = dataGridView1.Rows.Cast<DataGridViewRow>().Count(r => (bool)r.Cells["Checked"].EditedFormattedValue == true);
+                var bCheckd = (count != dataGridView1.Rows.Count);
+                for (int i = 0; i < gTaskData.CommandDataList.Count; i++)
+                {
+                    gTaskData.CommandDataList[i].Checked = bCheckd;
+                    commandDataBindingSource[i] = gTaskData.CommandDataList[i];
+                }
+
             }
         }
 
@@ -286,9 +301,71 @@ namespace FullAutomationSupportSystem
 
         }
 
-        private void LogPathComboBox_TextChanged(object sender, EventArgs e)
+        private void EditToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                var editCommand = (CommandData)commandDataBindingSource[row.Index];
+                var form = new CommandForm(editCommand);
+                if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    commandDataBindingSource[row.Index] = editCommand;
+                    gTaskData.CommandDataList[row.Index] = editCommand;
+                }
+            }
 
+
+        }
+
+        private void DeleteDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("本当に削除してよろしいですか？", "確認", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No) return;
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                gTaskData.CommandDataList.RemoveAt(row.Index);
+                commandDataBindingSource.RemoveAt(row.Index);
+            }
+        }
+        //--------------------------------------------------------------------------
+        //ドラッグ&ドロップ
+        //--------------------------------------------------------------------------
+        private void OkButtonEnabled(bool bLogCheck)
+        {
+            var bButton = true;
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text) == true) bButton = false;
+            if (Directory.Exists(ProjectPathComboBox.Text) == false) bButton = false;
+            if (Directory.Exists(LogPathComboBox.Text) == false) bButton = false;
+            if (string.IsNullOrWhiteSpace(LogFolderTextBox.Text) == true) bButton = false;
+            if (bLogCheck == true && string.IsNullOrWhiteSpace(LogPathComboBox.Text) == false && string.IsNullOrWhiteSpace(LogFolderTextBox.Text) == false)
+            {
+                var NowTaskPath = Path.Combine(LogPathComboBox.Text, LogFolderTextBox.Text);
+                var count = gTaskList.Cast<TaskData>().Count(t => Path.Combine(t.LogPath, t.LogFolder) == NowTaskPath && gTaskData != t);
+                if (count > 0)
+                {
+                    MessageBox.Show("既に同名のログが存在します");
+                    bButton = false;
+                }
+            }
+            OKButton.Enabled = bButton;
+        }
+
+        private void CommandChanged(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox == LogFolderTextBox)
+            {
+                OkButtonEnabled(true);
+            }
+            else
+            {
+                OkButtonEnabled(false);
+            }
+        }
+
+        private void LogPathComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            OkButtonEnabled(true);
         }
 
     }
