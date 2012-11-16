@@ -52,10 +52,10 @@ namespace FullAutomationSupportSystem
                  Type = CommandListType.Bat,
                  Name = "バッチ実行",
                  CommandListTxt = "バッチを実行します", 
-                 Param1Txt = "バッチファイルのフルパスを入力してください。\r\n空白を入れればパラメータも入力出来ます。",
+                 Param1Txt = "バッチファイルを選んでください",
                  Param1Type = CommandListParamType.File,
-                 Param2Txt = "true : pauseを無視する\r\nfalse : pauseを無視しない",
-                 Param2Type = CommandListParamType.TrueFalse,
+                 Param2Txt = "引数があれば入力してください",
+                 Param2Type = CommandListParamType.OneLine,
              },
              new CommandListData()
              {
@@ -94,50 +94,56 @@ namespace FullAutomationSupportSystem
             {
                 run = BatRun;
             }
+            if (idx == CommandListType.File)
+            {
+                run = FileRun;
+            }
             return run(param1, param2);
         }
         static public string BatRun(string param1, string param2)
         {
             var fileName = param1;
             if (File.Exists(fileName) == false) return "ファイルが存在しない";
-            if (param2 == "true")
+            //止まらないバッチを作る
+            var stream = "";
+            using (StreamReader sr = new StreamReader(param1))
             {
-                //止まらないバッチを作る
-                var stream = "";
-                using (StreamReader sr = new StreamReader(param1))
+                while (sr.EndOfStream == false)
                 {
-                    while (sr.EndOfStream == false)
+                    string line = sr.ReadLine();
+                    //pauseはスルー
+                    if (line.Trim().ToLower() != "pause")
                     {
-                        string line = sr.ReadLine();
-                        //pauseはスルー
-                        if (line.Trim().ToLower() != "pause")
-                        {
-                            stream += line + Environment.NewLine;
-                        }
-                    }
-                    sr.Close();
-                }
-                //かぶらないファイル名を作る
-                int co = 0;
-                while (true)
-                {
-                    var sameName = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + co++ + Path.GetExtension(fileName));
-                    if (File.Exists(sameName) == false)
-                    {
-                        fileName = sameName;
-                        break;
+                        stream += line + Environment.NewLine;
                     }
                 }
-                //空っぽファイル
-                if (stream == "") return "ファイルの中身が空";
-                File.WriteAllText(fileName, stream);
+                sr.Close();
             }
-            var process = Process.Start(fileName);
+            //かぶらないファイル名を作る
+            int co = 0;
+            while (true)
+            {
+                var sameName = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + co++ + Path.GetExtension(fileName));
+                if (File.Exists(sameName) == false)
+                {
+                    fileName = sameName;
+                    break;
+                }
+            }
+            //空っぽファイル
+            if (stream == "") return "ファイルの中身が空";
+            File.WriteAllText(fileName, stream);
+            var process = Process.Start(fileName, param2);
             process.WaitForExit();
-            if (param2 == "true")
-            {
-                File.Delete(fileName);
-            }
+            File.Delete(fileName);
+            return "成功";
+        }
+        static public string FileRun(string param1, string param2)
+        {
+            var fileName = param1;
+            if (File.Exists(fileName) == false) return "ファイルが存在しない";
+            var process = Process.Start(fileName, param2);
+            process.WaitForExit();
             return "成功";
         }
     }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FullAutomationSupportSystem;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace FullAutomationSupportSystem
 {
@@ -139,15 +140,15 @@ namespace FullAutomationSupportSystem
                 AddDataGridView(data);
             }
         }
-
+        private int RunIndex;
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //実行を押された
             if(e.ColumnIndex == dataGridView1.Columns["run"].Index)
             {
                 if (e.RowIndex == -1) return;
-                var command = gTaskData.CommandDataList[e.RowIndex];
-                CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
+                RunIndex = e.RowIndex;
+                backgroundWorker1.RunWorkerAsync();
             }
             //チェック
             if (e.ColumnIndex == dataGridView1.Columns["Checked"].Index)
@@ -160,8 +161,12 @@ namespace FullAutomationSupportSystem
                     gTaskData.CommandDataList[i].Checked = bCheckd;
                     commandDataBindingSource[i] = gTaskData.CommandDataList[i];
                 }
-
             }
+        }
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var command = gTaskData.CommandDataList[RunIndex];
+            CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -367,6 +372,7 @@ namespace FullAutomationSupportSystem
         {
             OkButtonEnabled(true);
         }
+
 
     }
 }

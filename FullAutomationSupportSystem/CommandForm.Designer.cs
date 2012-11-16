@@ -79,6 +79,8 @@
             this.Param1TextBox.Name = "Param1TextBox";
             this.Param1TextBox.Size = new System.Drawing.Size(339, 24);
             this.Param1TextBox.TabIndex = 5;
+            this.Param1TextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.Param1TextBox_DragDrop);
+            this.Param1TextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.Param1TextBox_DragEnter);
             // 
             // panel1
             // 
@@ -220,6 +222,7 @@
             // 
             // CommandForm
             // 
+            this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(761, 180);
