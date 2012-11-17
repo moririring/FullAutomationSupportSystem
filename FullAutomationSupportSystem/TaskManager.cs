@@ -8,11 +8,12 @@ using System.Runtime.Serialization;
 using System.Xml;
 using System.Runtime.Serialization.Formatters.Binary;
 using RazorEngine;
+using System.Windows.Forms;
 
 namespace FullAutomationSupportSystem
 {
     [DataContract]
-    public class CommandData
+    public class CommandData : ICloneable
     {
         public CommandData()
         {
@@ -57,6 +58,18 @@ namespace FullAutomationSupportSystem
                 reader.Read();
                 Param2 = reader.Value;
             }
+        }
+        public object Clone()
+        {
+            var clone = new CommandData();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                var serializer = new DataContractSerializer(typeof(CommandData));
+                serializer.WriteObject(stream, this);
+                stream.Position = 0;
+                clone = (CommandData)serializer.ReadObject(stream);
+            }
+            return clone;
         }
     }
     [DataContract]
@@ -176,9 +189,9 @@ namespace FullAutomationSupportSystem
         [DataMember(Order = 7)]
         public bool Span { get; set; }
         [DataMember(Order = 8)]
-        public CommandList CommandDataList = new CommandList();
-        [DataMember(Order = 9)]
         public int LogNumber { get; set; }
+        [DataMember(Order = 9)]
+        public CommandList CommandDataList = new CommandList();
 
         public void XmlReader(XmlReader reader)
         {
@@ -221,6 +234,11 @@ namespace FullAutomationSupportSystem
             {
                 reader.Read();
                 Span = bool.Parse(reader.Value);
+            }
+            if (reader.Name == "LogNumber")
+            {
+                reader.Read();
+                LogNumber = int.Parse(reader.Value);
             }
         }
         public string LastRunTime { get; set; }
@@ -286,7 +304,8 @@ namespace FullAutomationSupportSystem
                 runLogDatas.Add(data);
             }
             //相対パス危険。駄目。絶対。
-            var template = File.ReadAllText("RunLog.cshtml");
+            var cshtmlFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "RunLog.cshtml");
+            var template = File.ReadAllText(cshtmlFile);
             var result = Razor.Parse(template, new RunLogHTMLDatas(){ Datas = runLogDatas });
             using (var sw = new StreamWriter(logHTMLFile, false, RunLogEncoding))
             {
@@ -425,7 +444,7 @@ namespace FullAutomationSupportSystem
                         }
                         if (reader.Name == "CommandData")
                         {
-                            task.CommandDataList.Add(command);
+                            task.CommandDataList.Add((CommandData)command.Clone());
                             bCommandData = false;
                         }
                     }

@@ -25,6 +25,16 @@ namespace FullAutomationSupportSystem
             Param2ReadTextBox.Text = gCommandListData.Param2Txt;
             SetParam1CommandListData();
             SetParam2CommandListData();
+
+            if (gCommandData.Type == CommandListType.Bat)
+            {
+                openFileDialog1.Filter = "batファイル|*.bat";
+            }
+            if (gCommandData.Type == CommandListType.File)
+            {
+                openFileDialog1.Filter = "すべてのファイル|*.*";
+            }
+
         }
         private void SetParam1CommandListData()
         {
@@ -58,6 +68,13 @@ namespace FullAutomationSupportSystem
                 Param2Button.Visible = false;
                 Param2ComboBox.Visible = false;
                 Param2TextBox.Text = gCommandData.Param2;
+                Param2TextBox.Multiline = false;
+            }
+            if (gCommandListData.Param2Type == CommandListParamType.Null)
+            {
+                Param2Button.Visible = false;
+                Param2ComboBox.Visible = false;
+                Param2TextBox.ReadOnly = true;
                 Param2TextBox.Multiline = false;
             }
         }
@@ -94,7 +111,6 @@ namespace FullAutomationSupportSystem
             }
         }
         private string DropFileName = "";
-
         private void Param1TextBox_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.None;
@@ -110,7 +126,14 @@ namespace FullAutomationSupportSystem
         }
         private void Param1TextBox_DragDrop(object sender, DragEventArgs e)
         {
-            Param1TextBox.Text = DropFileName;
+            if (gCommandData.Type == CommandListType.Bat && DropFileName.IndexOf(".bat") == -1)
+            {
+                MessageBox.Show("バッチ以外は登録出来ません");
+            }
+            else
+            {
+                Param1TextBox.Text = DropFileName;
+            }
         }
     }
 }

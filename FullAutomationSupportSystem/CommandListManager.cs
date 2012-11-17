@@ -63,9 +63,9 @@ namespace FullAutomationSupportSystem
                  Name = "ファイル実行",
                  CommandListTxt = "ファイルを実行します", 
                  Param1Txt = "ファイルのフルパスを入力してください",
-                 Param1Type = CommandListParamType.OneLine,
-                 Param2Txt = "",
-                 Param2Type = CommandListParamType.Null,
+                 Param1Type = CommandListParamType.File,
+                 Param2Txt = "引数があれば入力してください",
+                 Param2Type = CommandListParamType.OneLine,
                  
              },
         };

@@ -46,6 +46,7 @@ namespace FullAutomationSupportSystem
                     task.WriteRunLogNow(true, task.Name);
                     foreach (var command in task.CommandDataList)
                     {
+                        if (command.Checked == false) continue;
                         backgroundWorker1.ReportProgress(counter++);
                         var runMsg = CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
                         var msg = command.Name + " : " + command.Param1 + " : " + command.Param2 + " : " + runMsg + " : " + DateTime.Now;
