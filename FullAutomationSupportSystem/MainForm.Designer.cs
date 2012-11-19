@@ -62,6 +62,7 @@
             this.dataGridVewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.削除DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -73,7 +74,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.SpanTextBox = new System.Windows.Forms.TextBox();
-            this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,10 +90,10 @@
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.dataGridVewContextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -291,7 +291,7 @@
             // 
             this.TaskEditToolStripMenuItem1.Name = "TaskEditToolStripMenuItem1";
             this.TaskEditToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.TaskEditToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.TaskEditToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.TaskEditToolStripMenuItem1.Text = "編集(&E)";
             this.TaskEditToolStripMenuItem1.Click += new System.EventHandler(this.TaskEditToolStripMenuItem1_Click);
             // 
@@ -299,20 +299,20 @@
             // 
             this.TaskDeleteToolStripMenuItem1.Name = "TaskDeleteToolStripMenuItem1";
             this.TaskDeleteToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.TaskDeleteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.TaskDeleteToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.TaskDeleteToolStripMenuItem1.Text = "削除(&D)";
             this.TaskDeleteToolStripMenuItem1.Click += new System.EventHandler(this.TaskDeleteToolStripMenuItem1_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(148, 6);
             // 
             // TaskCopyToolStripMenuItem
             // 
             this.TaskCopyToolStripMenuItem.Name = "TaskCopyToolStripMenuItem";
             this.TaskCopyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.TaskCopyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.TaskCopyToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.TaskCopyToolStripMenuItem.Text = "コピー(&C)";
             this.TaskCopyToolStripMenuItem.Click += new System.EventHandler(this.TaskCopyToolStripMenuItem_Click);
             // 
@@ -406,6 +406,11 @@
             this.削除DToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.削除DToolStripMenuItem.Text = "削除(&D)";
             this.削除DToolStripMenuItem.Click += new System.EventHandler(this.TaskDeleteToolStripMenuItem1_Click);
+            // 
+            // taskDataBindingSource
+            // 
+            this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
+            this.taskDataBindingSource.CurrentItemChanged += new System.EventHandler(this.taskDataBindingSource_CurrentItemChanged);
             // 
             // panel1
             // 
@@ -518,11 +523,6 @@
             this.SpanTextBox.Text = "--:--:--";
             this.SpanTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // taskDataBindingSource
-            // 
-            this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
-            this.taskDataBindingSource.CurrentItemChanged += new System.EventHandler(this.taskDataBindingSource_CurrentItemChanged);
-            // 
             // commandListDataBindingSource
             // 
             this.commandListDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandListData);
@@ -538,9 +538,9 @@
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn1.HeaderText = "名前";
+            this.dataGridViewTextBoxColumn1.HeaderText = "ﾌﾟﾛｾｽｸﾞﾙｰﾌﾟ名";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 54;
+            this.dataGridViewTextBoxColumn1.Width = 110;
             // 
             // LastRun
             // 
@@ -628,11 +628,11 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.dataGridVewContextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -166,7 +166,7 @@ namespace FullAutomationSupportSystem
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             var command = gTaskData.CommandDataList[RunIndex];
-            CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
+            CommandListManager.GetInstance().Run("", command.Type, command.Param1, command.Param2);
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

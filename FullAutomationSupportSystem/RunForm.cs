@@ -33,22 +33,33 @@ namespace FullAutomationSupportSystem
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             int counter = 0;
+
+
             foreach (var task in gTaskList)
             {
                 if (task.Checked == false) continue;
                 try
                 {
-
+                    //プロセスログは最初に全消し
+                    var deleteFiles = Directory.GetFiles(Path.Combine(task.LogPath, task.LogFolder), "RunLogProcess*.txt");
+                    foreach (var deleteFile in deleteFiles)
+                    {
+                        File.Delete(deleteFile);
+                    }
+                    //
                     var StartTime = DateTime.Now;
                     //HTML
                     task.WriteRunLogHTML(true);
                     //ログテキストファイル生成
                     task.WriteRunLogNow(true, task.Name);
+                    int logCounter = 0;
                     foreach (var command in task.CommandDataList)
                     {
                         if (command.Checked == false) continue;
                         backgroundWorker1.ReportProgress(counter++);
-                        var runMsg = CommandListManager.GetInstance().Run(command.Type, command.Param1, command.Param2);
+
+                        var processLogFileName = Path.Combine(task.LogPath, task.LogFolder + "\\RunLogProcess" + logCounter++ + ".txt");
+                        var runMsg = CommandListManager.GetInstance().Run(processLogFileName, command.Type, command.Param1, command.Param2);
                         var msg = command.Name + " : " + command.Param1 + " : " + command.Param2 + " : " + runMsg + " : " + DateTime.Now;
                         task.WriteRunLogNow(false, msg);
                     }

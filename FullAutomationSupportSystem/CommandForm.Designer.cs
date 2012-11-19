@@ -232,7 +232,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "CommandForm";
-            this.Text = "CommandForm";
+            this.Text = "プロセスフォーム";
             this.Resize += new System.EventHandler(this.CommandForm_Resize);
             this.panel1.ResumeLayout(false);
             this.Param1Panel.ResumeLayout(false);

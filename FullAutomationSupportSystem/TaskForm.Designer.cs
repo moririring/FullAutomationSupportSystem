@@ -34,10 +34,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridVewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.commandDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.CommandListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel6 = new System.Windows.Forms.Panel();
@@ -75,15 +75,15 @@
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.param1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.param2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commandDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.dataGridVewContextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogNumericUpDown)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
@@ -152,12 +152,6 @@
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             this.dataGridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseMove);
             // 
-            // Run
-            // 
-            this.Run.HeaderText = "実行";
-            this.Run.Name = "Run";
-            this.Run.Width = 35;
-            // 
             // dataGridVewContextMenuStrip
             // 
             this.dataGridVewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -180,6 +174,10 @@
             this.DeleteDToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.DeleteDToolStripMenuItem.Text = "削除(&D)";
             this.DeleteDToolStripMenuItem.Click += new System.EventHandler(this.DeleteDToolStripMenuItem_Click);
+            // 
+            // commandDataBindingSource
+            // 
+            this.commandDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandData);
             // 
             // CommandListView
             // 
@@ -233,7 +231,7 @@
             this.ProjectPathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ProjectPathButton.AutoSize = true;
             this.ProjectPathButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ProjectPathButton.Location = new System.Drawing.Point(504, 29);
+            this.ProjectPathButton.Location = new System.Drawing.Point(516, 29);
             this.ProjectPathButton.Name = "ProjectPathButton";
             this.ProjectPathButton.Size = new System.Drawing.Size(21, 22);
             this.ProjectPathButton.TabIndex = 25;
@@ -244,7 +242,7 @@
             // LogFolderTextBox
             // 
             this.LogFolderTextBox.ImeMode = System.Windows.Forms.ImeMode.Alpha;
-            this.LogFolderTextBox.Location = new System.Drawing.Point(82, 79);
+            this.LogFolderTextBox.Location = new System.Drawing.Point(94, 79);
             this.LogFolderTextBox.Name = "LogFolderTextBox";
             this.LogFolderTextBox.Size = new System.Drawing.Size(303, 19);
             this.LogFolderTextBox.TabIndex = 24;
@@ -252,7 +250,7 @@
             // 
             // NameTextBox
             // 
-            this.NameTextBox.Location = new System.Drawing.Point(82, 4);
+            this.NameTextBox.Location = new System.Drawing.Point(94, 4);
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(303, 19);
             this.NameTextBox.TabIndex = 23;
@@ -264,7 +262,7 @@
             this.ProjectPathComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ProjectPathComboBox.FormattingEnabled = true;
-            this.ProjectPathComboBox.Location = new System.Drawing.Point(81, 29);
+            this.ProjectPathComboBox.Location = new System.Drawing.Point(93, 29);
             this.ProjectPathComboBox.Name = "ProjectPathComboBox";
             this.ProjectPathComboBox.Size = new System.Drawing.Size(417, 20);
             this.ProjectPathComboBox.TabIndex = 20;
@@ -275,7 +273,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 82);
+            this.label4.Location = new System.Drawing.Point(29, 82);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 12);
             this.label4.TabIndex = 18;
@@ -286,7 +284,7 @@
             this.LogPathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LogPathButton.AutoSize = true;
             this.LogPathButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.LogPathButton.Location = new System.Drawing.Point(504, 51);
+            this.LogPathButton.Location = new System.Drawing.Point(516, 51);
             this.LogPathButton.Name = "LogPathButton";
             this.LogPathButton.Size = new System.Drawing.Size(21, 22);
             this.LogPathButton.TabIndex = 16;
@@ -299,7 +297,7 @@
             this.ProjectFolderDeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ProjectFolderDeleteButton.AutoSize = true;
             this.ProjectFolderDeleteButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ProjectFolderDeleteButton.Location = new System.Drawing.Point(486, 2);
+            this.ProjectFolderDeleteButton.Location = new System.Drawing.Point(498, 2);
             this.ProjectFolderDeleteButton.Name = "ProjectFolderDeleteButton";
             this.ProjectFolderDeleteButton.Size = new System.Drawing.Size(39, 22);
             this.ProjectFolderDeleteButton.TabIndex = 15;
@@ -312,7 +310,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(391, 81);
+            this.label1.Location = new System.Drawing.Point(403, 81);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 12);
             this.label1.TabIndex = 14;
@@ -324,7 +322,7 @@
             this.LogPathComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LogPathComboBox.FormattingEnabled = true;
-            this.LogPathComboBox.Location = new System.Drawing.Point(81, 53);
+            this.LogPathComboBox.Location = new System.Drawing.Point(93, 53);
             this.LogPathComboBox.Name = "LogPathComboBox";
             this.LogPathComboBox.Size = new System.Drawing.Size(417, 20);
             this.LogPathComboBox.TabIndex = 13;
@@ -335,7 +333,7 @@
             // 
             // LogNumericUpDown
             // 
-            this.LogNumericUpDown.Location = new System.Drawing.Point(444, 79);
+            this.LogNumericUpDown.Location = new System.Drawing.Point(456, 79);
             this.LogNumericUpDown.Maximum = new decimal(new int[] {
             999,
             0,
@@ -377,7 +375,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(28, 108);
+            this.label9.Location = new System.Drawing.Point(40, 108);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(47, 12);
             this.label9.TabIndex = 9;
@@ -388,16 +386,16 @@
             this.RepositoryTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RepositoryTextBox.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.RepositoryTextBox.Location = new System.Drawing.Point(81, 105);
+            this.RepositoryTextBox.Location = new System.Drawing.Point(93, 105);
             this.RepositoryTextBox.Name = "RepositoryTextBox";
             this.RepositoryTextBox.ReadOnly = true;
-            this.RepositoryTextBox.Size = new System.Drawing.Size(478, 19);
+            this.RepositoryTextBox.Size = new System.Drawing.Size(444, 19);
             this.RepositoryTextBox.TabIndex = 8;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(33, 56);
+            this.label8.Location = new System.Drawing.Point(45, 56);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(42, 12);
             this.label8.TabIndex = 7;
@@ -406,7 +404,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 32);
+            this.label7.Location = new System.Drawing.Point(39, 32);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(48, 12);
             this.label7.TabIndex = 5;
@@ -415,11 +413,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(46, 7);
+            this.label5.Location = new System.Drawing.Point(3, 7);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(29, 12);
+            this.label5.Size = new System.Drawing.Size(85, 12);
             this.label5.TabIndex = 1;
-            this.label5.Text = "名前";
+            this.label5.Text = "ﾌﾟﾛｾｽｸﾞﾙｰﾌﾟ名";
             // 
             // panel1
             // 
@@ -456,7 +454,7 @@
             this.CommandButton.Name = "CommandButton";
             this.CommandButton.Size = new System.Drawing.Size(124, 41);
             this.CommandButton.TabIndex = 17;
-            this.CommandButton.Text = "新しいコマンド...";
+            this.CommandButton.Text = "新しいプロセス...";
             this.CommandButton.UseVisualStyleBackColor = true;
             this.CommandButton.Click += new System.EventHandler(this.CommandButton_Click);
             // 
@@ -488,9 +486,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(142, 6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 12);
+            this.label2.Size = new System.Drawing.Size(54, 12);
             this.label2.TabIndex = 22;
-            this.label2.Text = "コマンド名";
+            this.label2.Text = "プロセス名";
             // 
             // CommandTextBox
             // 
@@ -539,9 +537,9 @@
             // nameDataGridViewTextBoxColumn
             // 
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "名前";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "プロセス名";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.Width = 54;
+            this.nameDataGridViewTextBoxColumn.Width = 79;
             // 
             // param1DataGridViewTextBoxColumn
             // 
@@ -557,9 +555,11 @@
             this.param2DataGridViewTextBoxColumn.Name = "param2DataGridViewTextBoxColumn";
             this.param2DataGridViewTextBoxColumn.Width = 74;
             // 
-            // commandDataBindingSource
+            // Run
             // 
-            this.commandDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandData);
+            this.Run.HeaderText = "実行";
+            this.Run.Name = "Run";
+            this.Run.Width = 35;
             // 
             // TaskForm
             // 
@@ -573,19 +573,19 @@
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.statusStrip1);
             this.Name = "TaskForm";
-            this.Text = "TaskForm";
+            this.Text = "プロセスグループフォーム";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TaskForm_FormClosing);
             this.Load += new System.EventHandler(this.TaskForm_Load);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.dataGridVewContextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogNumericUpDown)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.commandDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -630,12 +630,12 @@
         private System.Windows.Forms.ContextMenuStrip dataGridVewContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem EditToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DeleteDToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Checked;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn param1DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn param2DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn Run;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

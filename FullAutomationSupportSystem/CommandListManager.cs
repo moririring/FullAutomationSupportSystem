@@ -85,9 +85,46 @@ namespace FullAutomationSupportSystem
             get { return CommandListDataList[idx]; }
         }
 
+        static private void ProcessLogFileRun(string logFileName, string fileName, string param2)
+        {
+            //ログファイルがなければ通常実行
+            if (string.IsNullOrWhiteSpace(logFileName) == true)
+            {
+                var process = Process.Start(fileName, param2);
+                process.WaitForExit();
+            }
+            //ログファイルがあればシークレット実行
+            else
+            {
+                var psInfo = new ProcessStartInfo();
+                psInfo.FileName = fileName; // 実行するファイル
+                psInfo.WorkingDirectory = Path.GetDirectoryName(fileName);
+                psInfo.Arguments = "\"" + param2 + "\"";
+                psInfo.CreateNoWindow = true; // コンソール・ウィンドウを開かない
+                psInfo.UseShellExecute = false; // シェル機能を使用しない
+                psInfo.RedirectStandardOutput = true; // 標準出力をリダイレクト
+                psInfo.RedirectStandardError = true;
+
+                var p = Process.Start(psInfo); // アプリの実行開始
+                var output = p.StandardOutput.ReadToEnd();
+                if (string.IsNullOrWhiteSpace(output) == false)
+                {
+                    output = output.Replace("\r\r\n", "\n");
+                }
+                var error = p.StandardError.ReadToEnd();
+                if (string.IsNullOrWhiteSpace(error) == false)
+                {
+                    error = error.Replace("\r\r\n", "\n");
+                }
+                File.WriteAllText(logFileName, output + error);
+            }
+
+        }
+
+
         //実行処理（これだとデリケード使う意味なし）
-        delegate string CommandListRun(string param1, string param2);
-        public string Run(CommandListType idx, string param1, string param2)
+        delegate string CommandListRun(string logFileName, string param1, string param2);
+        public string Run(string logFileName, CommandListType idx, string param1, string param2)
         {
             CommandListRun run = null;
             if (idx == CommandListType.Bat)
@@ -98,9 +135,9 @@ namespace FullAutomationSupportSystem
             {
                 run = FileRun;
             }
-            return run(param1, param2);
+            return run(logFileName, param1, param2);
         }
-        static public string BatRun(string param1, string param2)
+        static public string BatRun(string logFileName, string param1, string param2)
         {
             var fileName = param1;
             if (File.Exists(fileName) == false) return "ファイルが存在しない";
@@ -133,17 +170,15 @@ namespace FullAutomationSupportSystem
             //空っぽファイル
             if (stream == "") return "ファイルの中身が空";
             File.WriteAllText(fileName, stream);
-            var process = Process.Start(fileName, param2);
-            process.WaitForExit();
+            ProcessLogFileRun(logFileName, fileName, param2);
             File.Delete(fileName);
             return "成功";
         }
-        static public string FileRun(string param1, string param2)
+        static public string FileRun(string logFileName, string param1, string param2)
         {
             var fileName = param1;
             if (File.Exists(fileName) == false) return "ファイルが存在しない";
-            var process = Process.Start(fileName, param2);
-            process.WaitForExit();
+            ProcessLogFileRun(logFileName, fileName, param2);
             return "成功";
         }
     }
