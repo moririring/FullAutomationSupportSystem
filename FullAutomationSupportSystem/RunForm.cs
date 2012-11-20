@@ -58,12 +58,13 @@ namespace FullAutomationSupportSystem
                         if (command.Checked == false) continue;
                         backgroundWorker1.ReportProgress(counter++);
 
-                        var processLogFileName = Path.Combine(task.LogPath, task.LogFolder + "\\RunLogProcess" + logCounter++ + ".txt");
+                        var processLogFileName = Path.Combine(task.LogPath, task.LogFolder + "\\RunLogProcess" + logCounter + ".txt");
                         var runMsg = CommandListManager.GetInstance().Run(processLogFileName, command.Type, command.Param1, command.Param2);
-                        var msg = command.Name + " : " + command.Param1 + " : " + command.Param2 + " : " + runMsg + " : " + DateTime.Now;
-                        task.WriteRunLogNow(false, msg);
+                        var name = "<a href = 'RunLogProcess" + logCounter + ".txt'>" + command.Name + "</a>";
+                        task.WriteRunLogNow(name, command.Param1, command.Param2, runMsg);
+                        logCounter++;
                     }
-                    task.WriteRunLogNow(false, "End!!");
+                    task.WriteRunLogNow(false, "");
                     //ログcsvファイル生成
                     var EndTime = DateTime.Now;
                     var TotalTime = EndTime - StartTime;

@@ -291,13 +291,13 @@ namespace FullAutomationSupportSystem
                     logTime = line.Split(',')[0];
                 }
                 string taskName = "";
-                var nowFile = file.Replace("RunLogHistory", "RunLogNow");
+                var nowFile = Path.Combine(Path.GetDirectoryName(fileNum), "RunLogNow.html"); 
                 using (StreamReader sr = new StreamReader(nowFile))
                 {
                     taskName = sr.ReadLine();
                 }
                 RunLogHTMLData data = new RunLogHTMLData();
-                data.TaskNameLink = folder + "\\RunLogNow.txt";
+                data.TaskNameLink = folder + "\\RunLogNow.html";
                 data.TaskName = taskName;
                 data.LogTime = logTime;
                 data.LogTimeLink = folder + "\\RunLogHistory.txt";
@@ -313,16 +313,50 @@ namespace FullAutomationSupportSystem
             }
             return true;
         }
+        public bool WriteRunLogNow(string name, string param1, string param2, string msg)
+        {
+            var logTxtFile = Path.Combine(LogPath, LogFolder + "\\" + RunLogNow + ".html");
+            using (var sw = new StreamWriter(logTxtFile, true, RunLogEncoding))
+            {
+                sw.WriteLine("<tr>");
+                sw.WriteLine("<td>" + name + "</th>");
+                sw.WriteLine("<td>" + param1 + "</th>");
+                sw.WriteLine("<td>" + param2 + "</th>");
+                sw.WriteLine("<td>" + msg + "</th>");
+                sw.WriteLine("<td>" + DateTime.Now + "</th>");
+                sw.WriteLine("</tr>");
+            }
+            return true;
+        }
         public bool WriteRunLogNow(bool first, string write)
         {
-            var logTxtFile = Path.Combine(LogPath, LogFolder + "\\" + RunLogNow + ".txt");
+            var logTxtFile = Path.Combine(LogPath, LogFolder + "\\" + RunLogNow + ".html");
             if (Directory.Exists(Path.GetDirectoryName(logTxtFile)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(logTxtFile));
             }
-            using (var sw = new StreamWriter(logTxtFile, !first, RunLogEncoding))
+            if (first)
             {
-                sw.WriteLine(write);
+                using (var sw = new StreamWriter(logTxtFile, !first, RunLogEncoding))
+                {
+                    sw.WriteLine("<p>" + write + "</p>");
+                    sw.WriteLine("<table border='1'>");
+                    sw.WriteLine("<tr>");
+                    sw.WriteLine("<th>プロセス名</th>");
+                    sw.WriteLine("<th>パラメータ1</th>");
+                    sw.WriteLine("<th>パラメータ2</th>");
+                    sw.WriteLine("<th>結果</th>");
+                    sw.WriteLine("<th>最終更新時間</th>");
+                    sw.WriteLine("</tr>");
+                }
+            }
+            else
+            {
+                using (var sw = new StreamWriter(logTxtFile, !first, RunLogEncoding))
+                {
+                    sw.WriteLine("</table>");
+                    sw.WriteLine("<p>終了</p>");
+                }
             }
             return true;
         }

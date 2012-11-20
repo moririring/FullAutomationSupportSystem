@@ -90,7 +90,12 @@ namespace FullAutomationSupportSystem
             //ログファイルがなければ通常実行
             if (string.IsNullOrWhiteSpace(logFileName) == true)
             {
-                var process = Process.Start(fileName, param2);
+                var psInfo = new ProcessStartInfo();
+                psInfo.FileName = fileName; // 実行するファイル
+                psInfo.WorkingDirectory = Path.GetDirectoryName(fileName);
+                psInfo.Arguments = "\"" + param2 + "\"";
+
+                var process = Process.Start(psInfo);
                 process.WaitForExit();
             }
             //ログファイルがあればシークレット実行
@@ -116,7 +121,7 @@ namespace FullAutomationSupportSystem
                 {
                     error = error.Replace("\r\r\n", "\n");
                 }
-                File.WriteAllText(logFileName, output + error);
+                File.WriteAllText(logFileName, output + error, System.Text.Encoding.UTF8);
             }
 
         }
@@ -178,7 +183,7 @@ namespace FullAutomationSupportSystem
         {
             var fileName = param1;
             if (File.Exists(fileName) == false) return "ファイルが存在しない";
-            ProcessLogFileRun(logFileName, fileName, param2);
+            ProcessLogFileRun("", fileName, param2);
             return "成功";
         }
     }
