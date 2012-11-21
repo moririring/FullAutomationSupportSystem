@@ -60,7 +60,16 @@ namespace FullAutomationSupportSystem
 
                         var processLogFileName = Path.Combine(task.LogPath, task.LogFolder + "\\RunLogProcess" + logCounter + ".txt");
                         var runMsg = CommandListManager.GetInstance().Run(processLogFileName, command.Type, command.Param1, command.Param2);
-                        var name = "<a href = 'RunLogProcess" + logCounter + ".txt'>" + command.Name + "</a>";
+
+                        var name = "";
+                        if (command.Type == CommandListType.Bat)
+                        {
+                            name = "<a href = 'RunLogProcess" + logCounter + ".txt'>" + command.Name + "</a>";
+                        }
+                        else
+                        {
+                            name = command.Name;
+                        }
                         task.WriteRunLogNow(name, command.Param1, command.Param2, runMsg);
                         logCounter++;
                     }

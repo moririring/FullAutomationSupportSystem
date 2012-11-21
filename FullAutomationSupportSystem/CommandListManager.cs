@@ -94,7 +94,6 @@ namespace FullAutomationSupportSystem
                 psInfo.FileName = fileName; // 実行するファイル
                 psInfo.WorkingDirectory = Path.GetDirectoryName(fileName);
                 psInfo.Arguments = "\"" + param2 + "\"";
-
                 var process = Process.Start(psInfo);
                 process.WaitForExit();
             }

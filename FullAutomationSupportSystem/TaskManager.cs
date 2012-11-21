@@ -9,6 +9,7 @@ using System.Xml;
 using System.Runtime.Serialization.Formatters.Binary;
 using RazorEngine;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace FullAutomationSupportSystem
 {
@@ -295,6 +296,7 @@ namespace FullAutomationSupportSystem
                 using (StreamReader sr = new StreamReader(nowFile))
                 {
                     taskName = sr.ReadLine();
+                    taskName = Regex.Replace(taskName, @"<.*?>", string.Empty); 
                 }
                 RunLogHTMLData data = new RunLogHTMLData();
                 data.TaskNameLink = folder + "\\RunLogNow.html";
