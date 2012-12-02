@@ -18,7 +18,7 @@ namespace FullAutomationSupportSystem
         public void タスクに存在するパスで追加()
         {
             var data = new TaskData();
-            data.ProjectPaths[0] = @"C:\Program Files";
+            data.ProjectPath = @"C:\Program Files";
             gTaskList.Add(data);
             Assert.True(gTaskList.Count == 1);
         }
@@ -53,6 +53,21 @@ namespace FullAutomationSupportSystem
             gTaskList.Add(task);
             task.CommandDataList.Add(command);
             Assert.True(task.CommandDataList.Count == 1);
+        }
+        [Test]
+        public void タスクセーブ()
+        {
+            var task = new TaskData();
+            var command = new CommandData();
+            task.ProjectPaths.Add(@"C:\Program Files");
+            gTaskList.Add(task);
+            task.CommandDataList.Add(command);
+            Assert.True(gTaskList.Save(@"C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystemTest\fas.fas") == true);
+        }
+        [Test]
+        public void タスクロード()
+        {
+            Assert.True(gTaskList.Load(@"C:\My Program\FullAutomationSupportSystem\FullAutomationSupportSystemTest\fas.fas") == true);
         }
     }
 }

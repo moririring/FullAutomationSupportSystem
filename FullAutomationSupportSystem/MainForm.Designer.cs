@@ -59,12 +59,18 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.LastRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProjectPaths = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ProjectPath = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.LogPath = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Log = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridVewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.削除DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
+            this.OptionButton = new System.Windows.Forms.Button();
+            this.NewTaskButton = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -74,26 +80,21 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.SpanTextBox = new System.Windows.Forms.TextBox();
-            this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProjectPaths = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ProjectPath = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.LogPath = new System.Windows.Forms.DataGridViewLinkColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Timer = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Span = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Log = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.SpanNumericUpDown)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.dataGridVewContextMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -329,6 +330,7 @@
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -385,6 +387,49 @@
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             this.dataGridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseMove);
             // 
+            // LastRun
+            // 
+            this.LastRun.DataPropertyName = "LastRunTime";
+            this.LastRun.HeaderText = "最終実行時間";
+            this.LastRun.Name = "LastRun";
+            this.LastRun.ReadOnly = true;
+            this.LastRun.Width = 102;
+            // 
+            // ProjectPaths
+            // 
+            this.ProjectPaths.HeaderText = "プロジェクト";
+            this.ProjectPaths.Name = "ProjectPaths";
+            this.ProjectPaths.Visible = false;
+            this.ProjectPaths.Width = 62;
+            // 
+            // ProjectPath
+            // 
+            this.ProjectPath.HeaderText = "作業パス";
+            this.ProjectPath.Name = "ProjectPath";
+            this.ProjectPath.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ProjectPath.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ProjectPath.Width = 73;
+            // 
+            // LogPath
+            // 
+            this.LogPath.HeaderText = "ログパス";
+            this.LogPath.Name = "LogPath";
+            this.LogPath.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.LogPath.Width = 67;
+            // 
+            // Log
+            // 
+            this.Log.HeaderText = "ログ";
+            this.Log.Name = "Log";
+            this.Log.Width = 29;
+            // 
+            // Run
+            // 
+            this.Run.HeaderText = "実行";
+            this.Run.Name = "Run";
+            this.Run.ReadOnly = true;
+            this.Run.Width = 35;
+            // 
             // dataGridVewContextMenuStrip
             // 
             this.dataGridVewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -407,30 +452,36 @@
             this.削除DToolStripMenuItem.Text = "削除(&D)";
             this.削除DToolStripMenuItem.Click += new System.EventHandler(this.TaskDeleteToolStripMenuItem1_Click);
             // 
-            // taskDataBindingSource
-            // 
-            this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
-            this.taskDataBindingSource.CurrentItemChanged += new System.EventHandler(this.taskDataBindingSource_CurrentItemChanged);
-            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.OptionButton);
+            this.panel1.Controls.Add(this.NewTaskButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(761, 58);
             this.panel1.TabIndex = 10;
             // 
-            // button3
+            // OptionButton
             // 
-            this.button3.Location = new System.Drawing.Point(3, 6);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(124, 41);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "新しいタスク...";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.AddTaskToolStripMenuItem_Click);
+            this.OptionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.OptionButton.Location = new System.Drawing.Point(623, 6);
+            this.OptionButton.Name = "OptionButton";
+            this.OptionButton.Size = new System.Drawing.Size(124, 41);
+            this.OptionButton.TabIndex = 2;
+            this.OptionButton.Text = "オプション...";
+            this.OptionButton.UseVisualStyleBackColor = true;
+            // 
+            // NewTaskButton
+            // 
+            this.NewTaskButton.Location = new System.Drawing.Point(3, 6);
+            this.NewTaskButton.Name = "NewTaskButton";
+            this.NewTaskButton.Size = new System.Drawing.Size(124, 41);
+            this.NewTaskButton.TabIndex = 1;
+            this.NewTaskButton.Text = "新しいタスク...";
+            this.NewTaskButton.UseVisualStyleBackColor = true;
+            this.NewTaskButton.Click += new System.EventHandler(this.AddTaskToolStripMenuItem_Click);
             // 
             // saveFileDialog1
             // 
@@ -523,10 +574,6 @@
             this.SpanTextBox.Text = "--:--:--";
             this.SpanTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // commandListDataBindingSource
-            // 
-            this.commandListDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandListData);
-            // 
             // Checked
             // 
             this.Checked.DataPropertyName = "Checked";
@@ -541,36 +588,6 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "ﾌﾟﾛｾｽｸﾞﾙｰﾌﾟ名";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Width = 110;
-            // 
-            // LastRun
-            // 
-            this.LastRun.DataPropertyName = "LastRunTime";
-            this.LastRun.HeaderText = "最終実行時間";
-            this.LastRun.Name = "LastRun";
-            this.LastRun.ReadOnly = true;
-            this.LastRun.Width = 102;
-            // 
-            // ProjectPaths
-            // 
-            this.ProjectPaths.HeaderText = "プロジェクト";
-            this.ProjectPaths.Name = "ProjectPaths";
-            this.ProjectPaths.Visible = false;
-            this.ProjectPaths.Width = 62;
-            // 
-            // ProjectPath
-            // 
-            this.ProjectPath.HeaderText = "作業パス";
-            this.ProjectPath.Name = "ProjectPath";
-            this.ProjectPath.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ProjectPath.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ProjectPath.Width = 73;
-            // 
-            // LogPath
-            // 
-            this.LogPath.HeaderText = "ログパス";
-            this.LogPath.Name = "LogPath";
-            this.LogPath.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.LogPath.Width = 67;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -596,18 +613,14 @@
             this.Span.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Span.Width = 58;
             // 
-            // Log
+            // taskDataBindingSource
             // 
-            this.Log.HeaderText = "ログ";
-            this.Log.Name = "Log";
-            this.Log.Width = 29;
+            this.taskDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.TaskData);
+            this.taskDataBindingSource.CurrentItemChanged += new System.EventHandler(this.taskDataBindingSource_CurrentItemChanged);
             // 
-            // Run
+            // commandListDataBindingSource
             // 
-            this.Run.HeaderText = "実行";
-            this.Run.Name = "Run";
-            this.Run.ReadOnly = true;
-            this.Run.Width = 35;
+            this.commandListDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandListData);
             // 
             // MainForm
             // 
@@ -621,6 +634,7 @@
             this.Controls.Add(this.statusStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
+            this.Text = "ブラウニー - Brownie";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SpanNumericUpDown)).EndInit();
@@ -628,11 +642,11 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.dataGridVewContextMenuStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.taskDataBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.commandListDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -663,7 +677,7 @@
         private System.Windows.Forms.ToolStripMenuItem ファイルFToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AddTaskToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button NewTaskButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem SaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem NameSaveToolStripMenuItem;
@@ -703,5 +717,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Span;
         private System.Windows.Forms.DataGridViewButtonColumn Log;
         private System.Windows.Forms.DataGridViewButtonColumn Run;
+        private System.Windows.Forms.Button OptionButton;
     }
 }

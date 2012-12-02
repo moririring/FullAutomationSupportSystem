@@ -63,8 +63,8 @@ namespace FullAutomationSupportSystem
             {
                 var saveTempFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), gSaveTempFileName);
                 gTaskList.Save(saveTempFileName);
-                var sr1 = new StreamReader(saveTempFileName, Encoding.UTF8);
-                var sr2 = new StreamReader(gFileName, Encoding.UTF8);
+                var sr1 = new StreamReader(saveTempFileName, OptionData.GetInstance().Code);
+                var sr2 = new StreamReader(gFileName, OptionData.GetInstance().Code);
                 //変更がなければセーブチェックなし
                 if (sr1.ReadToEnd() == sr2.ReadToEnd())
                 {
@@ -308,6 +308,19 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         //保存
         //--------------------------------------------------------------------------
+        private void Save(string fileName)
+        {
+            XMLSaveData xmlSave = new XMLSaveData();
+            xmlSave.SaveData.TaskList = gTaskList;
+            xmlSave.SaveData.OptionData = OptionData.GetInstance();
+            if (xmlSave.Save(fileName))
+            {
+                gFileName = fileName;
+            }
+        }
+        //--------------------------------------------------------------------------
+        //保存
+        //--------------------------------------------------------------------------
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (gFileName == "")
@@ -316,7 +329,8 @@ namespace FullAutomationSupportSystem
             }
             else
             {
-                gTaskList.Save(gFileName);
+                Save(gFileName);
+                //gTaskList.Save(gFileName);
             }
         }
         //--------------------------------------------------------------------------
@@ -324,10 +338,8 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            if (gTaskList.Save(saveFileDialog1.FileName))
-            {
-                gFileName = saveFileDialog1.FileName;
-            }
+            Save(saveFileDialog1.FileName);
+
         }
         //--------------------------------------------------------------------------
         //開く

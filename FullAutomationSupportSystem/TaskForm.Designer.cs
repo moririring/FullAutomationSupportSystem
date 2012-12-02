@@ -34,6 +34,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.param1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.param2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridVewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,13 +75,6 @@
             this.CommandComboBox = new System.Windows.Forms.ComboBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.param1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.param2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Run = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.dataGridVewContextMenuStrip.SuspendLayout();
@@ -152,18 +151,61 @@
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             this.dataGridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseMove);
             // 
+            // Checked
+            // 
+            this.Checked.DataPropertyName = "Checked";
+            this.Checked.HeaderText = "ﾁｪｯｸ";
+            this.Checked.Name = "Checked";
+            this.Checked.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Checked.Width = 55;
+            // 
+            // typeDataGridViewTextBoxColumn
+            // 
+            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
+            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
+            this.typeDataGridViewTextBoxColumn.Visible = false;
+            this.typeDataGridViewTextBoxColumn.Width = 55;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "プロセス名";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.Width = 79;
+            // 
+            // param1DataGridViewTextBoxColumn
+            // 
+            this.param1DataGridViewTextBoxColumn.DataPropertyName = "Param1";
+            this.param1DataGridViewTextBoxColumn.HeaderText = "ﾊﾟﾗﾒｰﾀ1";
+            this.param1DataGridViewTextBoxColumn.Name = "param1DataGridViewTextBoxColumn";
+            this.param1DataGridViewTextBoxColumn.Width = 74;
+            // 
+            // param2DataGridViewTextBoxColumn
+            // 
+            this.param2DataGridViewTextBoxColumn.DataPropertyName = "Param2";
+            this.param2DataGridViewTextBoxColumn.HeaderText = "ﾊﾟﾗﾒｰﾀ2";
+            this.param2DataGridViewTextBoxColumn.Name = "param2DataGridViewTextBoxColumn";
+            this.param2DataGridViewTextBoxColumn.Width = 74;
+            // 
+            // Run
+            // 
+            this.Run.HeaderText = "実行";
+            this.Run.Name = "Run";
+            this.Run.Width = 35;
+            // 
             // dataGridVewContextMenuStrip
             // 
             this.dataGridVewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.EditToolStripMenuItem,
             this.DeleteDToolStripMenuItem});
             this.dataGridVewContextMenuStrip.Name = "contextMenuStrip1";
-            this.dataGridVewContextMenuStrip.Size = new System.Drawing.Size(133, 48);
+            this.dataGridVewContextMenuStrip.Size = new System.Drawing.Size(153, 70);
             // 
             // EditToolStripMenuItem
             // 
             this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
-            this.EditToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.EditToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.EditToolStripMenuItem.Text = "編集(&E)";
             this.EditToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
             // 
@@ -171,7 +213,7 @@
             // 
             this.DeleteDToolStripMenuItem.Name = "DeleteDToolStripMenuItem";
             this.DeleteDToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.DeleteDToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.DeleteDToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.DeleteDToolStripMenuItem.Text = "削除(&D)";
             this.DeleteDToolStripMenuItem.Click += new System.EventHandler(this.DeleteDToolStripMenuItem_Click);
             // 
@@ -514,53 +556,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
-            // Checked
-            // 
-            this.Checked.DataPropertyName = "Checked";
-            this.Checked.HeaderText = "ﾁｪｯｸ";
-            this.Checked.Name = "Checked";
-            this.Checked.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Checked.Width = 55;
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            this.typeDataGridViewTextBoxColumn.Visible = false;
-            this.typeDataGridViewTextBoxColumn.Width = 55;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "プロセス名";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.Width = 79;
-            // 
-            // param1DataGridViewTextBoxColumn
-            // 
-            this.param1DataGridViewTextBoxColumn.DataPropertyName = "Param1";
-            this.param1DataGridViewTextBoxColumn.HeaderText = "ﾊﾟﾗﾒｰﾀ1";
-            this.param1DataGridViewTextBoxColumn.Name = "param1DataGridViewTextBoxColumn";
-            this.param1DataGridViewTextBoxColumn.Width = 74;
-            // 
-            // param2DataGridViewTextBoxColumn
-            // 
-            this.param2DataGridViewTextBoxColumn.DataPropertyName = "Param2";
-            this.param2DataGridViewTextBoxColumn.HeaderText = "ﾊﾟﾗﾒｰﾀ2";
-            this.param2DataGridViewTextBoxColumn.Name = "param2DataGridViewTextBoxColumn";
-            this.param2DataGridViewTextBoxColumn.Width = 74;
-            // 
-            // Run
-            // 
-            this.Run.HeaderText = "実行";
-            this.Run.Name = "Run";
-            this.Run.Width = 35;
-            // 
             // TaskForm
             // 
             this.AcceptButton = this.OKButton;
@@ -630,7 +625,6 @@
         private System.Windows.Forms.ContextMenuStrip dataGridVewContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem EditToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DeleteDToolStripMenuItem;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Checked;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
