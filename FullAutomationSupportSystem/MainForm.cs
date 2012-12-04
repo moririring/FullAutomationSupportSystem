@@ -63,8 +63,8 @@ namespace FullAutomationSupportSystem
             {
                 var saveTempFileName = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), gSaveTempFileName);
                 gTaskList.Save(saveTempFileName);
-                var sr1 = new StreamReader(saveTempFileName, OptionData.GetInstance().Code);
-                var sr2 = new StreamReader(gFileName, OptionData.GetInstance().Code);
+                var sr1 = new StreamReader(saveTempFileName, Encoding.GetEncoding(OptionData.GetInstance().Code));
+                var sr2 = new StreamReader(gFileName, Encoding.GetEncoding(OptionData.GetInstance().Code));
                 //変更がなければセーブチェックなし
                 if (sr1.ReadToEnd() == sr2.ReadToEnd())
                 {
@@ -134,12 +134,27 @@ namespace FullAutomationSupportSystem
             return DateTime.Parse(remainingTime.ToString()).ToLongTimeString();
         }
         //--------------------------------------------------------------------------
+        //保存
+        //--------------------------------------------------------------------------
+        private void FileSave(string fileName)
+        {
+            XMLSaveData xmlSave = new XMLSaveData();
+            xmlSave.SaveData.TaskList = gTaskList;
+            xmlSave.SaveData.OptionData = OptionData.GetInstance();
+            if (xmlSave.Save(fileName))
+            {
+                gFileName = fileName;
+            }
+        }
+        //--------------------------------------------------------------------------
         //ファイルロード
         //--------------------------------------------------------------------------
         private void FileLoad(string fileName)
         {
-            if (gTaskList.Load(fileName))
+            XMLSaveData xmlSave = new XMLSaveData();
+            if (xmlSave.Load(fileName))
             {
+                gTaskList = xmlSave.SaveData.TaskList;
                 foreach (var task in gTaskList)
                 {
                     AddDataGridView(task, taskDataBindingSource.Add(task));
@@ -308,19 +323,6 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         //保存
         //--------------------------------------------------------------------------
-        private void Save(string fileName)
-        {
-            XMLSaveData xmlSave = new XMLSaveData();
-            xmlSave.SaveData.TaskList = gTaskList;
-            xmlSave.SaveData.OptionData = OptionData.GetInstance();
-            if (xmlSave.Save(fileName))
-            {
-                gFileName = fileName;
-            }
-        }
-        //--------------------------------------------------------------------------
-        //保存
-        //--------------------------------------------------------------------------
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (gFileName == "")
@@ -329,7 +331,7 @@ namespace FullAutomationSupportSystem
             }
             else
             {
-                Save(gFileName);
+                FileSave(gFileName);
                 //gTaskList.Save(gFileName);
             }
         }
@@ -338,7 +340,7 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            Save(saveFileDialog1.FileName);
+            FileSave(saveFileDialog1.FileName);
 
         }
         //--------------------------------------------------------------------------

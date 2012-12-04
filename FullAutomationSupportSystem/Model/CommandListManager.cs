@@ -115,7 +115,7 @@ namespace FullAutomationSupportSystem
                 {
                     error = error.Replace("\r\r\n", "\n");
                 }
-                File.WriteAllText(logFileName, output + error, OptionData.GetInstance().Code);
+                File.WriteAllText(logFileName, output + error, Encoding.GetEncoding(OptionData.GetInstance().Code));
             }
         }
         //実行処理（これだとデリケード使う意味なし）

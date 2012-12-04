@@ -11,9 +11,14 @@ namespace FullAutomationSupportSystem
     [DataContract]
     public class SaveData
     {
-        [DataMember]
+        public SaveData()
+        {
+            TaskList = new TaskList();
+        }
+
+        [DataMember(Order = 1)]
         public TaskList TaskList { set; get; }
-        [DataMember]
+        [DataMember(Order = 2)]
         public OptionData OptionData { set; get; }
     }
 
@@ -53,6 +58,7 @@ namespace FullAutomationSupportSystem
                 CommandData command = new CommandData();
                 bool bTaskData = false;
                 bool bCommandData = false;
+                bool bOptionData = false;
                 while (reader.Read())
                 {
                     if (reader.NodeType == XmlNodeType.Element)
@@ -65,6 +71,10 @@ namespace FullAutomationSupportSystem
                         {
                             bCommandData = true;
                         }
+                        if (reader.Name == "OptionData")
+                        {
+                            bOptionData = true;
+                        }
                         if (bCommandData)
                         {
                             command.XmlReader(reader);
@@ -72,6 +82,11 @@ namespace FullAutomationSupportSystem
                         else if (bTaskData)
                         {
                             task.XmlReader(reader);
+                        }
+                        else if (bOptionData)
+                        {
+                            //一旦仮バッファにいれるべきか？
+                            OptionData.GetInstance().XmlReader(reader);
                         }
                     }
                     else if (reader.NodeType == XmlNodeType.EndElement)

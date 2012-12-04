@@ -308,7 +308,7 @@ namespace FullAutomationSupportSystem
             var cshtmlFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "RunLog.cshtml");
             var template = File.ReadAllText(cshtmlFile);
             var result = Razor.Parse(template, new RunLogHTMLDatas(){ Datas = runLogDatas });
-            using (var sw = new StreamWriter(logHTMLFile, false, OptionData.GetInstance().Code))
+            using (var sw = new StreamWriter(logHTMLFile, false, System.Text.Encoding.GetEncoding(OptionData.GetInstance().Code)))
             {
                 sw.Write(result);
             }
@@ -317,7 +317,7 @@ namespace FullAutomationSupportSystem
         public bool WriteRunLogNow(string name, string param1, string param2, string msg)
         {
             var logTxtFile = Path.Combine(LogPath, LogFolder + "\\" + RunLogNowName);
-            using (var sw = new StreamWriter(logTxtFile, true, OptionData.GetInstance().Code))
+            using (var sw = new StreamWriter(logTxtFile, true, System.Text.Encoding.GetEncoding(OptionData.GetInstance().Code)))
             {
                 sw.WriteLine("<tr>");
                 sw.WriteLine("<td>" + name + "</th>");
@@ -338,7 +338,7 @@ namespace FullAutomationSupportSystem
             }
             if (first)
             {
-                using (var sw = new StreamWriter(logTxtFile, !first, OptionData.GetInstance().Code))
+                using (var sw = new StreamWriter(logTxtFile, !first, System.Text.Encoding.GetEncoding(OptionData.GetInstance().Code)))
                 {
                     sw.WriteLine("<p>" + write + "</p>");
                     sw.WriteLine("<table border='1'>");
@@ -353,7 +353,7 @@ namespace FullAutomationSupportSystem
             }
             else
             {
-                using (var sw = new StreamWriter(logTxtFile, !first, OptionData.GetInstance().Code))
+                using (var sw = new StreamWriter(logTxtFile, !first, System.Text.Encoding.GetEncoding(OptionData.GetInstance().Code)))
                 {
                     sw.WriteLine("</table>");
                     sw.WriteLine("<p>終了</p>");
@@ -376,7 +376,7 @@ namespace FullAutomationSupportSystem
                     }
                 }
             }
-            using (var sw = new StreamWriter(logCSVFile, false, OptionData.GetInstance().Code))
+            using (var sw = new StreamWriter(logCSVFile, false, System.Text.Encoding.GetEncoding(OptionData.GetInstance().Code)))
             {
                 sw.WriteLine("開始時間,終了時間,実行時間");
                 sw.WriteLine(write);
