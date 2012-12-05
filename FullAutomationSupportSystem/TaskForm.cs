@@ -108,10 +108,15 @@ namespace FullAutomationSupportSystem
             if (Directory.Exists(gTaskData.LogPath) == true && Directory.Exists(LogPathComboBox.Text) == true &&
                 gTaskData.LogPath != LogPathComboBox.Text)
             {
-                var files = Directory.GetFiles(gTaskData.LogPath, "*.*");
+                var files = Directory.GetFiles(Path.Combine(gTaskData.LogPath, gTaskData.LogFolder), "RunLog*.*");
+                var newFolder = Path.Combine(LogPathComboBox.Text, gTaskData.LogFolder);
+                if (Directory.Exists(newFolder) == false)
+                {
+                    Directory.CreateDirectory(newFolder);
+                }
                 foreach (var file in files)
                 {
-                    File.Copy(file, Path.Combine(LogPathComboBox.Text, Path.GetFileName(file)));
+                    File.Copy(file, Path.Combine(newFolder, Path.GetFileName(file)));
                 }
             }
             gTaskData.LogPath = LogPathComboBox.Text;
@@ -354,6 +359,7 @@ namespace FullAutomationSupportSystem
         private void CommandChanged(object sender, EventArgs e)
         {
             var textBox = sender as TextBox;
+            //ログフォルダ
             if (textBox == LogFolderTextBox)
             {
                 OkButtonEnabled(true);
