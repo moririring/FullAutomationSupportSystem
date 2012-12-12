@@ -1,0 +1,2 @@
+﻿
+C:\Documents and Settings\binn\デスクトップ\demo>"C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe" /command:update /path:"C:\My Program\vshtc\VSHackathon20120428" /closeonend:1 

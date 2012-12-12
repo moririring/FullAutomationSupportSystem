@@ -96,6 +96,22 @@ namespace FullAutomationSupportSystem
 
             this.DialogResult = DialogResult.OK;
 
+            //ログパス変更時はデータ移行
+            var oldFolder = Path.Combine(gTaskData.LogPath, gTaskData.LogFolder);
+            var newFolder = Path.Combine(LogPathComboBox.Text, LogFolderTextBox.Text);
+            if (Directory.Exists(oldFolder) == true && oldFolder != newFolder)
+            {
+                if (Directory.Exists(newFolder) == false)
+                {
+                    Directory.CreateDirectory(newFolder);
+                }
+                var files = Directory.GetFiles(oldFolder, "RunLog*.*");
+                foreach (var file in files)
+                {
+                    File.Copy(file, Path.Combine(newFolder, Path.GetFileName(file)));
+                }
+                Directory.Delete(oldFolder, true);
+            }
             gTaskData.Name = NameTextBox.Text;
             gTaskData.LogFolder = LogFolderTextBox.Text;
             gTaskData.ProjectPath = ProjectPathComboBox.Text;
@@ -104,21 +120,6 @@ namespace FullAutomationSupportSystem
             //{
             //    gTaskData.ProjectPath.Add(item.ToString());
             //}
-            //ログパス変更時はデータ移行
-            if (Directory.Exists(gTaskData.LogPath) == true && Directory.Exists(LogPathComboBox.Text) == true &&
-                gTaskData.LogPath != LogPathComboBox.Text)
-            {
-                var files = Directory.GetFiles(Path.Combine(gTaskData.LogPath, gTaskData.LogFolder), "RunLog*.*");
-                var newFolder = Path.Combine(LogPathComboBox.Text, gTaskData.LogFolder);
-                if (Directory.Exists(newFolder) == false)
-                {
-                    Directory.CreateDirectory(newFolder);
-                }
-                foreach (var file in files)
-                {
-                    File.Copy(file, Path.Combine(newFolder, Path.GetFileName(file)));
-                }
-            }
             gTaskData.LogPath = LogPathComboBox.Text;
             gTaskData.Repository = RepositoryTextBox.Text;
             gTaskData.Timer = TimerCheckBox.Checked;

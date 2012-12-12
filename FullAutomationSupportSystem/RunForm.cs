@@ -33,15 +33,18 @@ namespace FullAutomationSupportSystem
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             int counter = 0;
-
-
             foreach (var task in gTaskList)
             {
                 if (task.Checked == false) continue;
                 try
                 {
+                    var logPath = Path.Combine(task.LogPath, task.LogFolder);
+                    if(Directory.Exists(logPath) == false)
+                    {
+                        Directory.CreateDirectory(logPath);
+                    }
                     //プロセスログは最初に全消し
-                    var deleteFiles = Directory.GetFiles(Path.Combine(task.LogPath, task.LogFolder), "RunLogProcess*.txt");
+                    var deleteFiles = Directory.GetFiles(logPath, "RunLogProcess*.txt");
                     foreach (var deleteFile in deleteFiles)
                     {
                         File.Delete(deleteFile);
