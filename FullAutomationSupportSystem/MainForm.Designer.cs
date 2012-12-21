@@ -87,6 +87,8 @@
             this.Span = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.taskDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.commandListDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ヘルプHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.VerstionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.SpanNumericUpDown)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -194,7 +196,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ファイルFToolStripMenuItem,
-            this.タスクTToolStripMenuItem});
+            this.タスクTToolStripMenuItem,
+            this.ヘルプHToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(761, 24);
@@ -472,6 +475,7 @@
             this.OptionButton.TabIndex = 2;
             this.OptionButton.Text = "オプション...";
             this.OptionButton.UseVisualStyleBackColor = true;
+            this.OptionButton.Visible = false;
             // 
             // NewTaskButton
             // 
@@ -622,6 +626,21 @@
             // 
             this.commandListDataBindingSource.DataSource = typeof(FullAutomationSupportSystem.CommandListData);
             // 
+            // ヘルプHToolStripMenuItem
+            // 
+            this.ヘルプHToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.VerstionToolStripMenuItem});
+            this.ヘルプHToolStripMenuItem.Name = "ヘルプHToolStripMenuItem";
+            this.ヘルプHToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.ヘルプHToolStripMenuItem.Text = "ヘルプ(&H)";
+            // 
+            // VerstionToolStripMenuItem
+            // 
+            this.VerstionToolStripMenuItem.Name = "VerstionToolStripMenuItem";
+            this.VerstionToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.VerstionToolStripMenuItem.Text = "バージョン情報(&A)";
+            this.VerstionToolStripMenuItem.Click += new System.EventHandler(this.VerstionToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -718,5 +737,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn Log;
         private System.Windows.Forms.DataGridViewButtonColumn Run;
         private System.Windows.Forms.Button OptionButton;
+        private System.Windows.Forms.ToolStripMenuItem ヘルプHToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem VerstionToolStripMenuItem;
     }
 }

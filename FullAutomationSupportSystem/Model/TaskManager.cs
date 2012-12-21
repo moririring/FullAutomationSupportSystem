@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace FullAutomationSupportSystem
 {
+    [Serializable]
     [DataContract]
     public class CommandData : ICloneable
     {
@@ -73,6 +74,7 @@ namespace FullAutomationSupportSystem
             return clone;
         }
     }
+    [Serializable]
     [DataContract]
     public class CommandList : IEnumerable<CommandData>, IList<CommandData>
     {
@@ -158,10 +160,11 @@ namespace FullAutomationSupportSystem
         public List<RunLogHTMLData> Datas;
     };
 
-
+    [Serializable]
     [DataContract]
     public class TaskData : ICloneable
     {
+        [Serializable]
         [CollectionDataContract]
         public class  ProjectFolderClass :List<string> {}
 
@@ -174,12 +177,14 @@ namespace FullAutomationSupportSystem
         }
         [DataMember(Order = 0)]
         public bool Checked { get; set; }
+        public bool Selected { get; set; }
         [DataMember(Order = 1)]
         public string Name { get; set; }
         [DataMember(Order = 2)]
         public string LogFolder { get; set; }
         [DataMember(Order = 3)]
         public string ProjectPath { get; set; }
+        //Cloneの対象にならないのが問題にならないかな？対処方法を考えよう！
         public ProjectFolderClass ProjectPaths { get; set; }
         [DataMember(Order = 4)]
         public string LogPath { get; set; }
@@ -414,6 +419,7 @@ namespace FullAutomationSupportSystem
             return clone;
         }
     }
+    [Serializable]
     [DataContract]
     public class TaskList : IEnumerable<TaskData>, IList<TaskData>, ICloneable
     {
@@ -566,16 +572,16 @@ namespace FullAutomationSupportSystem
         {
             taskDataList.RemoveAt(index);
         }
-        public ExtensionDataObject ExtensionData { get; set; }
+        //public ExtensionDataObject ExtensionData { get; set; }
         public object Clone()
         {
-            var clone = new TaskList();
-            using (MemoryStream stream = new MemoryStream())
+            object clone = null;
+            using (var stream = new MemoryStream())
             {
-                var serializer = new DataContractSerializer(typeof(TaskList));
-                serializer.WriteObject(stream, this);
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(stream, this);
                 stream.Position = 0;
-                clone = (TaskList)serializer.ReadObject(stream);
+                clone = formatter.Deserialize(stream);
             }
             return clone;
         }

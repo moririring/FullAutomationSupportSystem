@@ -4,7 +4,7 @@ Microsoft (R) Build Engine Version 4.0.30319.1
 [Microsoft .NET Framework, Version 4.0.30319.296]
 Copyright (C) Microsoft Corporation 2007. All rights reserved.
 
-2012/12/12 23:40:27 にビルドを開始しました。
+2012/12/22 0:11:09 にビルドを開始しました。
 ノード 1 上のプロジェクト "C:\My Program\vshtc\VSHackathon20120428\T3\SimpleTweet\SimpleTweet.sln" (既定のターゲット)。
 ValidateSolutionConfiguration:
   ソリューション構成 "Debug|x86" をビルドしています。
@@ -31,4 +31,4 @@ FormTweet.cs(2,18): error CS1002: ; が必要です。 [C:\My Program\vshtc\VSHa
     0 個の警告
     1 エラー
 
-経過時間 00:00:00.35
+経過時間 00:00:00.34

@@ -13,7 +13,8 @@ namespace FullAutomationSupportSystem
     public partial class RunForm : Form
     {
         private TaskList gTaskList = null;
-        public RunForm(TaskList list)
+        private bool gChecked = false;
+        public RunForm(TaskList list, bool bChecked)
         {
             InitializeComponent();
             gTaskList = list;
@@ -35,7 +36,8 @@ namespace FullAutomationSupportSystem
             int counter = 0;
             foreach (var task in gTaskList)
             {
-                if (task.Checked == false) continue;
+                if (gChecked == true && task.Checked == false) continue;
+                if (gChecked == false && task.Selected == false) continue;
                 try
                 {
                     var logPath = Path.Combine(task.LogPath, task.LogFolder);

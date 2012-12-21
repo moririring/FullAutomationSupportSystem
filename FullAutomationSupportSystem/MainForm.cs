@@ -217,10 +217,10 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         //タスク実行
         //--------------------------------------------------------------------------
-        private void RunTask(TaskList taskList)
+        private void RunTask(TaskList taskList, bool bChecked)
         {
             RunButton.Enabled = false;
-            var RunForm = new RunForm(taskList);
+            var RunForm = new RunForm(taskList, bChecked);
             RunForm.Show();
             RunForm.Disposed += new EventHandler(gRunForm_Disposed);
         }
@@ -286,7 +286,7 @@ namespace FullAutomationSupportSystem
                     {
                         task.Checked = (task.Timer == true && task.Checked == true);
                     }
-                    RunTask(taskList);
+                    RunTask(taskList, true);
                 }
             }
             //スパン
@@ -301,7 +301,7 @@ namespace FullAutomationSupportSystem
                     {
                         task.Checked = (task.Span == true && task.Checked == true);
                     }
-                    RunTask(taskList);
+                    RunTask(taskList, true);
                 }
             }
 
@@ -371,7 +371,7 @@ namespace FullAutomationSupportSystem
         //--------------------------------------------------------------------------
         private void RunButton_Click(object sender, EventArgs e)
         {
-            RunTask((TaskList)gTaskList.Clone());
+            RunTask((TaskList)gTaskList.Clone(), true);
         }
         //--------------------------------------------------------------------------
         //実行終了処理
@@ -453,6 +453,29 @@ namespace FullAutomationSupportSystem
                 {
                     MessageBox.Show(logName + "が見つかりません");
                 }
+            }
+            //実行
+            else if (e.ColumnIndex == dataGridView1.Columns["Run"].Index)
+            {
+
+                foreach (var t in gTaskList)
+                {
+                    t.Selected = false;
+                }
+                task.Selected = true;
+                RunTask((TaskList)gTaskList.Clone(), false);
+
+
+                //Cloneは、DataMemberしかコピーしないため、ここで入れてしまう。
+                /*
+                var taskList = (TaskList)gTaskList.Clone();
+                foreach (var t in taskList)
+                {
+                    t.Selected = false;
+                }
+                taskList[e.RowIndex].Selected = true;
+                RunTask(taskList, false);
+                 */
             }
         }
         private void taskDataBindingSource_CurrentItemChanged(object sender, EventArgs e)
@@ -603,6 +626,13 @@ namespace FullAutomationSupportSystem
 
             var check = sender as CheckBox;
             SpanTextBox.Text = (check.Checked == true) ? GetRemainingLongTime((int)SpanNumericUpDown.Value) : "--:--:--";
+        }
+
+        private void VerstionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var about = new AboutBox();
+            about.ShowDialog();
+
         }
 
     }

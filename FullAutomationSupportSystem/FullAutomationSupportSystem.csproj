@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommandForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
       <DependentUpon>TaskForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\XMLSaveData.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CommandForm.resx">
       <DependentUpon>CommandForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -114,7 +123,9 @@
     <EmbeddedResource Include="TaskForm.resx">
       <DependentUpon>TaskForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Properties\DataSources\CommandData.datasource" />
+    <None Include="Properties\DataSources\CommandData.datasource">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\CommandListData.datasource" />
     <None Include="Properties\DataSources\TaskData.datasource" />
     <None Include="Properties\Settings.settings">
