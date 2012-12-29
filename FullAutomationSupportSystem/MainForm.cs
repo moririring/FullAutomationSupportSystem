@@ -144,6 +144,7 @@ namespace FullAutomationSupportSystem
             if (xmlSave.Save(fileName))
             {
                 gFileName = fileName;
+                Text = Path.GetFileName(gFileName) + " - " + AboutBox.AssemblyProduct;
             }
         }
         //--------------------------------------------------------------------------
@@ -160,6 +161,8 @@ namespace FullAutomationSupportSystem
                     AddDataGridView(task, taskDataBindingSource.Add(task));
                 }
                 gFileName = fileName;
+                Text = Path.GetFileName(gFileName) + " - " + AboutBox.AssemblyProduct;
+                //Text = AboutBox.AssemblyTitle + " - " + AboutBox.AssemblyProduct + " " + Path.GetFileName(gFileName);
             }
         }
         //--------------------------------------------------------------------------

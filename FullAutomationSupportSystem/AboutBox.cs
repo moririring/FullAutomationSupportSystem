@@ -23,7 +23,7 @@ namespace FullAutomationSupportSystem
 
         #region アセンブリ属性アクセサー
 
-        public string AssemblyTitle
+        static public string AssemblyTitle
         {
             get
             {
@@ -61,7 +61,7 @@ namespace FullAutomationSupportSystem
             }
         }
 
-        public string AssemblyProduct
+        static public string AssemblyProduct
         {
             get
             {
